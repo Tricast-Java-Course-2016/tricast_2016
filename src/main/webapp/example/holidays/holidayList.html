@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Holiday Manager - Holiday List</title>
+        <meta name="description" content="Holiday Manager">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/holiday.css">
+		
+        <script type="text/javascript" src="js/lib/jquery-2.0.3.min.js"></script>	
+	
+		<script type="text/javascript" src="js/general.js"></script>
+		<script type="text/javascript" src="js/holidayList.js"></script>
+    </head>
+    <body>
+    	<section id="application">
+	    	<header id="applicationHeader" class="headerBackgroundColor">	    		
+	    		<a href=home.html>Holiday Manager</a>
+	    	</header>
+	    	<section id="mainContent">
+	    		<h4 id="welcomeMsg">Holidays</h4>
+	    		<table id="holidaysTable">
+					<thead>
+						<tr>
+							<th>ID</th>					
+							<th>Account ID</th>
+							<th>From Day</th>
+							<th>To Day</th>
+							<th>Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="noHolidayRow">
+							<td class='emptyRow' colSpan=5>No entries</td>
+						</tr>
+						<tr id="holidayRowTemplate">
+							<td class="id">{{id}}</td>
+							<td>{{accountId}}</td>
+							<td>{{fromDay}}</td>
+							<td>{{toDay}}</td>
+							<td>{{type}}</td>							
+						</tr>	
+					</tbody>				
+				</table>
+				<button id="openHoliday">Open</button>
+			</section>
+		</section>
+    </body>
+</html>

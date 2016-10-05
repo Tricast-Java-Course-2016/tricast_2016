@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>TricastSportsbookSetupFile</comment>
+<entry key="datasourceName">PostGreSQL Portable DB</entry>
+<entry key="user">postgres</entry>
+<entry key="password">password</entry>
+<entry key="portNumber">5432</entry>
+<entry key="databaseName">postgres</entry>
+<entry key="serverName">localhost</entry>
+</properties>

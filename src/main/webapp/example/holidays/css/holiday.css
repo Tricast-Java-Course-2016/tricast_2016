@@ -1,0 +1,409 @@
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+html {
+	box-sizing: border-box;
+
+	height: 100%;
+	background-color: #f8f8f8;	
+	color: #000000;	
+	font-size: 14px;
+}
+
+html, button, input, select, option, textarea {
+	font-family: 'Open Sans', 'Open Sans Hebrew', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000000;
+}
+
+.fullpage input {
+	background: #f1f1f1;
+    padding: 7px 5px 7px 10px;
+    margin: 5px 0 5px 0;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#registerControls {
+	border-top: 0px;	
+}
+
+input:disabled {
+	background-color: transparent;
+}
+
+body {
+	margin: 0 auto;
+	width: auto;
+	height: 100%;
+	overflow: hidden;
+}
+
+body.wait, body.wait *{
+    cursor: wait !important;   
+}
+
+
+button {
+	border-width: 0px; 
+	color: #ffffff;
+	background-color: #0C6A98;
+}
+
+button:disabled {
+	color: #777777;
+	background-color: #6e8ccd;
+}
+
+button:hover:enabled {
+	background-color: #94abda;
+}
+
+table, th, td {
+	border: 1px solid #000000;
+}
+
+th {
+    background-color: #aaaaaa;
+}
+
+tr:nth-child(even) {
+	background-color: #f3f3f3;
+}
+
+tr:nth-child(odd) {
+    background-color: #d0d0d0;
+}
+
+td {
+	padding: 2px 3px 2px 3px;
+}
+
+
+#application {
+	height: 100%;
+	
+	/* flex-container config*/
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+#applicationHeader {
+	/* flex-item config*/
+	flex: 0 0 auto;
+    align-self: auto;
+    
+    color: #0C6A98;
+	font-size: 32px;
+	text-align: center;
+}
+
+#mainContent {
+	margin-top: 15px;
+	margin-left: 15px;
+
+	/* flex-item config*/
+	flex: 1 1 auto;
+    align-self: auto;
+    
+	/* flex-container config*/
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;    
+}
+
+#holidayCalendar {
+	margin-top: 15px;
+
+	/* flex-item config*/
+	flex: 1 1 auto;
+    align-self: auto;
+    
+	/* flex-container config*/
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;    
+}
+
+/*--------------Login view design---------------*/
+.fullpageBox {
+	font-family: sans-serif;
+	font-size: 14px;
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0);
+    /*display: none;*/
+}
+
+.fullpage {
+    background-color: #fff;
+    min-height: 194px;
+    width: 400px;
+    margin: -150px 0 0 -230px;
+    padding: 24px 25px 14px 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    border-radius: 5px;  
+	-webkit-user-select: none; /* Chrome/Safari */        
+	
+	/* flex-container config*/
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+.fullpage:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    border: 1px dashed #ccc;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+}
+
+.fullpageBox h1 {
+    text-transform: uppercase;
+    color: #666;
+    font: normal 26px/1 Verdana, Helvetica;
+    margin: 0 0 15px 0;
+    padding: 0;    
+}
+
+.fp-msg {
+	margin-bottom: 3px;
+}
+.red {
+	color: red;
+}
+
+#loginMsg {
+	margin-bottom: 3px;
+	color: red;
+}
+
+#loginInputs, #loginControls {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+#loginInputs input {
+    background: #f1f1f1;
+    padding: 15px 15px 15px 30px;
+    margin: 5px 0 5px 0;
+    width: 353px; /* 353 + 2 + 45 = 400 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#loginInputs input:focus {
+    background-color: #fff;
+    border-color: #1c5a85;
+    border-width: 1px;
+    outline: none;
+}
+
+#loginControls {
+	margin-top: 5px;
+}
+
+.loginViewBtn {		
+    background-color: #1c5a85;    
+    border-radius: 3px;
+    
+    height: 35px;
+    padding: 0;
+    width: 120px;
+    cursor: pointer;
+    font: bold 15px Arial, Helvetica;
+    color: #fff;
+}
+#loginSubmit {
+	 float: left;
+}
+#register {
+	 float: right;
+}
+
+#loginSubmit:hover, #loginSubmit:focus {
+    border:1px solid #1c5675;
+	background-color: #26759e;	
+}	
+
+#loginSubmit:active {
+    outline: none;		
+}
+
+
+/* ------ */
+
+#calendar {
+	width: 590px;
+	height: 500px;
+}
+
+.fc-header .fc-header-center {
+	vertical-align: middle;
+	color: #0C6A98;	
+	font-size: 24px;
+}
+
+#newHoliday {
+	margin-bottom: 8px;
+	font-size: 16px;
+
+	/* flex-item config*/
+	flex: 0 0 auto;
+	align-self: center;
+}
+
+#saveHolidayForm {
+	border: 1px solid #e0e0e0;
+}
+
+.parameterHeader {
+	border-bottom: 1px solid #e0e0e0;
+	padding: 5px;
+	text-transform: uppercase;
+	background-color: #e0e0e0;
+	text-align: center;
+	
+	/* flex-item config*/
+	flex: 0 0 auto;
+    align-self: stretch;
+    
+    /* flex-container config*/
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.parameterGroup {
+	border-bottom: 1px solid #e0e0e0;
+	padding: 5px;
+
+	/* flex-item config*/
+	flex: 0 0 auto;
+    align-self: auto;
+	
+	/* flex-container config*/
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: strech;	
+}
+
+.parameterWrapper {
+	margin-top: 5px;
+	
+	/* flex-item config*/
+	flex: 0 0 auto;
+    align-self: auto;
+
+	/* flex-container config*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.parameterWrapper>:nth-child(1) {
+	-webkit-padding-end: 5px;
+	display: block;
+	
+	text-align: end;
+	
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+
+	width: 125px;
+    flex: 0 0 auto;
+    align-self: auto;
+}
+
+.parameterWrapper>:nth-child(2) {
+	width: 150px;
+
+    /* flex-item config*/
+	flex: 0 0 auto;
+    align-self: auto;
+}
+
+#holidayParameterPanel {
+	-webkit-margin-start: 20px;
+	
+	/* flex-item config*/
+	flex: 0 0 auto;
+	align-self: auto;
+	/* flex-container config*/
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+.buttonContainer {
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#welcomeMsg {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#usualInfo {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#homeBtn {
+	float: right;
+}
+
+.emptyRow {
+	color: grey;
+	font-size: 20px;
+	text-align: center;
+}
+
+tr.selected {
+	background: red;
+}
+
+#openHoliday {
+	margin-top: 10px;
+}

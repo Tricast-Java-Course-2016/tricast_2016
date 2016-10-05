@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Holiday Manager - Holiday</title>
+        <meta name="description" content="Holiday Manager">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/holiday.css">
+		
+        <script type="text/javascript" src="js/lib/jquery-2.0.3.min.js"></script>	
+        <script type="text/javascript" src="js/lib/moment.min.js"></script>
+	
+		<script type="text/javascript" src="js/general.js"></script>
+		<script type="text/javascript" src="js/holiday.js"></script>
+    </head>
+    <body>
+    	<section id="application">
+	    	<header id="applicationHeader" class="headerBackgroundColor">	    		
+	    		<a href=home.html>Holiday Manager</a>
+	    	</header>
+	    	<section id="holidayCalendar">
+		    	<div id="holidayParameterPanel">
+					<div class="parameterHeader">
+						Holiday Parameters
+					</div>
+					<form id="saveHolidayForm">
+						<div class="parameterGroup">
+							<div class="parameterWrapper">
+								<label for="holidayId">ID</label>
+								<input type="number" id="holidayId" placeholder="To be assigned" value="" disabled/>
+							</div>
+							<div class="parameterWrapper">
+								<label for="fromDate">From Date</label>
+								<input type="date" id="fromDate" placeholder="Not defined - Mandatory" value="" required/>
+							</div>
+							<div class="parameterWrapper">
+								<label for="toDate">To Date</label>
+								<input type="date" id="toDate" placeholder="Not defined - Mandatory" value="" required/>
+							</div>
+							<div class="parameterWrapper">
+								<label for="holidayType">Type</label>
+								<select id ="holidayType" disabled>
+									<option class="holidayOption" value=DAYOFF>Holiday</option>				
+									<option class="sickOption" value=SICKLEAVE>Sick</option>
+								</select>
+							</div>											
+						</div>		
+					</form>	
+				</div>
+			</section>
+		</section>
+    </body>
+</html>

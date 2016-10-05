@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Holiday Manager - Registration</title>
+        <meta name="description" content="Holiday Manager">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/holiday.css">
+		
+        <script type="text/javascript" src="js/lib/jquery-2.0.3.min.js"></script>	
+	
+		<script type="text/javascript" src="js/general.js"></script>
+		<script type="text/javascript" src="js/register.js"></script>
+    </head>
+    <body>
+    	<div id="registerBox" class="fullpageBox">
+    		<form id="register" class="fullpage">
+				<h1 id="regTitle">Registration</h1>
+				<div>Please fill in these fields!</div>
+				<div id="accountMsg"></div>
+				<fieldset id="registerInputs">
+					<input id="username" type="text" placeholder="Username" autofocus required>
+					<input id="password" type="password" placeholder="Password" required>
+					<input id="realname" type="text" placeholder="Real name" required>
+					<input id="daysOffPerYear" type="number" placeholder="Holiday per year" required>
+					<input id="sickLeavePerYear" type="number" placeholder="Sick leave per year">
+				</fieldset>
+				<fieldset id="registerControls">
+					<button class="loginViewBtn" type="submit" id="saveAccount">Create Account</button>
+					<button class="loginViewBtn" id="homeBtn">Home</button>
+				</fieldset>
+			</form>
+    	</div>  	
+    	
+    </body>
+</html>
