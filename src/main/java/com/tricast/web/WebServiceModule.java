@@ -25,6 +25,8 @@ import com.tricast.guice.WorkspaceProvider;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.AccountDao;
 import com.tricast.web.dao.AccountDaoImpl;
+import com.tricast.web.manager.AccountManager;
+import com.tricast.web.manager.AccountManagerImpl;
 import com.tricast.web.server.AccountService;
 
 public class WebServiceModule extends JerseyServletModule {
@@ -46,6 +48,8 @@ public class WebServiceModule extends JerseyServletModule {
         // Binding certain Interfaces to their Implementations. This can be
         // easily modified for testing, to use Test Implementations
         bind(AccountDao.class).to(AccountDaoImpl.class);
+
+        bind(AccountManager.class).to(AccountManagerImpl.class);
 
         // Binding the REST endpoints
         bind(AccountService.class);
