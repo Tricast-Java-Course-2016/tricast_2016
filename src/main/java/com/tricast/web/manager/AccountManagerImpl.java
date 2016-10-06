@@ -32,8 +32,12 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public Account create(Workspace workspace, Account newAccount) throws SQLException, IOException {
-        // TODO Auto-generated method stub
-        return null;
+    	Long id = accountDao.create(workspace, newAccount);
+		if (id != null) {
+			return accountDao.getById(workspace, id);
+		} else {
+			return null;
+		}
     }
 
     @Override
