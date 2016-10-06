@@ -1,0 +1,17 @@
+SELECT 
+	id, 
+    accountTypeId,
+    username, 
+    password, 
+    firstName, 
+    lastName,
+    DOB,
+    address,
+    emailAddress,
+    phoneNumber,
+    PIN,
+    bankAccountNumber,
+    bankCardNumber,
+    createdDate,
+FROM
+	/*=SCHEMA*/ACCOUNTS

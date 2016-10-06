@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 public class SqlManager {
 
 	private static SqlManager sqlManager;
-	public static final String schema = "CALENDAR";
+    public static final String schema = "TRICAST2016";
 
 	private final static Logger LOG = LogManager.getLogger(SqlManager.class);
 	private ClassLoader classLoader;
