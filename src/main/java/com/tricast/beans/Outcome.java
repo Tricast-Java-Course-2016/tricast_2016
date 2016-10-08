@@ -2,8 +2,8 @@ package com.tricast.beans;
 
 public class Outcome {
     private long id;
-    private long marketId;
-    private String outcomeCode;
+    private long marketid;
+    private String outcomecode;
     private String description;
     private double odds;
     private char result;
@@ -16,20 +16,20 @@ public class Outcome {
         this.id = id;
     }
 
-    public long getMarketId() {
-        return marketId;
+    public long getMarketid() {
+        return marketid;
     }
 
-    public void setMarketId(long marketId) {
-        this.marketId = marketId;
+    public void setMarketid(long marketid) {
+        this.marketid = marketid;
     }
 
-    public String getOutcomeCode() {
-        return outcomeCode;
+    public String getOutcomecode() {
+        return outcomecode;
     }
 
-    public void setOutcomeCode(String outcomeCode) {
-        this.outcomeCode = outcomeCode;
+    public void setOutcomecode(String outcomecode) {
+        this.outcomecode = outcomecode;
     }
 
     public String getDescription() {
@@ -55,5 +55,6 @@ public class Outcome {
     public void setResult(char result) {
         this.result = result;
     }
+
 
 }

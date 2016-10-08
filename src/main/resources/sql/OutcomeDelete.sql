@@ -1,0 +1,4 @@
+DELETE FROM 
+	/*=SCHEMA*/OUTCOMES 
+WHERE 
+	id = :id

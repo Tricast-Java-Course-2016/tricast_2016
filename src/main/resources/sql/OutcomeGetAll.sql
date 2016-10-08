@@ -1,0 +1,9 @@
+SELECT 
+	id, 
+    marketid,
+    outcomecode,
+    description,
+    odds,
+    result
+FROM
+	/*=SCHEMA*/OUTCOMES
