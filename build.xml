@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<project name="Builds sportsbook project">
+	<property file='build.properties' />
+	<property environment="env"/>
+
+	<target name='test-properties'>
+		<tstamp>
+			<format property="tstamp" pattern="yyyyMMddHHmmssSSS" locale="en,UK"/>
+		</tstamp>
+		<property name='sqltest.dir' value='target/test_sql_${db.schema}_${tstamp}'/>
+		<property name='sql.dir' value='target/sql'/>
+	</target>
+
+	<target name='init' description='Initialise the file structure, set up directories and display required properties'>
+		<echo message="Properties from maven are:" />
+		<echo message="${sql.dir}" />
+
+		<echo message="BASEDIR = ${basedir}" />
+		<echo message="target = ${sqltest.dir}" />
+		<echo message="Repository = ${env.M2_REPO}" />
+
+		<echo message="Schema:              ${db.schema}"/>
+		<echo message="UserId:              ${db.userid}"/>
+		<echo message="Password:            ${db.password}"/>
+		<echo message="DB Url:              ${db.url}"/>	
+
+		<mkdir dir="${sql.dir}" />
+	</target>
+
+	<target name='copy'>
+		<copy todir="${sqltest.dir}" overwrite="yes">
+			<fileset dir="${basedir}/src/main/resources/sql">
+				<include name="**/*.sql" />
+			</fileset>
+			<fileset dir="${sql.dir}">
+				<include name="**/*.sql" />
+			</fileset>
+			<filterchain>
+				<tokenfilter>
+					<replaceregex pattern="/\*=SCHEMA\*/" replace="${db.schema}." flags="gi" />			
+				</tokenfilter>
+			</filterchain>
+			<filterchain>
+				<tokenfilter>
+					<replacestring from="--" to="//" />
+				</tokenfilter>
+			</filterchain>
+			<filterchain>
+				<stripjavacomments />
+			</filterchain>
+			<filterchain>
+				<prefixlines prefix=" " />
+				<striplinebreaks />
+			</filterchain>
+			<filterchain>
+				<prefixlines prefix="explain plan for " />
+			</filterchain>
+		</copy>
+	</target>
+
+	<target name='create-sql'>
+		<java classname="com.tricast.database.SqlManager" fork="true" dir="${basedir}" failonerror="true">
+			<sysproperty key="dest.dir" value="${sql.dir}" />
+			<classpath>
+                <pathelement path="target/classes"/>
+                <pathelement path="src/test/resources"/>
+				<fileset dir="${env.M2_REPO}">
+					<include name="log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+					<include name="org/slf4j/slf4j-log4j12/1.7.12/slf4j-log4j12-1.7.12.jar"/>	
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+	<target name='sql'>
+		<sql driver="org.postgresql.Driver" url="${db.url}" userid="${db.userid}" password="${db.password}" print="yes" onerror="abort">
+			<fileset dir="${sqltest.dir}">
+				<include name="**/*.sql" />
+			</fileset>
+			<classpath>
+				<fileset dir="${env.M2_REPO}">
+					<include name="org/postgresql/postgresql/9.4-1201-jdbc41/*.jar"/>
+				</fileset>
+				<pathelement path="target/classes"/>
+			</classpath>
+		</sql>
+	</target>
+
+	<target name="clean">
+		<delete dir="${sql.dir}"/>
+		<delete dir="${sqltest.dir}"/>
+	</target>
+
+	<target name="testsql" depends="test-properties, init, create-sql, copy, sql, clean" />
+
+</project>
