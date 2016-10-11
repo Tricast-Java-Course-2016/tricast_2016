@@ -1,0 +1,4 @@
+DELETE FROM 
+	/*=SCHEMA*/LEAGUE
+WHERE 
+	id = :id

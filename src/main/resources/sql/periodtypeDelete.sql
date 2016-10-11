@@ -1,0 +1,4 @@
+DELETE FROM 
+	/*=SCHEMA*/PERIODTYPE
+WHERE 
+	id = :id

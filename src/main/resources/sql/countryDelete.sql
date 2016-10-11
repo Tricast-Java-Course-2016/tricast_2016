@@ -1,0 +1,4 @@
+DELETE FROM 
+	/*=SCHEMA*/COUNTRY
+WHERE 
+	id = :id
