@@ -1,0 +1,4 @@
+DELETE FROM 
+	/*=SCHEMA*/TRANSACTIONS
+WHERE 
+	id = :id
