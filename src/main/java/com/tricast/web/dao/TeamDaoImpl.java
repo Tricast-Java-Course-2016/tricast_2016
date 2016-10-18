@@ -33,7 +33,7 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	private Team buildTeam(ResultSet rs) throws SQLException {
-		Team result = null;
+		Team result = new Team();
 		int c = 1;
 		result.setId(rs.getLong(c++));
 		result.setDescription(rs.getString(c++));

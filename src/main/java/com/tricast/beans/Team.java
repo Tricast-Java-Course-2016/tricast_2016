@@ -4,11 +4,7 @@ public class Team {
 	
 	private long id;
 	private String description;
-	public Team(long id, String description) {
-		super();
-		this.id = id;
-		this.description = description;
-	}
+
 	public long getId() {
 		return id;
 	}
