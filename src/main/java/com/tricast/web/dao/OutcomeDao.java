@@ -1,5 +1,20 @@
 package com.tricast.web.dao;
 
-public interface OutcomeDao {
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
+import com.tricast.beans.Outcome;
+import com.tricast.database.Workspace;
+
+public interface OutcomeDao {
+    List<Outcome> getAll(Workspace workspace) throws SQLException, IOException;
+
+    Outcome getById(Workspace workspace, long id) throws SQLException, IOException;
+
+    Long create(Workspace workspace, Outcome newItem) throws SQLException, IOException;
+
+    Long update(Workspace workspace, Outcome updateItem) throws SQLException, IOException;
+
+    boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 }
