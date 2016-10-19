@@ -25,9 +25,14 @@ import com.tricast.guice.WorkspaceProvider;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.AccountDao;
 import com.tricast.web.dao.AccountDaoImpl;
+import com.tricast.web.dao.OutcomeDao;
+import com.tricast.web.dao.OutcomeDaoImpl;
 import com.tricast.web.manager.AccountManager;
 import com.tricast.web.manager.AccountManagerImpl;
+import com.tricast.web.manager.OutcomeManager;
+import com.tricast.web.manager.OutcomeManagerImpl;
 import com.tricast.web.server.AccountService;
+import com.tricast.web.server.OutcomeService;
 
 public class WebServiceModule extends JerseyServletModule {
 
@@ -48,11 +53,13 @@ public class WebServiceModule extends JerseyServletModule {
         // Binding certain Interfaces to their Implementations. This can be
         // easily modified for testing, to use Test Implementations
         bind(AccountDao.class).to(AccountDaoImpl.class);
-
+        bind(OutcomeDao.class).to(OutcomeDaoImpl.class);
         bind(AccountManager.class).to(AccountManagerImpl.class);
-
+        bind(OutcomeManager.class).to(OutcomeManagerImpl.class);
         // Binding the REST endpoints
         bind(AccountService.class);
+
+        bind(OutcomeService.class);
 
         // Injections to use our own ObjectMappers. Only needed to pretty print
         // the JSON output, not necessary at all.
