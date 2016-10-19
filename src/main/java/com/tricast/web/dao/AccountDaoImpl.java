@@ -15,8 +15,9 @@ import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 
 public class AccountDaoImpl implements AccountDao {
+
     private static final SqlManager sqlManager = SqlManager.getInstance();
-    private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(CountryDao.class);
+    private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(AccountDao.class);
 
     @Override
     @JdbcTransaction
@@ -38,6 +39,7 @@ public class AccountDaoImpl implements AccountDao {
     private Account buildAccount(ResultSet rs, boolean isLogin) throws SQLException {
         Account account = new Account();
         int i = 1;
+
         account.setId(rs.getLong(i++));
         account.setAccountTypeId(rs.getLong(i++));
         account.setUserName(rs.getString(i++));
@@ -109,39 +111,40 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     @JdbcTransaction
     public Long create(Workspace workspace, Account newItem) throws SQLException, IOException {
-		Long result = null;
-		ResultSet rs = null;
-		String sql = sqlManager.get("accountCreate.sql");
+        Long result = null;
+        ResultSet rs = null;
+        String sql = sqlManager.get("accountCreate.sql");
 
-		try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			int i = 1;
-			ps.setLong(i++, newItem.getAccountTypeId());
-			ps.setString(i++, newItem.getUserName());
-			ps.setString(i++, newItem.getPassword());
-			ps.setString(i++, newItem.getFirstName());
-			ps.setString(i++, newItem.getLastName());
-			ps.setString(i++, newItem.getDOB());
-			ps.setString(i++, newItem.getAddress());
-			ps.setString(i++, newItem.getEmailAddress());
-			ps.setString(i++, newItem.getPhoneNumber());
-			ps.setString(i++, newItem.getPIN());
-			ps.setString(i++, newItem.getBankAccountNumber());
-			ps.setString(i++, newItem.getBankCardNumber());
-			ps.setDate(i++, (Date) newItem.getCreatedDate());
-			int rows = ps.executeUpdate();
-			if (rows > 0) {
-				rs = ps.getGeneratedKeys();
-				if (rs.next()) {
-					result = rs.getLong(1);
-				}
-			}
-		} catch (SQLException ex) {
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            int i = 1;
+            ps.setLong(i++, newItem.getAccountTypeId());
+            ps.setString(i++, newItem.getUserName());
+            ps.setString(i++, newItem.getPassword());
+            ps.setString(i++, newItem.getFirstName());
+            ps.setString(i++, newItem.getLastName());
+            ps.setString(i++, newItem.getDOB());
+            ps.setString(i++, newItem.getAddress());
+            ps.setString(i++, newItem.getEmailAddress());
+            ps.setString(i++, newItem.getPhoneNumber());
+            ps.setString(i++, newItem.getPIN());
+            ps.setString(i++, newItem.getBankAccountNumber());
+            ps.setString(i++, newItem.getBankCardNumber());
+            ps.setDate(i++, (Date) newItem.getCreatedDate());
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    result = rs.getLong(1);
+                }
+            }
+        } catch (SQLException ex) {
             logger.error(ex, ex);
-			throw ex;
-		} finally {
-			rs.close();
-		}
-		return result;
+            throw ex;
+        } finally {
+            rs.close();
+        }
+        return result;
     }
 
     @Override
