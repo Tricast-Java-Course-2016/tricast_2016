@@ -9,14 +9,13 @@ import javax.inject.Inject;
 import com.tricast.beans.Outcome;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
-import com.tricast.web.dao.MarketDao;
 import com.tricast.web.dao.OutcomeDao;
 
 public class OutcomeManagerImpl implements OutcomeManager {
     private OutcomeDao outcomeDao;
 
     @Inject
-    public OutcomeManagerImpl(OutcomeDao outcomeDao, MarketDao marketDao) {
+    public OutcomeManagerImpl(OutcomeDao outcomeDao) {
         this.outcomeDao = outcomeDao;
     }
 
