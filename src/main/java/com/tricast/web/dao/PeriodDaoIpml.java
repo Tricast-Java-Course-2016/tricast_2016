@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.tricast.beans.Period;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
@@ -49,14 +50,14 @@ public class PeriodDaoIpml implements PeriodDao {
 	public Period getById(Workspace workspace, long id) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		Period result = null;
-		
+
 		String sql = sqlManager.get("periodGetById.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
 			result = buildPeriod(rs);
 		}
 		catch(SQLException ex) {
 		   logger.error(ex,ex);
-		}	
+		}
 		return result ;
 	}
 
@@ -127,8 +128,9 @@ public class PeriodDaoIpml implements PeriodDao {
 	}
 
 	@Override
+    // Camel case -> Id helyett id
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
-		
+
 		boolean result = false;
         String sql = sqlManager.get("perioddelete.sql");
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {

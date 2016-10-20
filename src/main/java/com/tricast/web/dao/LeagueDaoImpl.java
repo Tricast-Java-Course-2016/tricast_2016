@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.tricast.beans.League;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
@@ -33,17 +34,17 @@ public class LeagueDaoImpl implements LeagueDao {
 
 	@Override
 	public League getById(Workspace workspace, long id) throws SQLException, IOException {
-		
+
 		League result = null;
-		
+
 		String sql = sqlManager.get("eventgetbyid.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
 			result = buildLeague(rs);
 		}
 		catch(SQLException ex) {
 		   logger.error(ex,ex);
-		}		
-		return result ;	
+		}
+		return result ;
 	}
 
 	private League buildLeague(ResultSet rs) throws SQLException {
@@ -81,10 +82,11 @@ public class LeagueDaoImpl implements LeagueDao {
             rs.close();
         }
         return result;
-		
+
 	}
 
 	@Override
+    // TODO Bemeneti változó nevét javitani
 	public Long update(Workspace workspace, League leauge) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
@@ -111,7 +113,7 @@ public class LeagueDaoImpl implements LeagueDao {
             rs.close();
         }
         return result;
-		
+
 	}
 
 	@Override

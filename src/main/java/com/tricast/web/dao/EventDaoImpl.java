@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.tricast.beans.Event;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
@@ -17,7 +18,7 @@ public class EventDaoImpl implements EventDao {
 	private static final SqlManager sqlManager = SqlManager.getInstance();
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(CountryDao.class);
 
-	
+
 	@Override
 	public List<Event> getAll(Workspace workspace) throws SQLException, IOException {
 		// TODO Auto-generated method stub
@@ -34,28 +35,30 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	private Event buildEvent(ResultSet rs) throws SQLException {
+        // TODO A számláló itt egyről indul, nem nulláról
 		int c = 0;
 		Event result = new Event();
 		result.setId(rs.getLong(c++));
 		result.setDescription(rs.getString(c++));
-		return result;	
+        // TODO Sok adattag hiányzik. Ellenőrizd a Bean-t.
+		return result;
 	}
 
 	@JdbcTransaction
 	@Override
 	public Event getById(Workspace workspace, long id) throws SQLException, IOException {
 		Event result = null;
-		
+
 		String sql = sqlManager.get("eventGetById.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
 			result = buildEvent(rs);
 		}
 		catch(SQLException ex) {
 		   logger.error(ex,ex);
-		}		
-		return result ;	
+		}
+		return result ;
 	}
-	
+
 
 	@JdbcTransaction
 	@Override
@@ -94,7 +97,7 @@ public class EventDaoImpl implements EventDao {
 	@JdbcTransaction
 	@Override
 	public Long update(Workspace workspace, Event event) throws SQLException, IOException {
-		
+
 		 Long result = null;
 	        ResultSet rs = null;
 
@@ -125,6 +128,7 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	@Override
+    // TODO Camel-case -> Id helyett id
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		boolean result = false;
