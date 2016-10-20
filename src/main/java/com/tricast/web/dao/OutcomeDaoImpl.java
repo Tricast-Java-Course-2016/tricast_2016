@@ -45,7 +45,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
         Outcome result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("outcomegetbyid.sql");
+        String sql = sqlManager.get("outcomeGetById.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
             ps.setLong(1, id);
@@ -70,7 +70,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
         Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("outcomecreate.sql");
+        String sql = sqlManager.get("OutcomeCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -79,7 +79,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
             ps.setString(i++, newItem.getOutcomecode());
             ps.setString(i++, newItem.getDescription());
             ps.setDouble(i++, newItem.getOdds());
-            ps.setString(i++, String.valueOf(newItem.getResult()));
+            ps.setString(i++, newItem.getResult());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -162,7 +162,10 @@ public class OutcomeDaoImpl implements OutcomeDao {
         outcome.setOutcomecode(rs.getString(i++));
         outcome.setDescription(rs.getString(i++));
         outcome.setOdds(rs.getDouble(i++));
-        outcome.setResult(rs.getString(i++).charAt(0));
+        String result = rs.getString(i++);
+        if (result != null && result.length() > 0) {
+            outcome.setResult(result);
+        }
         return outcome;
     }
 

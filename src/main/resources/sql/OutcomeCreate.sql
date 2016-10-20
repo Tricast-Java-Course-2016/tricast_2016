@@ -1,10 +1,11 @@
 INSERT INTO 
 	/*=SCHEMA*/OUTCOMES(
+	id,
     marketid,
     outcomecode,
     description,
     odds,
-    result,
+    result
 	) 
 VALUES 
 	(

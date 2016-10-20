@@ -6,7 +6,7 @@ public class Outcome {
     private String outcomecode;
     private String description;
     private double odds;
-    private char result;
+    private String result;
 
     public long getId() {
         return id;
@@ -48,13 +48,14 @@ public class Outcome {
         this.odds = odds;
     }
 
-    public char getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(char result) {
+    public void setResult(String result) {
         this.result = result;
     }
+
 
 
 }

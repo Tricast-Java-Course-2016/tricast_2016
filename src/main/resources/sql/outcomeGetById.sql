@@ -1,5 +1,5 @@
 SELECT
-	id
+	id,
     marketid,
     outcomecode,
     description,
