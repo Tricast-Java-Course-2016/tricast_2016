@@ -1,6 +1,6 @@
 SELECT  
     	betid,
-    	outcomdeid, 
+    	outcomeid, 
     	odds
 FROM
 	/*=SCHEMA*/BETDATA

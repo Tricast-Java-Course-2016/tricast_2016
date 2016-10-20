@@ -3,5 +3,5 @@ UPDATE
 SET 
     odds = :odds
 WHERE 
-	betid = :betid,
+	betid = :betid AND
 	outcomeid = :outcomeid

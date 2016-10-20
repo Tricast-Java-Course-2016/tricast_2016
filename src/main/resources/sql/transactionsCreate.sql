@@ -3,7 +3,7 @@ INSERT INTO
     	id,
     	accountid, 
     	betid,
-		createdDate,
+		createddate,
 		description,
 		amount
     	)
@@ -11,7 +11,7 @@ VALUES (
 		NEXTVAL('/*=SCHEMA*/SEQ_TRANSACTIONS'),
 		 :accountid,
 		 :betid,
-		 :createdDate,
+		 :createddate,
 		 :description,
 		 :amount
 		)

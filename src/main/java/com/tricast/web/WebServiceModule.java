@@ -54,10 +54,21 @@ public class WebServiceModule extends JerseyServletModule {
         // easily modified for testing, to use Test Implementations
         bind(AccountDao.class).to(AccountDaoImpl.class);
         bind(OutcomeDao.class).to(OutcomeDaoImpl.class);
+        bind(BetDao.class).to(BetDaoImpl.class);
+        bind(BetDataDao.class).to(BetDataDaoImpl.class);
+        bind(TransactionDao.class).to(TransactionDaoImpl.class);
+        
         bind(AccountManager.class).to(AccountManagerImpl.class);
+        bind(BetManager.class).to(BetManagerImpl.class);
+        bind(BetDataManager.class).to(BetDataManagerImpl.class);
         bind(OutcomeManager.class).to(OutcomeManagerImpl.class);
+        bind(TransactionManager.class).to(TransactionManagerImpl.class);
+        
         // Binding the REST endpoints
         bind(AccountService.class);
+        bind(BetService.class);
+        bind(BetDataService.class);
+        bind(TransactionService.class);
 
         bind(OutcomeService.class);
 

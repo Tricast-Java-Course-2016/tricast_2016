@@ -3,7 +3,7 @@ UPDATE
 SET 
     accountid = :accountid,
     betid = :betid,
-	createdDate = :createdDate,
+	createddate = :createddate,
 	description = :description,
 	amount = :amount
 WHERE 

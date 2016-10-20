@@ -12,6 +12,10 @@ public class Bet {
 		this.accountId = accountId;
 		this.betTypeId = betTypeId;
 	}
+
+    public Bet() {
+        this(-1, -1, -1);
+    }
 	
 	public long getId() { return id; }
 	public void setId(long id) { this.id = id; }
