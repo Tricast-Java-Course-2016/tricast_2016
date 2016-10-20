@@ -25,14 +25,29 @@ import com.tricast.guice.WorkspaceProvider;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.AccountDao;
 import com.tricast.web.dao.AccountDaoImpl;
+import com.tricast.web.dao.BetDao;
+import com.tricast.web.dao.BetDaoImpl;
+import com.tricast.web.dao.BetDataDao;
+import com.tricast.web.dao.BetDataDaoImpl;
 import com.tricast.web.dao.OutcomeDao;
 import com.tricast.web.dao.OutcomeDaoImpl;
+import com.tricast.web.dao.TransactionDao;
+import com.tricast.web.dao.TransactionDaoImpl;
 import com.tricast.web.manager.AccountManager;
 import com.tricast.web.manager.AccountManagerImpl;
+import com.tricast.web.manager.BetDataManager;
+import com.tricast.web.manager.BetDataManagerImpl;
+import com.tricast.web.manager.BetManager;
+import com.tricast.web.manager.BetManagerImpl;
 import com.tricast.web.manager.OutcomeManager;
 import com.tricast.web.manager.OutcomeManagerImpl;
+import com.tricast.web.manager.TransactionManager;
+import com.tricast.web.manager.TransactionManagerImpl;
 import com.tricast.web.server.AccountService;
+import com.tricast.web.server.BetDataService;
+import com.tricast.web.server.BetService;
 import com.tricast.web.server.OutcomeService;
+import com.tricast.web.server.TransactionService;
 
 public class WebServiceModule extends JerseyServletModule {
 
