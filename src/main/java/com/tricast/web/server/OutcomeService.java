@@ -67,7 +67,7 @@ public class OutcomeService extends LVSResource {
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
     public Response createOutcome(Outcome newOutcome) throws SQLException, OutOfTransactionException, IOException {
-        log.trace("Creating Outcome with the following code: " + newOutcome.getOutcomeCode());
+        log.trace("Creating Outcome with the following code: " + newOutcome.getOutcomecode());
         try {
             return respondPost(manager.create(workspace, newOutcome), "\\accounts");
         } catch (SQLException ex) {
