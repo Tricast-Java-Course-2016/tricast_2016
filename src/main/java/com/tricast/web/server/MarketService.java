@@ -89,7 +89,7 @@ public class MarketService extends LVSResource{
     }
     
     @DELETE
-    @Path("/{id}")
+    @Path("{id}")
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
     public Response deleteMarket(@PathParam("id") long id)

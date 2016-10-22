@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -66,7 +67,7 @@ public class OutcomeService extends LVSResource {
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
     public Response createOutcome(Outcome newOutcome) throws SQLException, OutOfTransactionException, IOException {
-        log.trace("Creating Outcome with the following code: " + newOutcome.getOutcomecode());
+        log.trace("Creating Outcome with the following code: " + newOutcome.getOutcomeCode());
         try {
             return respondPost(manager.create(workspace, newOutcome), "\\accounts");
         } catch (SQLException ex) {
@@ -86,6 +87,17 @@ public class OutcomeService extends LVSResource {
         }
     }
 
-    // TODO Delete? :)
-
+    @DELETE
+    @Path("{id}")
+    @Produces(APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
+    public Response deleteOutcome(@PathParam("id") long id)
+            throws SQLException, OutOfTransactionException, IOException {
+        log.trace("Trying to delete outcome with id #" + id);
+        try {
+            return respondDelete(manager.deleteById(workspace,id));
+        } catch (SQLException ex) {
+            return respondDeleteNotOK(ex.getMessage(), null, 500);
+        }
+    }
 }
