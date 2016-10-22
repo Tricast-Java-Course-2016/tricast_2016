@@ -29,6 +29,8 @@ import com.tricast.web.dao.BetDao;
 import com.tricast.web.dao.BetDaoImpl;
 import com.tricast.web.dao.BetDataDao;
 import com.tricast.web.dao.BetDataDaoImpl;
+import com.tricast.web.dao.MarketDao;
+import com.tricast.web.dao.MarketDaoImpl;
 import com.tricast.web.dao.OutcomeDao;
 import com.tricast.web.dao.OutcomeDaoImpl;
 import com.tricast.web.dao.TransactionDao;
@@ -39,6 +41,8 @@ import com.tricast.web.manager.BetDataManager;
 import com.tricast.web.manager.BetDataManagerImpl;
 import com.tricast.web.manager.BetManager;
 import com.tricast.web.manager.BetManagerImpl;
+import com.tricast.web.manager.MarketManager;
+import com.tricast.web.manager.MarketManagerImpl;
 import com.tricast.web.manager.OutcomeManager;
 import com.tricast.web.manager.OutcomeManagerImpl;
 import com.tricast.web.manager.TransactionManager;
@@ -48,6 +52,7 @@ import com.tricast.web.server.BetDataService;
 import com.tricast.web.server.BetService;
 import com.tricast.web.server.OutcomeService;
 import com.tricast.web.server.TransactionService;
+import com.tricast.web.server.MarketService;
 
 public class WebServiceModule extends JerseyServletModule {
 
@@ -72,19 +77,22 @@ public class WebServiceModule extends JerseyServletModule {
         bind(BetDao.class).to(BetDaoImpl.class);
         bind(BetDataDao.class).to(BetDataDaoImpl.class);
         bind(TransactionDao.class).to(TransactionDaoImpl.class);
+        bind(MarketDao.class).to(MarketDaoImpl.class);
+        
         
         bind(AccountManager.class).to(AccountManagerImpl.class);
         bind(BetManager.class).to(BetManagerImpl.class);
         bind(BetDataManager.class).to(BetDataManagerImpl.class);
         bind(OutcomeManager.class).to(OutcomeManagerImpl.class);
         bind(TransactionManager.class).to(TransactionManagerImpl.class);
+        bind(MarketManager.class).to(MarketManagerImpl.class);
         
         // Binding the REST endpoints
         bind(AccountService.class);
         bind(BetService.class);
         bind(BetDataService.class);
         bind(TransactionService.class);
-
+        bind(MarketService.class);
         bind(OutcomeService.class);
 
         // Injections to use our own ObjectMappers. Only needed to pretty print

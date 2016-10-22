@@ -12,9 +12,9 @@ public interface MarketManager {
 
 	   	Market getById(Workspace workspace, long id) throws SQLException, IOException;
 
-	   	Market create(Workspace workspace, Market newOutcome) throws SQLException, IOException;
+	   	Market create(Workspace workspace, Market newMarket) throws SQLException, IOException;
 
-	   	Market update(Workspace workspace, Market updateOutcome) throws SQLException, IOException;
+	   	Market update(Workspace workspace, Market updateMarket) throws SQLException, IOException;
 
 	    boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 }
