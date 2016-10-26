@@ -79,7 +79,7 @@ public class EventService extends LVSResource {
 	    @PUT
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response updateBetData(Event updateEvent) throws SQLException, OutOfTransactionException, IOException {
+	    public Response updateEvent(Event updateEvent) throws SQLException, OutOfTransactionException, IOException {
 	        log.trace("Trying to update eventdata with this eventId #" + updateEvent.getId() + "and this eventDescription #"
 	                + updateEvent.getDescription());
 	        try {
@@ -93,11 +93,11 @@ public class EventService extends LVSResource {
 	    @Path("/{eventId}")
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response deleteCountryData(@PathParam("countryId") long countryId, @PathParam("outcomeId") long outcomeId)
+	    public Response deleteEvent(@PathParam("EventId") long eventId)
 	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Trying to delete eventdata with this eventId #" + countryId + "and this eventId #" + outcomeId);
+	        log.trace("Trying to delete eventdata with this eventId #" + eventId);
 	        try {
-	            return respondDelete(manager.deleteById(workspace, countryId));
+	            return respondDelete(manager.deleteById(workspace, eventId));
 	        } catch (SQLException ex) {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }

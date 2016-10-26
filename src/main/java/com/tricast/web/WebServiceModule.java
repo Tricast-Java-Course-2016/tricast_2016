@@ -29,10 +29,20 @@ import com.tricast.web.dao.BetDao;
 import com.tricast.web.dao.BetDaoImpl;
 import com.tricast.web.dao.BetDataDao;
 import com.tricast.web.dao.BetDataDaoImpl;
+import com.tricast.web.dao.CountryDao;
+import com.tricast.web.dao.CountryDaoImpl;
+import com.tricast.web.dao.EventDao;
+import com.tricast.web.dao.EventDaoImpl;
+import com.tricast.web.dao.LeagueDao;
+import com.tricast.web.dao.LeagueDaoImpl;
 import com.tricast.web.dao.MarketDao;
 import com.tricast.web.dao.MarketDaoImpl;
 import com.tricast.web.dao.OutcomeDao;
 import com.tricast.web.dao.OutcomeDaoImpl;
+import com.tricast.web.dao.PeriodDao;
+import com.tricast.web.dao.PeriodDaoIpml;
+import com.tricast.web.dao.TeamDao;
+import com.tricast.web.dao.TeamDaoImpl;
 import com.tricast.web.dao.TransactionDao;
 import com.tricast.web.dao.TransactionDaoImpl;
 import com.tricast.web.manager.AccountManager;
@@ -41,18 +51,33 @@ import com.tricast.web.manager.BetDataManager;
 import com.tricast.web.manager.BetDataManagerImpl;
 import com.tricast.web.manager.BetManager;
 import com.tricast.web.manager.BetManagerImpl;
+import com.tricast.web.manager.CountryManager;
+import com.tricast.web.manager.CountryManagerImpl;
+import com.tricast.web.manager.EventManager;
+import com.tricast.web.manager.EventManagerImpl;
+import com.tricast.web.manager.LeagueManager;
+import com.tricast.web.manager.LeagueManagerImpl;
 import com.tricast.web.manager.MarketManager;
 import com.tricast.web.manager.MarketManagerImpl;
 import com.tricast.web.manager.OutcomeManager;
 import com.tricast.web.manager.OutcomeManagerImpl;
+import com.tricast.web.manager.PeriodManager;
+import com.tricast.web.manager.PeriodManagerImpl;
+import com.tricast.web.manager.TeamManager;
+import com.tricast.web.manager.TeamManagerImpl;
 import com.tricast.web.manager.TransactionManager;
 import com.tricast.web.manager.TransactionManagerImpl;
 import com.tricast.web.server.AccountService;
 import com.tricast.web.server.BetDataService;
 import com.tricast.web.server.BetService;
-import com.tricast.web.server.OutcomeService;
-import com.tricast.web.server.TransactionService;
+import com.tricast.web.server.CountryService;
+import com.tricast.web.server.EventService;
+import com.tricast.web.server.LeagueService;
 import com.tricast.web.server.MarketService;
+import com.tricast.web.server.OutcomeService;
+import com.tricast.web.server.PeriodService;
+import com.tricast.web.server.TeamService;
+import com.tricast.web.server.TransactionService;
 
 public class WebServiceModule extends JerseyServletModule {
 
@@ -78,7 +103,11 @@ public class WebServiceModule extends JerseyServletModule {
         bind(BetDataDao.class).to(BetDataDaoImpl.class);
         bind(TransactionDao.class).to(TransactionDaoImpl.class);
         bind(MarketDao.class).to(MarketDaoImpl.class);
-        
+        bind(CountryDao.class).to(CountryDaoImpl.class);
+        bind(EventDao.class).to(EventDaoImpl.class);
+        bind(LeagueDao.class).to(LeagueDaoImpl.class);
+        bind(PeriodDao.class).to(PeriodDaoIpml.class);
+        bind(TeamDao.class).to(TeamDaoImpl.class);
         
         bind(AccountManager.class).to(AccountManagerImpl.class);
         bind(BetManager.class).to(BetManagerImpl.class);
@@ -86,6 +115,11 @@ public class WebServiceModule extends JerseyServletModule {
         bind(OutcomeManager.class).to(OutcomeManagerImpl.class);
         bind(TransactionManager.class).to(TransactionManagerImpl.class);
         bind(MarketManager.class).to(MarketManagerImpl.class);
+        bind(CountryManager.class).to(CountryManagerImpl.class);
+        bind(EventManager.class).to(EventManagerImpl.class);
+        bind(LeagueManager.class).to(LeagueManagerImpl.class);
+        bind(PeriodManager.class).to(PeriodManagerImpl.class);
+        bind(TeamManager.class).to(TeamManagerImpl.class);
         
         // Binding the REST endpoints
         bind(AccountService.class);
@@ -94,6 +128,12 @@ public class WebServiceModule extends JerseyServletModule {
         bind(TransactionService.class);
         bind(MarketService.class);
         bind(OutcomeService.class);
+        bind(PeriodService.class);
+        bind(CountryService.class);
+        bind(EventService.class);
+        bind(LeagueService.class);
+        bind(PeriodService.class);
+        bind(TeamService.class);
 
         // Injections to use our own ObjectMappers. Only needed to pretty print
         // the JSON output, not necessary at all.

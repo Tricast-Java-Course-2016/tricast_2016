@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.tricast.beans.Country;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
@@ -17,7 +19,6 @@ public class CountryDaoImpl implements CountryDao {
 
 	private static final SqlManager sqlManager = SqlManager.getInstance();
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(CountryDao.class);
-
 
 	@Override
 	@JdbcTransaction

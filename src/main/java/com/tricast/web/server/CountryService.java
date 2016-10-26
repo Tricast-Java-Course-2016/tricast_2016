@@ -54,7 +54,6 @@ public class CountryService extends LVSResource {
 	    @GET
 	    @Path("{country}")
 	    @Produces(APPLICATION_JSON)
-	    @Consumes(APPLICATION_JSON)
 	    public Response getById(@PathParam("country") long countryId, @PathParam("outcomeId") long outcomeId)
 	            throws SQLException, OutOfTransactionException, IOException {
 	        log.trace("Requested to get countryData countryId = " + countryId);
