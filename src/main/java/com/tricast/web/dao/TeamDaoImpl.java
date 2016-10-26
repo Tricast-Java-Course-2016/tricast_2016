@@ -17,7 +17,7 @@ public class TeamDaoImpl implements TeamDao {
 	private static final SqlManager sqlManager = SqlManager.getInstance();
 	private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(CountryDao.class);
 
-	@JdbcTransaction
+
 	@Override
 	public List<Team> getAll(Workspace workspace) throws SQLException, IOException {
 		List<Team> result = new ArrayList<Team>();
@@ -40,7 +40,7 @@ public class TeamDaoImpl implements TeamDao {
 		return result;
 	}
 
-	@JdbcTransaction
+
 	@Override
 	public Team getById(Workspace workspace, long id) throws SQLException, IOException {
 		Team result = null;	
@@ -54,12 +54,13 @@ public class TeamDaoImpl implements TeamDao {
 		return result ;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long create(Workspace workspace, Team team) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("teamcreate.sql");
+        String sql = sqlManager.get("teamCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -89,7 +90,7 @@ public class TeamDaoImpl implements TeamDao {
 		Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("teamupdate.sql");
+        String sql = sqlManager.get("teamUpdate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             int i = 1;
@@ -117,7 +118,7 @@ public class TeamDaoImpl implements TeamDao {
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		boolean result = false;
-        String sql = sqlManager.get("teamdelete.sql");
+        String sql = sqlManager.get("teamDelete.sql");
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 
             int i = 1;

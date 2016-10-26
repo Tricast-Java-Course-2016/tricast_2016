@@ -35,12 +35,15 @@ public class EventDaoImpl implements EventDao {
 	}
 
 	private Event buildEvent(ResultSet rs) throws SQLException {
-        // TODO A számláló itt egyről indul, nem nulláról
-		int c = 0;
+		int c = 1;
 		Event result = new Event();
 		result.setId(rs.getLong(c++));
+		result.setLeagueId(rs.getLong(c++));
+		result.setCountryId(rs.getLong(c++));
+		result.setHomeTeamId(rs.getLong(c++));
+		result.setAwayTeamId(rs.getLong(c++));
 		result.setDescription(rs.getString(c++));
-        // TODO Sok adattag hiányzik. Ellenőrizd a Bean-t.
+		result.setStatus(rs.getString(c++));
 		return result;
 	}
 
@@ -127,9 +130,9 @@ public class EventDaoImpl implements EventDao {
 	        return result;
 	}
 
+	@JdbcTransaction
 	@Override
-    // TODO Camel-case -> Id helyett id
-	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
+	public boolean deleteById(Workspace workspace, long id) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		boolean result = false;
 
@@ -138,7 +141,7 @@ public class EventDaoImpl implements EventDao {
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 
             int i = 1;
-            ps.setLong(i++, Id);
+            ps.setLong(i++, id);
 
             int rows = ps.executeUpdate();
             if (rows > 0) {

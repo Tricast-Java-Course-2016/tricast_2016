@@ -8,6 +8,7 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.tricast.beans.Event;
 import com.tricast.database.Workspace;
+import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.EventDao;
 
 public class EventManagerImpl implements EventManager {
@@ -33,6 +34,7 @@ public class EventManagerImpl implements EventManager {
 		return event;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long create(Workspace workspace, Event newItem) throws SQLException, IOException {
 		Long l;
@@ -40,6 +42,7 @@ public class EventManagerImpl implements EventManager {
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long update(Workspace workspace, Event updateItem) throws SQLException, IOException {
 		Long l;
@@ -47,6 +50,7 @@ public class EventManagerImpl implements EventManager {
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		Boolean b = false;

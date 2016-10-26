@@ -11,6 +11,7 @@ import java.util.List;
 import com.tricast.beans.League;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
+import com.tricast.web.annotations.JdbcTransaction;
 
 public class LeagueDaoImpl implements LeagueDao {
 	private static final SqlManager sqlManager = SqlManager.getInstance();
@@ -55,12 +56,13 @@ public class LeagueDaoImpl implements LeagueDao {
 		return league;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long create(Workspace workspace, League league) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("eventcreate.sql");
+        String sql = sqlManager.get("eventCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -91,7 +93,7 @@ public class LeagueDaoImpl implements LeagueDao {
 		Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("leaguecreate.sql");
+        String sql = sqlManager.get("leagueCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 

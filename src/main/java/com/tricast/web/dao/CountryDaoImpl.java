@@ -24,7 +24,7 @@ public class CountryDaoImpl implements CountryDao {
 	public List<Country> getAll(Workspace workspace) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		List<Country> result = new ArrayList<Country>();
-		String sql = sqlManager.get("countrygetall.sql");
+		String sql = sqlManager.get("countryGetAll.sql");
 		try (PreparedStatement preparedStatement = workspace.getPreparedStatement(sql);ResultSet rs = preparedStatement.executeQuery()) {
 			while (rs.next()) {
 				result.add(buildCountry(rs));
@@ -38,8 +38,7 @@ public class CountryDaoImpl implements CountryDao {
 	@JdbcTransaction
 	private Country buildCountry(ResultSet rs) throws SQLException {
 		Country country = new Country();
-        // TODO A számláló itt egyről indul, nem nulláról
-		int c = 0;
+		int c = 1;
 		country.setId(rs.getLong(c++));
 		country.setDescription(rs.getString(c++));
 		return country;
@@ -51,7 +50,7 @@ public class CountryDaoImpl implements CountryDao {
 		// TODO Auto-generated method stub
 		Country result = null;
 
-		String sql = sqlManager.get("countrygetbyid.sql");
+		String sql = sqlManager.get("countryGetById.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
 			result = buildCountry(rs);
 		}

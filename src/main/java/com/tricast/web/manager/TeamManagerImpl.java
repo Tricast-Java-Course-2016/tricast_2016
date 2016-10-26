@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.tricast.beans.Team;
 import com.tricast.database.Workspace;
+import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.TeamDao;
 
 public class TeamManagerImpl implements TeamManager {
@@ -30,18 +31,21 @@ public class TeamManagerImpl implements TeamManager {
 		return team;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long create(Workspace workspace,Team team) throws SQLException, IOException {
 		Long l = this.teamDao.create(workspace, team);
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long update(Workspace workspace,Team team) throws SQLException, IOException {
 		long l = this.teamDao.update(workspace, team);
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		boolean b = this.teamDao.deleteById(workspace, Id);

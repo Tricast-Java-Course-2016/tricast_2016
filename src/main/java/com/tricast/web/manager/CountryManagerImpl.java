@@ -8,6 +8,7 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.tricast.beans.Country;
 import com.tricast.database.Workspace;
+import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.CountryDao;
 
 public class CountryManagerImpl implements CountryManager {
@@ -31,6 +32,7 @@ public class CountryManagerImpl implements CountryManager {
 		return country;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long create(Workspace workspace, Country newItem) throws SQLException, IOException {
 		Long l = null;
@@ -38,6 +40,7 @@ public class CountryManagerImpl implements CountryManager {
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long update(Workspace workspace, Country updateItem) throws SQLException, IOException {
 		Long l;
@@ -45,6 +48,7 @@ public class CountryManagerImpl implements CountryManager {
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		return this.countryDao.deleteById(workspace,Id);

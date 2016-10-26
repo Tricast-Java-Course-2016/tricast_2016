@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.inject.Inject;
 import com.tricast.beans.League;
 import com.tricast.database.Workspace;
+import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.LeagueDao;
 
 public class LeagueManagerImpl implements LeagueManager {
@@ -30,18 +31,21 @@ public class LeagueManagerImpl implements LeagueManager {
 		return league;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long create(Workspace workspace, League event) throws SQLException, IOException {
 		Long l = this.leagueDao.create(workspace, event);
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public Long update(Workspace workspace, League event) throws SQLException, IOException {
 		long l = this.leagueDao.update(workspace, event);
 		return l;
 	}
 
+	@JdbcTransaction
 	@Override
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		boolean b = this.leagueDao.deleteById(workspace, Id);
