@@ -16,7 +16,7 @@ public class WorkspaceProvider implements Provider<WorkspaceImpl> {
 	}
 
 	@Override
-	public WorkspaceImpl get() {
+    public WorkspaceImpl get() {
 		WorkspaceImpl workspace = new WorkspaceImpl(ds);
 		return workspace;
 	}

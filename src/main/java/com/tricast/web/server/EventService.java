@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Event;
 import com.tricast.database.Workspace;
+import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.EventManager;
 
@@ -32,12 +33,12 @@ public class EventService extends LVSResource {
 	    private Workspace workspace;
 
 	    @Inject
-		public EventService(EventManager manager, Workspace workspace) {
+    public EventService(EventManager manager, WorkspaceImpl workspace) {
 			super();
 			this.manager = manager;
 			this.workspace = workspace;
 		}
-	    
+
 	    @GET
 	    @Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
@@ -48,7 +49,7 @@ public class EventService extends LVSResource {
 	            return respondGet(ex.getMessage(), 500);
 	        }
 	    }
-	    
+
 	    @GET
 	    @Path("{event}")
 	    @Produces(APPLICATION_JSON)
@@ -103,6 +104,6 @@ public class EventService extends LVSResource {
 	        }
 	    }
 
-	    
-	    
+
+
 }

@@ -12,6 +12,6 @@ SELECT
     PIN,
     bankAccountNumber,
     bankCardNumber,
-    createdDate,
+    createdDate
 FROM
 	/*=SCHEMA*/ACCOUNTS

@@ -21,10 +21,11 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Team;
 import com.tricast.database.Workspace;
+import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.TeamManager;
 
-@Path("/events")
+@Path("/teams")
 public class TeamService extends LVSResource {
 
 		private static final Logger log = LogManager.getLogger(BetDataService.class);
@@ -32,12 +33,12 @@ public class TeamService extends LVSResource {
 	    private Workspace workspace;
 
 	    @Inject
-		public TeamService(TeamManager manager, Workspace workspace) {
+    public TeamService(TeamManager manager, WorkspaceImpl workspace) {
 			super();
 			this.manager = manager;
 			this.workspace = workspace;
 		}
-	    
+
 	    @GET
 	    @Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
@@ -48,7 +49,7 @@ public class TeamService extends LVSResource {
 	            return respondGet(ex.getMessage(), 500);
 	        }
 	    }
-	    
+
 	    @GET
 	    @Path("{team}")
 	    @Produces(APPLICATION_JSON)
@@ -101,6 +102,6 @@ public class TeamService extends LVSResource {
 	        } catch (SQLException ex) {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }
-	    } 
-	    
+	    }
+
 }

@@ -21,10 +21,11 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Period;
 import com.tricast.database.Workspace;
+import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.PeriodManager;
 
-@Path("/events")
+@Path("/periods")
 public class PeriodService extends LVSResource {
 
 		private static final Logger log = LogManager.getLogger(BetDataService.class);
@@ -32,12 +33,12 @@ public class PeriodService extends LVSResource {
 	    private Workspace workspace;
 
 	    @Inject
-		public PeriodService(PeriodManager manager, Workspace workspace) {
+    public PeriodService(PeriodManager manager, WorkspaceImpl workspace) {
 			super();
 			this.manager = manager;
 			this.workspace = workspace;
 		}
-	    
+
 	    @GET
 	    @Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
@@ -48,7 +49,7 @@ public class PeriodService extends LVSResource {
 	            return respondGet(ex.getMessage(), 500);
 	        }
 	    }
-	    
+
 	    @GET
 	    @Path("{period}")
 	    @Produces(APPLICATION_JSON)
@@ -101,6 +102,6 @@ public class PeriodService extends LVSResource {
 	        } catch (SQLException ex) {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }
-	    } 
-	    
+	    }
+
 }

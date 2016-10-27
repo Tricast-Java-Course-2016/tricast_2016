@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Country;
 import com.tricast.database.Workspace;
+import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.CountryManager;
 
@@ -34,12 +35,12 @@ public class CountryService extends LVSResource {
 	    private Workspace workspace;
 
 	    @Inject
-		public CountryService(CountryManager manager, Workspace workspace) {
+    public CountryService(CountryManager manager, WorkspaceImpl workspace) {
 			super();
 			this.manager = manager;
 			this.workspace = workspace;
 		}
-	    
+
 	    @GET
 	    @Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
@@ -50,7 +51,7 @@ public class CountryService extends LVSResource {
 	            return respondGet(ex.getMessage(), 500);
 	        }
 	    }
-	    
+
 	    @GET
 	    @Path("{country}")
 	    @Produces(APPLICATION_JSON)
@@ -104,6 +105,6 @@ public class CountryService extends LVSResource {
 	        }
 	    }
 
-	    
-	    
+
+
 }
