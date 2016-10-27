@@ -4,9 +4,10 @@ import javax.sql.DataSource;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.tricast.database.Workspace;
 import com.tricast.database.WorkspaceImpl;
 
-public class WorkspaceProvider implements Provider<WorkspaceImpl> {
+public class WorkspaceProvider implements Provider<Workspace> {
 
 	private DataSource ds;
 
@@ -16,7 +17,7 @@ public class WorkspaceProvider implements Provider<WorkspaceImpl> {
 	}
 
 	@Override
-    public WorkspaceImpl get() {
+    public Workspace get() {
 		WorkspaceImpl workspace = new WorkspaceImpl(ds);
 		return workspace;
 	}

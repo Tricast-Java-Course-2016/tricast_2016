@@ -15,7 +15,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.tricast.database.Workspace;
-import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.AccountManager;
 
@@ -29,7 +28,7 @@ public class AccountService extends LVSResource {
 	private Workspace workspace;
 
 	@Inject
-	public AccountService(AccountManager manager, WorkspaceImpl workspace) {
+	public AccountService(AccountManager manager, Workspace workspace) {
 		this.manager = manager;
 		this.workspace = workspace;
 	}

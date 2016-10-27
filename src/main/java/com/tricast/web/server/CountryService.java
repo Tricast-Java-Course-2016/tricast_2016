@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Country;
 import com.tricast.database.Workspace;
-import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.CountryManager;
 
@@ -35,7 +34,7 @@ public class CountryService extends LVSResource {
 	    private Workspace workspace;
 
 	    @Inject
-    public CountryService(CountryManager manager, WorkspaceImpl workspace) {
+    public CountryService(CountryManager manager, Workspace workspace) {
 			super();
 			this.manager = manager;
 			this.workspace = workspace;

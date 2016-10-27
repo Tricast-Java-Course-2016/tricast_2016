@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Outcome;
 import com.tricast.database.Workspace;
-import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.OutcomeManager;
 
@@ -34,7 +33,7 @@ public class OutcomeService extends LVSResource {
     private Workspace workspace;
 
     @Inject
-    public OutcomeService(OutcomeManager manager, WorkspaceImpl workspace) {
+    public OutcomeService(OutcomeManager manager, Workspace workspace) {
         this.manager = manager;
         this.workspace = workspace;
     }

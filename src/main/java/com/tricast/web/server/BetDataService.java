@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
 //import com.tricast.beans.Bet;
 import com.tricast.beans.BetData;
 import com.tricast.database.Workspace;
-import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.BetDataManager;
 
@@ -36,7 +35,7 @@ public class BetDataService extends LVSResource {
     private Workspace workspace;
 
     @Inject
-    public BetDataService(BetDataManager manager, WorkspaceImpl workspace) {
+    public BetDataService(BetDataManager manager, Workspace workspace) {
         this.manager = manager;
         this.workspace = workspace;
     }

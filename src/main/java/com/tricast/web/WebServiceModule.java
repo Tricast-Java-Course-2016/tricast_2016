@@ -17,7 +17,7 @@ import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.tricast.database.PostGreSQLDataSourceProvider;
-import com.tricast.database.WorkspaceImpl;
+import com.tricast.database.Workspace;
 import com.tricast.guice.JacksonJsonProviderProvider;
 import com.tricast.guice.JdbcTransactionInterceptor;
 import com.tricast.guice.ObjectMapperProvider;
@@ -93,7 +93,7 @@ public class WebServiceModule extends JerseyServletModule {
         // Bind the DataSource class to be provided by OracleDataSourceProvider
         // in Singleton
         bind(DataSource.class).toProvider(PostGreSQLDataSourceProvider.class).in(Singleton.class);
-        bind(WorkspaceImpl.class).toProvider(WorkspaceProvider.class);
+        bind(Workspace.class).toProvider(WorkspaceProvider.class);
 
         // Binding certain Interfaces to their Implementations. This can be
         // easily modified for testing, to use Test Implementations

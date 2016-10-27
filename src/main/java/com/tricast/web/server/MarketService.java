@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Market;
 import com.tricast.database.Workspace;
-import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.MarketManager;
 
@@ -35,7 +34,7 @@ public class MarketService extends LVSResource{
     private Workspace workspace;
 
     @Inject
-    public MarketService(MarketManager manager, WorkspaceImpl workspace) {
+    public MarketService(MarketManager manager, Workspace workspace) {
         this.manager = manager;
         this.workspace = workspace;
     }

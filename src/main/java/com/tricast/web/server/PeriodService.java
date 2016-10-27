@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 
 import com.tricast.beans.Period;
 import com.tricast.database.Workspace;
-import com.tricast.database.WorkspaceImpl;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.PeriodManager;
 
@@ -33,7 +32,7 @@ public class PeriodService extends LVSResource {
 	    private Workspace workspace;
 
 	    @Inject
-    public PeriodService(PeriodManager manager, WorkspaceImpl workspace) {
+    public PeriodService(PeriodManager manager, Workspace workspace) {
 			super();
 			this.manager = manager;
 			this.workspace = workspace;
