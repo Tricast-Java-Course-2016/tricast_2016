@@ -6,14 +6,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.tricast.beans.Account;
 import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.AccountManager;
@@ -43,7 +47,31 @@ public class AccountService extends LVSResource {
 			return respondGet(ex.getMessage(), 500);
 		}
 	}
+	
+	@GET
+	@Path("{id}")
+	@Produces(APPLICATION_JSON)
+	public Response getById(@PathParam("id") long id) throws SQLException, OutOfTransactionException, IOException {
+		log.trace("Requested to get ID = " + id);
+		try {
+			return respondGet(manager.getById(workspace, id));
+		} catch (SQLException ex) {
 
+			return respondGet(ex.getMessage(), 500);
+		}
+	}
+	
+	@POST
+	@Produces(APPLICATION_JSON)
+	@Consumes(APPLICATION_JSON)
+	public Response createAccount(Account newAccount) throws SQLException, OutOfTransactionException, IOException {
+		log.trace("Trying to create new account for " + newAccount.getFirstName() + ' ' + newAccount.getLastName());
+		try {
+			return respondPost(manager.create(workspace, newAccount), "\\accounts");
+		} catch (SQLException ex) {
+			return respondPost(ex.getMessage(), "\\accounts", 500);
+		}
+	}
 
 
 }

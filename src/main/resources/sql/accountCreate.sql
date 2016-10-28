@@ -1,5 +1,6 @@
 INSERT INTO 
 	/*=SCHEMA*/ACCOUNTS(
+		id,
     	accountTypeId,
     	username, 
     	password, 
