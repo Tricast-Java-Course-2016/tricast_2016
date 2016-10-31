@@ -26,7 +26,7 @@ import com.tricast.web.manager.OutcomeManager;
 
 @Path("/outcomes")
 public class OutcomeService extends LVSResource {
-    private static final Logger log = LogManager.getLogger(AccountService.class);
+    private static final Logger log = LogManager.getLogger(OutcomeService.class);
 
     private final OutcomeManager manager;
 
@@ -68,9 +68,9 @@ public class OutcomeService extends LVSResource {
     public Response createOutcome(Outcome newOutcome) throws SQLException, OutOfTransactionException, IOException {
         log.trace("Creating Outcome with the following code: " + newOutcome.getOutcomecode());
         try {
-            return respondPost(manager.create(workspace, newOutcome), "\\accounts");
+            return respondPost(manager.create(workspace, newOutcome), "\\outcomes");
         } catch (SQLException ex) {
-            return respondPost(ex.getMessage(), "\\accounts", 500);
+            return respondPost(ex.getMessage(), "\\outcomes", 500);
         }
     }
 

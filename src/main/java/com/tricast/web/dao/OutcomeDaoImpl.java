@@ -17,14 +17,14 @@ import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 
 public class OutcomeDaoImpl implements OutcomeDao {
-    private static final Logger log = LogManager.getLogger(AccountDaoImpl.class);
+    private static final Logger log = LogManager.getLogger(OutcomeDaoImpl.class);
     private static final SqlManager sqlManager = SqlManager.getInstance();
 
     @Override
     public List<Outcome> getAll(Workspace workspace) throws SQLException, IOException {
         List<Outcome> result = new ArrayList<Outcome>();
 
-        String sql = sqlManager.get("OutcomeGetAll.sql");
+        String sql = sqlManager.get("outcomeGetAll.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql); ResultSet rs = ps.executeQuery()) {
 
@@ -70,7 +70,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
         Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("OutcomeCreate.sql");
+        String sql = sqlManager.get("outcomeCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -104,7 +104,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
         Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("outcomeupdate.sql");
+        String sql = sqlManager.get("outcomeUpdate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             int i = 1;
@@ -112,7 +112,8 @@ public class OutcomeDaoImpl implements OutcomeDao {
             ps.setString(i++, updateItem.getOutcomecode());
             ps.setString(i++, updateItem.getDescription());
             ps.setDouble(i++, updateItem.getOdds());
-            ps.setString(i++, String.valueOf(updateItem.getResult()));
+            ps.setString(i++, updateItem.getResult());
+            ps.setLong(i++, updateItem.getId());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -135,7 +136,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
     public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
         boolean result = false;
 
-        String sql = sqlManager.get("outcomedelete.sql");
+        String sql = sqlManager.get("outcomeDelete.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 

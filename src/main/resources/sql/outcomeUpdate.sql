@@ -5,6 +5,6 @@ SET
     outcomecode = :outcomecode,
     description = :description,
     odds = :odds,
-    result = :result,
+    result = :result
 WHERE 
 	id = :id
