@@ -132,7 +132,7 @@ public class PeriodDaoIpml implements PeriodDao {
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 
 		boolean result = false;
-        String sql = sqlManager.get("perioddelete.sql");
+        String sql = sqlManager.get("periodDelete.sql");
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
             int i = 1;
             ps.setLong(i++, Id);

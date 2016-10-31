@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import com.tricast.beans.Country;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
@@ -69,7 +67,7 @@ public class CountryDaoImpl implements CountryDao {
 		Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("countrycreate.sql");
+        String sql = sqlManager.get("countryCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -100,7 +98,7 @@ public class CountryDaoImpl implements CountryDao {
         Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("countryupdate.sql");
+        String sql = sqlManager.get("countryUpdate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             int i = 1;
@@ -131,7 +129,7 @@ public class CountryDaoImpl implements CountryDao {
 
 		boolean result = false;
 
-        String sql = sqlManager.get("countrydelete.sql");
+        String sql = sqlManager.get("countryDelete.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 

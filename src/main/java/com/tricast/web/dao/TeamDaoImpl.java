@@ -21,7 +21,7 @@ public class TeamDaoImpl implements TeamDao {
 	@Override
 	public List<Team> getAll(Workspace workspace) throws SQLException, IOException {
 		List<Team> result = new ArrayList<Team>();
-		String sql = sqlManager.get("teamgetall.sql");
+		String sql = sqlManager.get("teamGetAll.sql");
 		try (PreparedStatement preparedStatement = workspace.getPreparedStatement(sql);ResultSet rs = preparedStatement.executeQuery()) {
 			while (rs.next()) {
 				result.add(buildTeam(rs));
@@ -44,7 +44,7 @@ public class TeamDaoImpl implements TeamDao {
 	@Override
 	public Team getById(Workspace workspace, long id) throws SQLException, IOException {
 		Team result = null;	
-		String sql = sqlManager.get("countrygetbyid.sql");
+		String sql = sqlManager.get("teamGetById.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
 			result = buildTeam(rs);
 		}

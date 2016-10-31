@@ -22,7 +22,7 @@ public class LeagueDaoImpl implements LeagueDao {
 	public List<League> getAll(Workspace workspace) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		List<League> result = new ArrayList<League>();
-		String sql = sqlManager.get("leaguegetall.sql");
+		String sql = sqlManager.get("leagueGetAll.sql");
 		try (PreparedStatement preparedStatement = workspace.getPreparedStatement(sql);ResultSet rs = preparedStatement.executeQuery()) {
 			while (rs.next()) {
 				result.add(buildLeague(rs));
@@ -38,7 +38,7 @@ public class LeagueDaoImpl implements LeagueDao {
 
 		League result = null;
 
-		String sql = sqlManager.get("eventgetbyid.sql");
+		String sql = sqlManager.get("leagueGetById.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
 			result = buildLeague(rs);
 		}
@@ -62,7 +62,7 @@ public class LeagueDaoImpl implements LeagueDao {
 		Long result = null;
         ResultSet rs = null;
 
-        String sql = sqlManager.get("eventCreate.sql");
+        String sql = sqlManager.get("leagueCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -122,7 +122,7 @@ public class LeagueDaoImpl implements LeagueDao {
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		boolean result = false;
 
-        String sql = sqlManager.get("eventdelete.sql");
+        String sql = sqlManager.get("leagueDelete.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 
