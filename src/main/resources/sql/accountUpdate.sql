@@ -10,6 +10,6 @@ SET
     phoneNumber = :phoneNumber,
     PIN = :PIN,
     bankAccountNumber = :bankAccountNumber,
-    bankCardNumber = :bankCardNumber,
+    bankCardNumber = :bankCardNumber
 WHERE 
 	ID = :id

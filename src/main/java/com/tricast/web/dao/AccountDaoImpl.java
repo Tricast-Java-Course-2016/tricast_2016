@@ -1,7 +1,6 @@
 package com.tricast.web.dao;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -130,7 +129,7 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(i++, newItem.getPIN());
             ps.setString(i++, newItem.getBankAccountNumber());
             ps.setString(i++, newItem.getBankCardNumber());
-            ps.setDate(i++, (Date) newItem.getCreatedDate());
+            ps.setDate(i++, newItem.getCreatedDate());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -166,6 +165,7 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(i++, updateItem.getPIN());
             ps.setString(i++, updateItem.getBankAccountNumber());
             ps.setString(i++, updateItem.getBankCardNumber());
+            ps.setLong(i++, updateItem.getId());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
