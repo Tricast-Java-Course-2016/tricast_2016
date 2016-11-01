@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rest-client version="3.2.2"><request><http-version>1.1</http-version><http-follow-redirects/><URL>http://localhost:8080/tricast-2016-sportsbook/services/transactions/</URL><method>PUT</method><headers><header key="content-type" value="application/json"/></headers><body><string content-type="text/plain" charset="UTF-8">{
+  "id" : 1,
+  "accountId" : 3,
+  "betId" : 2,
+  "createdDate" : "2016-09-28",
+  "description" : "Pay in 3500 HUF",
+  "amount" : 3500.0
+}</string></body></request></rest-client>
