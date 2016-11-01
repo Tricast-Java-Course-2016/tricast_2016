@@ -2,4 +2,4 @@ SELECT
 	id,
 	description
 FROM
-	/*=SCHEMA*/COUNTRY
+	/*=SCHEMA*/COUNTRIES

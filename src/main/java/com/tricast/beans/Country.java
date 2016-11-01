@@ -4,6 +4,7 @@ public class Country {
 
 	private long id;
 	private String description;
+	
 	public long getId() {
 		return id;
 	}

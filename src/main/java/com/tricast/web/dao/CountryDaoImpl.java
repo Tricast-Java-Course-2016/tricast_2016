@@ -24,12 +24,13 @@ public class CountryDaoImpl implements CountryDao {
 		// TODO Auto-generated method stub
 		List<Country> result = new ArrayList<Country>();
 		String sql = sqlManager.get("countryGetAll.sql");
-		try (PreparedStatement preparedStatement = workspace.getPreparedStatement(sql);ResultSet rs = preparedStatement.executeQuery()) {
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
 				result.add(buildCountry(rs));
 			}
 		} catch(SQLException ex) {
 	    	logger.error(ex,ex);
+	    	throw ex;
 	    }
 	    return result;
 	}
@@ -46,16 +47,26 @@ public class CountryDaoImpl implements CountryDao {
 	@Override
 	@JdbcTransaction
 	public Country getById(Workspace workspace, long id) throws SQLException, IOException {
-		// TODO Auto-generated method stub
 		Country result = null;
-
+		ResultSet rs = null;
+		
 		String sql = sqlManager.get("countryGetById.sql");
-		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
+		
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+			 ps.setLong(1, id);
+	         rs = ps.executeQuery();
+	         
+	        if (rs.next()) { 
 			result = buildCountry(rs);
+	        }
 		}
 		catch(SQLException ex) {
 		   logger.error(ex,ex);
+		   throw ex;
 		}
+		finally {
+            rs.close();
+        }
 
 		return result ;
 	}
@@ -63,7 +74,7 @@ public class CountryDaoImpl implements CountryDao {
 
 	@Override
 	@JdbcTransaction
-	public Long create(Workspace workspace, Country country) throws SQLException, IOException {
+	public Long create(Workspace workspace, Country newItem) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
 
@@ -72,8 +83,8 @@ public class CountryDaoImpl implements CountryDao {
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             int i = 1;
-            ps.setLong(i++, country.getId());
-            ps.setString(i++, country.getDescription());
+          
+            ps.setString(i++, newItem.getDescription());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -93,7 +104,7 @@ public class CountryDaoImpl implements CountryDao {
 
 	@Override
 	@JdbcTransaction
-    public Long update(Workspace workspace, Country country) throws SQLException, IOException {
+    public Long update(Workspace workspace, Country updateItem) throws SQLException, IOException {
 
         Long result = null;
         ResultSet rs = null;
@@ -102,8 +113,8 @@ public class CountryDaoImpl implements CountryDao {
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             int i = 1;
-            ps.setLong(i++, country.getId());
-            ps.setString(i++, country.getDescription());
+            ps.setString(i++, updateItem.getDescription());
+            ps.setLong(i++, updateItem.getId());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();

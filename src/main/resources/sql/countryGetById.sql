@@ -2,6 +2,6 @@ SELECT
 	id,
 	description   
 FROM 
-	/*=SCHEMA*/COUNTRY
+	/*=SCHEMA*/COUNTRIES
 WHERE 
 	ID = :id

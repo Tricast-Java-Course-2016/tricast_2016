@@ -12,9 +12,9 @@ public interface CountryManager {
 
 	Country getById(Workspace workspace, long id) throws SQLException, IOException;
 
-	Long create(Workspace workspace, Country country) throws SQLException, IOException;
+	Country create(Workspace workspace, Country newCountry) throws SQLException, IOException;
 
-	Long update(Workspace workspace, Country country) throws SQLException, IOException;
+	Country update(Workspace workspace, Country updateCountry) throws SQLException, IOException;
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 }

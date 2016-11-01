@@ -1,9 +1,9 @@
 INSERT INTO 
-	/*=SCHEMA*/(
+	/*=SCHEMA*/COUNTRIES(
     	id,
     	description
     	)
 VALUES (
-		NEXTVAL('/*=SCHEMA*/SEQ_COUNTRY'),
-		 :countryDescription
+		NEXTVAL('/*=SCHEMA*/SEQ_COUNTRIES'),
+		 :description
 		)

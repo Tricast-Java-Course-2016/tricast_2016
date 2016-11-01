@@ -1,6 +1,6 @@
 UPDATE 
-	/*=SCHEMA*/COUNTRY
+	/*=SCHEMA*/COUNTRIES
 SET 
-    description = :description;
+    description = :description
 WHERE 
-	ID = :id
+	id = :id
