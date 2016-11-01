@@ -27,8 +27,10 @@ import com.tricast.web.manager.LeagueManager;
 @Path("/leagues")
 public class LeagueService extends LVSResource {
 
-		private static final Logger log = LogManager.getLogger(BetDataService.class);
+		private static final Logger log = LogManager.getLogger(LeagueService.class);
+		
 	    private final LeagueManager manager;
+	    
 	    private Workspace workspace;
 
 	    @Inject
@@ -52,12 +54,11 @@ public class LeagueService extends LVSResource {
 	    @GET
 	    @Path("{league}")
 	    @Produces(APPLICATION_JSON)
-	    @Consumes(APPLICATION_JSON)
-	    public Response getById(@PathParam("league") long leagueId, @PathParam("outcomeId") long outcomeId)
-	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get leagueData leagueId = " + leagueId);
+
+	    public Response getById(@PathParam("league") long id) throws SQLException, OutOfTransactionException, IOException {
+	        log.trace("Requested to get leagueData leagueId = " + id);
 	        try {
-	            return respondGet(manager.getById(workspace,leagueId));
+	            return respondGet(manager.getById(workspace,id));
 	        } catch (SQLException ex) {
 	            return respondGet(ex.getMessage(), 500);
 	        }
@@ -90,14 +91,14 @@ public class LeagueService extends LVSResource {
 	    }
 
 	    @DELETE
-	    @Path("/{leagueId}")
+	    @Path("/{id}")
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response deleteLeague(@PathParam("LeagueId") long leagueId)
+	    public Response deleteLeague(@PathParam("id") long id)
 	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Trying to delete leaguedata with this leagueId #" + leagueId);
+	        log.trace("Trying to delete leaguedata with this leagueId #" + id);
 	        try {
-	            return respondDelete(manager.deleteById(workspace, leagueId));
+	            return respondDelete(manager.deleteById(workspace, id));
 	        } catch (SQLException ex) {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }

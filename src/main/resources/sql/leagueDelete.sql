@@ -1,4 +1,4 @@
 DELETE FROM 
-	/*=SCHEMA*/LEAGUE
+	/*=SCHEMA*/LEAGUES
 WHERE 
-	id = :id
+	ID = :id

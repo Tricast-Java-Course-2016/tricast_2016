@@ -11,45 +11,53 @@ import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.LeagueDao;
 
 public class LeagueManagerImpl implements LeagueManager {
-
 	private final LeagueDao leagueDao;
+	
 	@Inject
-	public LeagueManagerImpl(LeagueDao leaguedao) {
-		this.leagueDao = leaguedao;
+	public LeagueManagerImpl(LeagueDao leagueDao) {
+		this.leagueDao = leagueDao;
 	}
+	
 	@Override
+	@JdbcTransaction
 	public List<League> getAll(Workspace workspace) throws SQLException, IOException {
-		List<League> list;
-		list = this.leagueDao.getAll(workspace);
-		return list;
+		 return leagueDao.getAll(workspace);
 	}
 
 	@Override
+	@JdbcTransaction
 	public League getById(Workspace workspace, long id) throws SQLException, IOException {
-		League league;
-		league = this.leagueDao.getById(workspace, id);
+		League league = leagueDao.getById(workspace, id);
 		return league;
 	}
 
 	@JdbcTransaction
 	@Override
-	public Long create(Workspace workspace, League event) throws SQLException, IOException {
-		Long l = this.leagueDao.create(workspace, event);
-		return l;
+	public League create(Workspace workspace, League newLeague) throws SQLException, IOException {
+		Long id = leagueDao.create(workspace, newLeague);
+		if (id != null) {
+			return leagueDao.getById(workspace, id);
+		} else {
+			return null;
+		}
 	}
 
 	@JdbcTransaction
 	@Override
-	public Long update(Workspace workspace, League event) throws SQLException, IOException {
-		long l = this.leagueDao.update(workspace, event);
-		return l;
+	public League update(Workspace workspace, League updateLeague) throws SQLException, IOException {
+		Long id = leagueDao.update(workspace, updateLeague);
+        if (id != null) {
+            return leagueDao.getById(workspace, id);
+        } else {
+            return null;
+        }
 	}
 
 	@JdbcTransaction
 	@Override
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
-		boolean b = this.leagueDao.deleteById(workspace, Id);
-		return b;
+		return leagueDao.deleteById(workspace, Id);
+		
 	}
 
 }

@@ -12,9 +12,9 @@ public interface LeagueManager {
 
 	League getById(Workspace workspace, long id) throws SQLException, IOException;
 
-	Long create(Workspace workspace, League event) throws SQLException, IOException;
+	League create(Workspace workspace, League newLeague) throws SQLException, IOException;
 
-	Long update(Workspace workspace, League event) throws SQLException, IOException;
+	League update(Workspace workspace, League updateLeague) throws SQLException, IOException;
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 

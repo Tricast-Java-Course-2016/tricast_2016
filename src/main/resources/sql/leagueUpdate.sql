@@ -1,6 +1,6 @@
 UPDATE 
-	/*=SCHEMA*/LEAGUE
+	/*=SCHEMA*/LEAGUES
 SET 
-    description = :description;
+    description = :description
 WHERE 
 	ID = :id

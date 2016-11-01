@@ -8,45 +8,56 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.tricast.beans.League;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 
 public class LeagueDaoImpl implements LeagueDao {
-	private static final SqlManager sqlManager = SqlManager.getInstance();
-	private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(CountryDao.class);
+	private static final Logger log = LogManager.getLogger(LeagueDaoImpl.class);
+    private static final SqlManager sqlManager = SqlManager.getInstance();
 
 
 	@Override
 	public List<League> getAll(Workspace workspace) throws SQLException, IOException {
-		// TODO Auto-generated method stub
 		List<League> result = new ArrayList<League>();
 		String sql = sqlManager.get("leagueGetAll.sql");
-		try (PreparedStatement preparedStatement = workspace.getPreparedStatement(sql);ResultSet rs = preparedStatement.executeQuery()) {
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
 				result.add(buildLeague(rs));
 			}
-		} catch(SQLException ex) {
-	    	logger.error(ex,ex);
-	    }
-	    return result;
-	}
+		} catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        }
+        return result;
+    }
 
 	@Override
+    @JdbcTransaction
 	public League getById(Workspace workspace, long id) throws SQLException, IOException {
-
 		League result = null;
-
+		ResultSet rs = null;
 		String sql = sqlManager.get("leagueGetById.sql");
-		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
-			result = buildLeague(rs);
-		}
-		catch(SQLException ex) {
-		   logger.error(ex,ex);
-		}
-		return result ;
-	}
+		
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+			ps.setLong(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                result = buildLeague(rs);
+            }
+        } catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        } finally {
+            rs.close();
+        }
+        return result;
+    }
 
 	private League buildLeague(ResultSet rs) throws SQLException {
 		int c = 1;
@@ -58,17 +69,15 @@ public class LeagueDaoImpl implements LeagueDao {
 
 	@JdbcTransaction
 	@Override
-	public Long create(Workspace workspace, League league) throws SQLException, IOException {
+	public Long create(Workspace workspace, League newItem) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
-
         String sql = sqlManager.get("leagueCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             int i = 1;
-            ps.setLong(i++, league.getId());
-            ps.setString(i++, league.getDescription());
+            ps.setString(i++, newItem.getDescription());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -78,28 +87,26 @@ public class LeagueDaoImpl implements LeagueDao {
             }
 
         } catch (SQLException ex) {
-            logger.error(ex, ex);
+            log.error(ex, ex);
             throw ex;
         } finally {
             rs.close();
         }
         return result;
-
-	}
+    }
 
 	@Override
-    // TODO Bemeneti változó nevét javitani
-	public Long update(Workspace workspace, League leauge) throws SQLException, IOException {
+	@JdbcTransaction
+	public Long update(Workspace workspace, League updateItem) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
-
-        String sql = sqlManager.get("leagueCreate.sql");
+        String sql = sqlManager.get("leagueUpdate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
             int i = 1;
-            ps.setLong(i++, leauge.getId());
-			ps.setString(i++, leauge.getDescription());
+            
+			ps.setString(i++, updateItem.getDescription());
+			ps.setLong(i++, updateItem.getId());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -109,36 +116,32 @@ public class LeagueDaoImpl implements LeagueDao {
             }
 
         } catch (SQLException ex) {
-            logger.error(ex, ex);
+            log.error(ex, ex);
             throw ex;
         } finally {
             rs.close();
         }
         return result;
-
-	}
+    }
 
 	@Override
+	@JdbcTransaction
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		boolean result = false;
-
         String sql = sqlManager.get("leagueDelete.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
-
             int i = 1;
             ps.setLong(i++, Id);
-
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 result = true;
             }
-
         } catch (SQLException ex) {
-            logger.error(ex, ex);
+            log.error(ex, ex);
             throw ex;
         }
         return result;
-	}
+    }
 
 }

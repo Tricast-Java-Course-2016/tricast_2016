@@ -2,6 +2,6 @@ SELECT
 	id,
 	description
 FROM
-	/*=SCHEMA*/LEAGUE
+	/*=SCHEMA*/LEAGUES
 WHERE
 	ID = :id
