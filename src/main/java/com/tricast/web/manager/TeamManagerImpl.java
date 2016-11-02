@@ -25,6 +25,7 @@ public class TeamManagerImpl implements TeamManager {
 	}
 
 	@Override
+    @JdbcTransaction
 	public Team getById(Workspace workspace, long id) throws SQLException, IOException {
 		Team team;
 		team = this.teamDao.getById(workspace, id);
@@ -33,22 +34,33 @@ public class TeamManagerImpl implements TeamManager {
 
 	@JdbcTransaction
 	@Override
-	public Long create(Workspace workspace,Team team) throws SQLException, IOException {
-		Long l = this.teamDao.create(workspace, team);
-		return l;
+    public Team create(Workspace workspace, Team team) throws SQLException, IOException {
+
+        Long id = this.teamDao.create(workspace, team);
+        if (id != null) {
+            return teamDao.getById(workspace, id);
+        } else {
+            return null;
+        }
+
 	}
 
 	@JdbcTransaction
 	@Override
-	public Long update(Workspace workspace,Team team) throws SQLException, IOException {
-		long l = this.teamDao.update(workspace, team);
-		return l;
+    public Team update(Workspace workspace, Team team) throws SQLException, IOException {
+        Long id = this.teamDao.update(workspace, team);
+        if (id != null) {
+            return teamDao.getById(workspace, id);
+        }
+        else {
+            return null;
+        }
 	}
 
 	@JdbcTransaction
 	@Override
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
-		boolean b = this.teamDao.deleteById(workspace, Id);
-		return b;
+        return this.teamDao.deleteById(workspace, Id);
+
 	}
 }

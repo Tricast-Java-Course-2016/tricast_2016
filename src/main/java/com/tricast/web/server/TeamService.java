@@ -27,7 +27,7 @@ import com.tricast.web.manager.TeamManager;
 @Path("/teams")
 public class TeamService extends LVSResource {
 
-		private static final Logger log = LogManager.getLogger(BetDataService.class);
+    private static final Logger log = LogManager.getLogger(TeamService.class);
 	    private final TeamManager manager;
 	    private Workspace workspace;
 
@@ -52,10 +52,9 @@ public class TeamService extends LVSResource {
 	    @GET
 	    @Path("{team}")
 	    @Produces(APPLICATION_JSON)
-	    @Consumes(APPLICATION_JSON)
 	    public Response getById(@PathParam("team") long teamId)
 	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get eventData eventId = " + teamId);
+        log.trace("Requested to get Team TeamId = " + teamId);
 	        try {
 	            return respondGet(manager.getById(workspace,teamId));
 	        } catch (SQLException ex) {
@@ -80,7 +79,7 @@ public class TeamService extends LVSResource {
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
 	    public Response updateTeam(Team updateTeam) throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Trying to update eventdata with this eventId #" + updateTeam.getId() + "and this eventDescription #"
+        log.trace("Trying to update Team with this teamId #" + updateTeam.getId() + "and this teamDescription #"
 	                + updateTeam.getDescription());
 	        try {
 	            return respondPut(manager.update(workspace, updateTeam));

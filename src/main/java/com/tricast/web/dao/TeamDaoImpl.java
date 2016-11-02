@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.tricast.beans.Team;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
@@ -19,6 +20,7 @@ public class TeamDaoImpl implements TeamDao {
 
 
 	@Override
+    @JdbcTransaction
 	public List<Team> getAll(Workspace workspace) throws SQLException, IOException {
 		List<Team> result = new ArrayList<Team>();
 		String sql = sqlManager.get("teamGetAll.sql");
@@ -32,6 +34,7 @@ public class TeamDaoImpl implements TeamDao {
 	    return result;
 	}
 
+    @JdbcTransaction
 	private Team buildTeam(ResultSet rs) throws SQLException {
 		Team result = new Team();
 		int c = 1;
@@ -42,15 +45,21 @@ public class TeamDaoImpl implements TeamDao {
 
 
 	@Override
+    @JdbcTransaction
 	public Team getById(Workspace workspace, long id) throws SQLException, IOException {
-		Team result = null;	
+		Team result = null;
+        ResultSet rs = null;
 		String sql = sqlManager.get("teamGetById.sql");
-		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
-			result = buildTeam(rs);
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+            rs = ps.executeQuery();
+            result = buildTeam(rs);
 		}
 		catch(SQLException ex) {
 		   logger.error(ex,ex);
-		}
+            throw ex;
+        } finally {
+            rs.close();
+        }
 		return result ;
 	}
 
@@ -65,7 +74,7 @@ public class TeamDaoImpl implements TeamDao {
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             int i = 1;
-            ps.setLong(i++, team.getId());
+
             ps.setString(i++, team.getDescription());
             int rows = ps.executeUpdate();
             if (rows > 0) {
@@ -92,10 +101,11 @@ public class TeamDaoImpl implements TeamDao {
 
         String sql = sqlManager.get("teamUpdate.sql");
 
+
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             int i = 1;
+            ps.setString(i++, team.getDescription());
             ps.setLong(i++, team.getId());
-            ps.setString(i++,team.getDescription()); 
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -110,7 +120,7 @@ public class TeamDaoImpl implements TeamDao {
             rs.close();
         }
         return result;
-		
+
 	}
 
 	@Override
