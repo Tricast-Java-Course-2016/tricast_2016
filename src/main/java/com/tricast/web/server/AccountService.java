@@ -7,8 +7,10 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -73,6 +75,32 @@ public class AccountService extends LVSResource {
 			return respondPost(ex.getMessage(), "\\accounts", 500);
 		}
 	}
+	
+	@PUT
+	@Produces(APPLICATION_JSON)
+	@Consumes(APPLICATION_JSON)
+	public Response updateAccount(Account updateAccount) throws SQLException, OutOfTransactionException, IOException {
+		log.trace("Trying to update account for " + updateAccount.getFirstName() + ' ' + updateAccount.getLastName());
+		try {
+			return respondPut(manager.update(workspace, updateAccount));
+		} catch (SQLException ex) {
+			return respondPut(ex.getMessage(), 500);
+		}
+	}
+	
+	@DELETE
+    @Path("{id}")
+    @Produces(APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
+    public Response deleteOutcome(@PathParam("id") long id)
+            throws SQLException, OutOfTransactionException, IOException {
+        log.trace("Trying to delete user with id #" + id);
+        try {
+            return respondDelete(manager.deleteById(workspace,id));
+        } catch (SQLException ex) {
+            return respondDeleteNotOK(ex.getMessage(), null, 500);
+        }
+    }
 
     @POST
     @Path("/login")
