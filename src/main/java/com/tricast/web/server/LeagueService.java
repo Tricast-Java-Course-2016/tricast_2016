@@ -43,7 +43,7 @@ public class LeagueService extends LVSResource {
 	    @GET
 	    @Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get all betdata");
+	        log.trace("Requested to get all Leagues");
 	        try {
 	            return respondGet(manager.getAll(workspace));
 	        } catch (SQLException ex) {
@@ -56,7 +56,7 @@ public class LeagueService extends LVSResource {
 	    @Produces(APPLICATION_JSON)
 
 	    public Response getById(@PathParam("league") long id) throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get leagueData leagueId = " + id);
+	        log.trace("Requested to get leagueData # " + id);
 	        try {
 	            return respondGet(manager.getById(workspace,id));
 	        } catch (SQLException ex) {
@@ -68,8 +68,7 @@ public class LeagueService extends LVSResource {
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
 	    public Response createLeague(League newLeague) throws OutOfTransactionException, IOException {
-	        log.trace("Trying to create new league with this leagueId #" + newLeague.getId() + "and this league decription #"
-	                + newLeague.getDescription());
+	        log.trace("Trying to create  league #" + newLeague.getDescription());
 	        try {
 	            return respondPost(manager.create(workspace, newLeague), "\\leagues");
 	        } catch (SQLException ex) {
