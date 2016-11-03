@@ -21,6 +21,7 @@ import com.tricast.beans.Account;
 import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.AccountManager;
+import com.tricast.web.request.LoginRequest;
 
 @Path("accounts")
 public class AccountService extends LVSResource {
@@ -47,7 +48,7 @@ public class AccountService extends LVSResource {
 			return respondGet(ex.getMessage(), 500);
 		}
 	}
-	
+
 	@GET
 	@Path("{id}")
 	@Produces(APPLICATION_JSON)
@@ -60,7 +61,7 @@ public class AccountService extends LVSResource {
 			return respondGet(ex.getMessage(), 500);
 		}
 	}
-	
+
 	@POST
 	@Produces(APPLICATION_JSON)
 	@Consumes(APPLICATION_JSON)
@@ -73,5 +74,18 @@ public class AccountService extends LVSResource {
 		}
 	}
 
+    @POST
+    @Path("/login")
+    @Produces(APPLICATION_JSON)
+    public Response loginStub(LoginRequest request) throws SQLException, OutOfTransactionException, IOException {
+        log.trace("login");
+
+        // TODO DELETE
+        Account account = new Account();
+        account.setId(-1);
+        account.setFirstName("Ákos");
+
+        return respondPost(account, "\\accounts");
+    }
 
 }
