@@ -6,4 +6,4 @@ SELECT
     	homeTeamScore,
     	awayTeamScore
 FROM
-	/*=SCHEMA*/PERIOD
+	/*=SCHEMA*/PERIODS

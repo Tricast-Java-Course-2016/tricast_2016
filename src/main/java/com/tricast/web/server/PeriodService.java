@@ -27,13 +27,12 @@ import com.tricast.web.manager.PeriodManager;
 @Path("/periods")
 public class PeriodService extends LVSResource {
 
-		private static final Logger log = LogManager.getLogger(BetDataService.class);
+		private static final Logger log = LogManager.getLogger(PeriodService.class);
 	    private final PeriodManager manager;
 	    private Workspace workspace;
 
 	    @Inject
-    public PeriodService(PeriodManager manager, Workspace workspace) {
-			super();
+	    public PeriodService(PeriodManager manager, Workspace workspace) {
 			this.manager = manager;
 			this.workspace = workspace;
 		}
@@ -50,14 +49,13 @@ public class PeriodService extends LVSResource {
 	    }
 
 	    @GET
-	    @Path("{period}")
+	    @Path("{id}")
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response getById(@PathParam("period") long periodId)
-	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get eventData eventId = " + periodId);
+	    public Response getById(@PathParam("id") long id)throws SQLException, OutOfTransactionException, IOException {
+	        log.trace("Requested to get period # " + id);
 	        try {
-	            return respondGet(manager.getById(workspace,periodId));
+	            return respondGet(manager.getById(workspace,id));
 	        } catch (SQLException ex) {
 	            return respondGet(ex.getMessage(), 500);
 	        }
@@ -66,21 +64,21 @@ public class PeriodService extends LVSResource {
 	    @POST
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response createEvent(Period newPeriod) throws OutOfTransactionException, IOException {
-	        log.trace("Trying to create new event with this periodId #" + newPeriod.getId() + "and this period decription #"
+	    public Response createPeriod(Period newPeriod) throws OutOfTransactionException, IOException {
+	        log.trace("Trying to create new period  #"
 	                + newPeriod.getDescription());
 	        try {
-	            return respondPost(manager.create(workspace, newPeriod), "\\countries");
+	            return respondPost(manager.create(workspace, newPeriod), "\\periods");
 	        } catch (SQLException ex) {
-	            return respondPost(ex.getMessage(), "\\countries", 500);
+	            return respondPost(ex.getMessage(), "\\periods", 500);
 	        }
 	    }
 
 	    @PUT
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response updateBetData(Period updatePeriod) throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Trying to update eventdata with this eventId #" + updatePeriod.getId() + "and this eventDescription #"
+	    public Response updatePeriod(Period updatePeriod) throws SQLException, OutOfTransactionException, IOException {
+	        log.trace("Trying to update period with this id #" + updatePeriod.getId() + " with description # "
 	                + updatePeriod.getDescription());
 	        try {
 	            return respondPut(manager.update(workspace, updatePeriod));
@@ -90,14 +88,14 @@ public class PeriodService extends LVSResource {
 	    }
 
 	    @DELETE
-	    @Path("/{periodId}")
+	    @Path("/{id}")
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response deleteCountryData(@PathParam("periodId") long periodId)
+	    public Response deletePeriod(@PathParam("id") long id)
 	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Trying to delete perioddata with this periodId #" + periodId);
+	        log.trace("Trying to delete period with this id #" + id);
 	        try {
-	            return respondDelete(manager.deleteById(workspace, periodId));
+	            return respondDelete(manager.deleteById(workspace, id));
 	        } catch (SQLException ex) {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }

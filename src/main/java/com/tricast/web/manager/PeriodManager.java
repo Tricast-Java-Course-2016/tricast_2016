@@ -13,9 +13,9 @@ public interface PeriodManager {
 
 	Period getById(Workspace workspace, long id) throws SQLException, IOException;
 
-	Long create(Workspace workspace, Period event) throws SQLException, IOException;
+	Period create(Workspace workspace, Period newPeriod) throws SQLException, IOException;
 
-	Long update(Workspace workspace, Period event) throws SQLException, IOException;
+	Period update(Workspace workspace, Period updatePeriod) throws SQLException, IOException;
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 }

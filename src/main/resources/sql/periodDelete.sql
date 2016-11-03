@@ -1,4 +1,4 @@
 DELETE FROM 
-	/*=SCHEMA*/PERIOD
+	/*=SCHEMA*/PERIODS
 WHERE 
 	id = :id

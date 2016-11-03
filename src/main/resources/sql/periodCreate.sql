@@ -1,5 +1,5 @@
 INSERT INTO 
-	/*=SCHEMA*/PERIOD(
+	/*=SCHEMA*/PERIODS(
     	id,
     	eventId,
     	periodTypeId,
@@ -8,10 +8,10 @@ INSERT INTO
     	awayTeamScore
     	)
 VALUES (
-		NEXTVAL('/*=SCHEMA*/SEQ_PERIODTYPE'),
-		 :eventid,
-		 :peridtypeid,
+		  NEXTVAL('/*=SCHEMA*/SEQ_PERIODS'),
+		 :eventId,
+		 :periodTypeId,
 		 :description,
-		 :hometeamscore,
-		 :awayteamscore
+		 :homeTeamScore,
+		 :awayTeamScore
 		)

@@ -1,10 +1,10 @@
 UPDATE 
-	/*=SCHEMA*/PERIOD
+	/*=SCHEMA*/PERIODS
 SET 
-    	eventId = :eventid,
-    	periodTypeId = :peridtype,
+    	eventId = :eventId,
+    	periodTypeId = :periodTypeId,
     	description = :description,
-    	homeTeamScore = :hometeamscore,
-    	awayTeamScore = :awayteamscore
+    	homeTeamScore = :homeTeamScore,
+    	awayTeamScore = :awayTeamScore
 WHERE 
-	ID = :id
+	id = :id

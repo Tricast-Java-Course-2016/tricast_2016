@@ -5,8 +5,8 @@ public class Period {
 	private long eventId;
 	private long periodTypeId;
 	private String description;
-	private int homeTeamScore;
-	private int awayTeamScore;
+	private long homeTeamScore;
+	private long awayTeamScore;
 	
 	public long getId() {
 		return id;
@@ -32,16 +32,16 @@ public class Period {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getHomeTeamScore() {
+	public long getHomeTeamScore() {
 		return homeTeamScore;
 	}
-	public void setHomeTeamScore(int homeTeamScore) {
+	public void setHomeTeamScore(long homeTeamScore) {
 		this.homeTeamScore = homeTeamScore;
 	}
-	public int getAwayTeamScore() {
+	public long getAwayTeamScore() {
 		return awayTeamScore;
 	}
-	public void setAwayTeamScore(int awayTeamScore) {
+	public void setAwayTeamScore(long awayTeamScore) {
 		this.awayTeamScore = awayTeamScore;
 	}
 	

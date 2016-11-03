@@ -11,45 +11,52 @@ import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.PeriodDao;
 
 public class PeriodManagerImpl implements PeriodManager {
-
 	private final PeriodDao periodDao;
+	
 	@Inject
 	public PeriodManagerImpl(PeriodDao perioddao) {
 		this.periodDao = perioddao;
 	}
+	
 	@Override
+	@JdbcTransaction
 	public List<Period> getAll(Workspace workspace) throws SQLException, IOException {
-		List<Period> list;
-		list = this.periodDao.getAll(workspace);
-		return list;
+		return periodDao.getAll(workspace);
 	}
 
 	@Override
+	@JdbcTransaction
 	public Period getById(Workspace workspace, long id) throws SQLException, IOException {
-		Period period;
-		period = this.periodDao.getById(workspace, id);
-		return period;
+		return periodDao.getById(workspace,id);
 	}
 
-	@JdbcTransaction
 	@Override
-	public Long create(Workspace workspace,Period period) throws SQLException, IOException {
-		Long l = this.periodDao.create(workspace, period);
-		return l;
+	@JdbcTransaction
+	public Period create(Workspace workspace,Period newPeriod) throws SQLException, IOException {
+		 Long id = periodDao.create(workspace, newPeriod);
+	        if (id != null) {
+	            return periodDao.getById(workspace, id);
+	        } else {
+	            return null;
+	        }
 	}
 
-	@JdbcTransaction
 	@Override
-	public Long update(Workspace workspace,Period period) throws SQLException, IOException {
-		long l = this.periodDao.update(workspace, period);
-		return l;
+	@JdbcTransaction
+	public Period update(Workspace workspace,Period updatePeriod) throws SQLException, IOException {
+		 Long id = periodDao.update(workspace, updatePeriod);
+	        if (id != null) {
+	            return periodDao.getById(workspace, id);
+	        } else {
+	            return null;
+	        }
 	}
 
-	@JdbcTransaction
 	@Override
-	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
-		boolean b = this.periodDao.deleteById(workspace, Id);
-		return b;
+	@JdbcTransaction
+	public boolean deleteById(Workspace workspace, long id) throws SQLException, IOException {
+		return periodDao.deleteById(workspace, id);
+		
 	}
 
 
