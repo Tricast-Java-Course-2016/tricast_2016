@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rest-client version="3.2.2"><request><http-version>1.1</http-version><http-follow-redirects/><URL>http://localhost:8080/tricast-2016-sportsbook/services/events/100</URL><method>DELETE</method><headers><header key="content-type" value="application/json"/></headers><body><string content-type="text/plain" charset="UTF-8">{
+  
+  "leagueId" : 2,
+  "countryId" : 1,
+  "homeTeamId" : 3,
+  "awayTeamId" : 6,
+  "description" : "proba2",
+  "status" : "OPEN",
+  "id":100
+}</string></body></request></rest-client>

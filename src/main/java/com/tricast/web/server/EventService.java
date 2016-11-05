@@ -27,13 +27,12 @@ import com.tricast.web.manager.EventManager;
 @Path("/events")
 public class EventService extends LVSResource {
 
-		private static final Logger log = LogManager.getLogger(BetDataService.class);
+		private static final Logger log = LogManager.getLogger(EventService.class);
 	    private final EventManager manager;
 	    private Workspace workspace;
 
 	    @Inject
-    public EventService(EventManager manager, Workspace workspace) {
-			super();
+	    public EventService(EventManager manager, Workspace workspace) {
 			this.manager = manager;
 			this.workspace = workspace;
 		}
@@ -41,7 +40,7 @@ public class EventService extends LVSResource {
 	    @GET
 	    @Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get all betdata");
+	        log.trace("Requested to get all");
 	        try {
 	            return respondGet(manager.getAll(workspace));
 	        } catch (SQLException ex) {
@@ -50,14 +49,14 @@ public class EventService extends LVSResource {
 	    }
 
 	    @GET
-	    @Path("{event}")
+	    @Path("{id}")
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response getById(@PathParam("event") long eventId, @PathParam("outcomeId") long outcomeId)
+	    public Response getById(@PathParam("id") long id, @PathParam("outcomeId") long outcomeId)
 	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get eventData eventId = " + eventId);
+	        log.trace("Requested to get event id @ " + id);
 	        try {
-	            return respondGet(manager.getById(workspace,eventId));
+	            return respondGet(manager.getById(workspace,id));
 	        } catch (SQLException ex) {
 	            return respondGet(ex.getMessage(), 500);
 	        }
@@ -67,12 +66,12 @@ public class EventService extends LVSResource {
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
 	    public Response createEvent(Event newEvent) throws OutOfTransactionException, IOException {
-	        log.trace("Trying to create new event with this eventId #" + newEvent.getId() + "and this event decription #"
+	        log.trace("Trying to create new event with this decription #"
 	                + newEvent.getDescription());
 	        try {
-	            return respondPost(manager.create(workspace, newEvent), "\\countries");
+	            return respondPost(manager.create(workspace, newEvent), "\\events");
 	        } catch (SQLException ex) {
-	            return respondPost(ex.getMessage(), "\\countries", 500);
+	            return respondPost(ex.getMessage(), "\\events", 500);
 	        }
 	    }
 
@@ -90,14 +89,14 @@ public class EventService extends LVSResource {
 	    }
 
 	    @DELETE
-	    @Path("/{eventId}")
+	    @Path("/{id}")
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response deleteEvent(@PathParam("EventId") long eventId)
+	    public Response deleteEvent(@PathParam("id") long id)
 	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Trying to delete eventdata with this eventId #" + eventId);
+	        log.trace("Trying to delete event id #" + id);
 	        try {
-	            return respondDelete(manager.deleteById(workspace, eventId));
+	            return respondDelete(manager.deleteById(workspace, id));
 	        } catch (SQLException ex) {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }

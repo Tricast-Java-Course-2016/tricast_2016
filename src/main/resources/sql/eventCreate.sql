@@ -1,5 +1,5 @@
 INSERT INTO 
-	/*=SCHEMA*/EVENT(
+	/*=SCHEMA*/EVENTS(
     	id,
     	leagueId,
     	countryId,
@@ -9,8 +9,7 @@ INSERT INTO
     	status
     	)
 VALUES (
-		NEXTVAL('/*=SCHEMA*/SEQ_EVENT'),
-		 :id,
+		NEXTVAL('/*=SCHEMA*/SEQ_EVENTS'),
     	 :leagueId,
     	 :countryId,
     	 :homeTeamId,

@@ -12,9 +12,9 @@ public interface TeamManager {
 
 	Team getById(Workspace workspace, long id) throws SQLException, IOException;
 
-    Team create(Workspace workspace, Team event) throws SQLException, IOException;
+    Team create(Workspace workspace, Team newTeam) throws SQLException, IOException;
 
-    Team update(Workspace workspace, Team event) throws SQLException, IOException;
+    Team update(Workspace workspace, Team updateTeam) throws SQLException, IOException;
 
-	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
+	boolean deleteById(Workspace workspace, long id) throws SQLException, IOException;
 }

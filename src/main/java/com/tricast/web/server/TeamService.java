@@ -28,20 +28,19 @@ import com.tricast.web.manager.TeamManager;
 public class TeamService extends LVSResource {
 
     private static final Logger log = LogManager.getLogger(TeamService.class);
-	    private final TeamManager manager;
-	    private Workspace workspace;
+	private final TeamManager manager;
+	private Workspace workspace;
 
-	    @Inject
+	@Inject
     public TeamService(TeamManager manager, Workspace workspace) {
-			super();
 			this.manager = manager;
 			this.workspace = workspace;
 		}
 
-	    @GET
-	    @Produces(APPLICATION_JSON)
+	@GET
+	@Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Requested to get all periodData");
+        log.trace("Requested to get teams");
 	        try {
 	            return respondGet(manager.getAll(workspace));
 	        } catch (SQLException ex) {
@@ -49,14 +48,14 @@ public class TeamService extends LVSResource {
 	        }
 	    }
 
-	    @GET
-	    @Path("{team}")
-	    @Produces(APPLICATION_JSON)
-	    public Response getById(@PathParam("team") long teamId)
+	@GET
+    @Path("{id}")
+    @Produces(APPLICATION_JSON)
+    public Response getById(@PathParam("id") long id)
 	            throws SQLException, OutOfTransactionException, IOException {
-        log.trace("Requested to get Team TeamId = " + teamId);
+        log.trace("Requested to get Team # " + id);
 	        try {
-	            return respondGet(manager.getById(workspace,teamId));
+	            return respondGet(manager.getById(workspace,id));
 	        } catch (SQLException ex) {
 	            return respondGet(ex.getMessage(), 500);
 	        }
@@ -66,7 +65,7 @@ public class TeamService extends LVSResource {
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
 	    public Response createTeam(Team newTeam) throws OutOfTransactionException, IOException {
-	        log.trace("Trying to create new event with this teamId #" + newTeam.getId() + "and this team decription #"
+	        log.trace("Trying to create new team with this id #" + newTeam.getId() + "and this decription #"
 	                + newTeam.getDescription());
 	        try {
 	            return respondPost(manager.create(workspace, newTeam), "\\teams");
@@ -89,14 +88,14 @@ public class TeamService extends LVSResource {
 	    }
 
 	    @DELETE
-	    @Path("/{teamId}")
+	    @Path("{id}")
 	    @Produces(APPLICATION_JSON)
 	    @Consumes(APPLICATION_JSON)
-	    public Response deleteTeam(@PathParam("teamId") long teamId)
+	    public Response deleteTeam(@PathParam("id") long id)
 	            throws SQLException, OutOfTransactionException, IOException {
-	        log.trace("Trying to delete perioddata with this periodId #" + teamId);
+	        log.trace("Trying to delete team with this id #" + id);
 	        try {
-	            return respondDelete(manager.deleteById(workspace, teamId));
+	            return respondDelete(manager.deleteById(workspace, id));
 	        } catch (SQLException ex) {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }

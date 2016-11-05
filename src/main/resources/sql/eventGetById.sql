@@ -7,6 +7,6 @@ SELECT
     	description,
     	status
 FROM
-	/*=SCHEMA*/EVENT
+	/*=SCHEMA*/EVENTS
 WHERE
 	ID = :id

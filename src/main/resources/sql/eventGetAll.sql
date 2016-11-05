@@ -7,4 +7,4 @@ SELECT
     	description,
     	status
 FROM
-	/*=SCHEMA*/EVENT
+	/*=SCHEMA*/EVENTS

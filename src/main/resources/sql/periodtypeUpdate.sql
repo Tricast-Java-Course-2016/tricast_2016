@@ -1,6 +1,6 @@
 UPDATE 
 	/*=SCHEMA*/PERIODTYPE
 SET 
-    description = :description;
+    description = :description
 WHERE 
 	ID = :id
