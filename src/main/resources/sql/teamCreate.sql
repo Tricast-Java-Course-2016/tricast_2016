@@ -1,9 +1,9 @@
 INSERT INTO 
-	/*=SCHEMA*/TEAM(
+	/*=SCHEMA*/TEAMS(
     	id,
     	description
     	)
 VALUES (
-		NEXTVAL('/*=SCHEMA*/SEQ_TEAM'),
+		NEXTVAL('/*=SCHEMA*/SEQ_TEAMS'),
 		 :teamDescription
 		)

@@ -1,7 +1,8 @@
 SELECT 
 		id,
     	description
-FROM /*=SCHEMA*/Team
+FROM 
+	/*=SCHEMA*/TEAMS
 WHERE
-ID = :id;
+	ID = :id
 

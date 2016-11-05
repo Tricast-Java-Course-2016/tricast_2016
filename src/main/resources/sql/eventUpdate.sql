@@ -1,10 +1,10 @@
 UPDATE 
-	/*=SCHEMA*/LEAGUE
+	/*=SCHEMA*/EVENTS
 SET 
-    	leagueId = :leagueid,
-    	countryId = :countryid,
-    	homeTeamId = :hometeamid,
-    	awayTeamId = :awayteamid,
+    	leagueId = :leagueId,
+    	countryId = :countryId,
+    	homeTeamId = :homeTeamId,
+    	awayTeamId = :awayTeamId,
     	description = :description,
     	status = :status
 WHERE 

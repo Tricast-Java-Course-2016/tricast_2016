@@ -16,56 +16,69 @@ import com.tricast.web.annotations.JdbcTransaction;
 public class EventDaoImpl implements EventDao {
 
 	private static final SqlManager sqlManager = SqlManager.getInstance();
-	private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(CountryDao.class);
+	private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(EventDao.class);
 
 
 	@Override
 	public List<Event> getAll(Workspace workspace) throws SQLException, IOException {
-		// TODO Auto-generated method stub
 		List<Event> result = new ArrayList<Event>();
+		
 		String sql = sqlManager.get("eventGetAll.sql");
-		try (PreparedStatement preparedStatement = workspace.getPreparedStatement(sql);ResultSet rs = preparedStatement.executeQuery()) {
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
+			
 			while (rs.next()) {
 				result.add(buildEvent(rs));
 			}
 		} catch(SQLException ex) {
 	    	logger.error(ex,ex);
+	    	throw ex;
 	    }
 	    return result;
 	}
 
 	private Event buildEvent(ResultSet rs) throws SQLException {
-		int c = 1;
-		Event result = new Event();
-		result.setId(rs.getLong(c++));
-		result.setLeagueId(rs.getLong(c++));
-		result.setCountryId(rs.getLong(c++));
-		result.setHomeTeamId(rs.getLong(c++));
-		result.setAwayTeamId(rs.getLong(c++));
-		result.setDescription(rs.getString(c++));
-		result.setStatus(rs.getString(c++));
-		return result;
+		Event event = new Event();
+		int i = 1;
+		
+		event.setId(rs.getLong(i++));
+		event.setLeagueId(rs.getLong(i++));
+		event.setCountryId(rs.getLong(i++));
+		event.setHomeTeamId(rs.getLong(i++));
+		event.setAwayTeamId(rs.getLong(i++));
+		event.setDescription(rs.getString(i++));
+		event.setStatus(rs.getString(i++));
+		return event;
 	}
-
-	@JdbcTransaction
+	
 	@Override
+	@JdbcTransaction
 	public Event getById(Workspace workspace, long id) throws SQLException, IOException {
 		Event result = null;
+		ResultSet rs = null;
 
 		String sql = sqlManager.get("eventGetById.sql");
-		try (PreparedStatement ps = workspace.getPreparedStatement(sql) ; ResultSet rs = ps.executeQuery()) {
-			result = buildEvent(rs);
-		}
-		catch(SQLException ex) {
-		   logger.error(ex,ex);
-		}
-		return result ;
-	}
+		
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+			   ps.setLong(1, id);
+	            rs = ps.executeQuery();
+
+	            if (rs.next()) {
+	                result = buildEvent(rs);
+	            }
+
+	        } catch (SQLException ex) {
+	            logger.error(ex, ex);
+	            throw ex;
+	        } finally {
+	            rs.close();
+	        }
+	        return result;
+	    }
 
 
-	@JdbcTransaction
 	@Override
-	public Long create(Workspace workspace, Event event) throws SQLException, IOException {
+	@JdbcTransaction
+	public Long create(Workspace workspace, Event newItem) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
 
@@ -74,12 +87,12 @@ public class EventDaoImpl implements EventDao {
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             int i = 1;
-            ps.setLong(i++, event.getId());
-            ps.setLong(i++, event.getLeagueId());
-            ps.setLong(i++, event.getHomeTeamId());
-            ps.setLong(i++, event.getAwayTeamId());
-            ps.setString(i++, event.getDescription());
-            ps.setString(i++, event.getStatus());
+            ps.setLong(i++, newItem.getLeagueId());
+            ps.setLong(i++, newItem.getCountryId());
+            ps.setLong(i++, newItem.getHomeTeamId());
+            ps.setLong(i++, newItem.getAwayTeamId());
+            ps.setString(i++, newItem.getDescription());
+            ps.setString(i++, newItem.getStatus());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -97,9 +110,9 @@ public class EventDaoImpl implements EventDao {
         return result;
 	}
 
-	@JdbcTransaction
 	@Override
-	public Long update(Workspace workspace, Event event) throws SQLException, IOException {
+	@JdbcTransaction
+	public Long update(Workspace workspace, Event updateItem) throws SQLException, IOException {
 
 		 Long result = null;
 	        ResultSet rs = null;
@@ -108,12 +121,13 @@ public class EventDaoImpl implements EventDao {
 
 	        try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 	            int i = 1;
-	            ps.setLong(i++, event.getId());
-	            ps.setLong(i++, event.getLeagueId());
-	            ps.setLong(i++, event.getHomeTeamId());
-	            ps.setLong(i++, event.getAwayTeamId());
-	            ps.setString(i++,event.getDescription());
-	            ps.setString(i++,event.getStatus());
+	            ps.setLong(i++, updateItem.getLeagueId());
+	            ps.setLong(i++, updateItem.getCountryId());
+	            ps.setLong(i++, updateItem.getHomeTeamId());
+	            ps.setLong(i++, updateItem.getAwayTeamId());
+	            ps.setString(i++,updateItem.getDescription());
+	            ps.setString(i++,updateItem.getStatus());
+	            ps.setLong(i++, updateItem.getId());
 	            int rows = ps.executeUpdate();
 	            if (rows > 0) {
 	                rs = ps.getGeneratedKeys();
@@ -130,10 +144,9 @@ public class EventDaoImpl implements EventDao {
 	        return result;
 	}
 
-	@JdbcTransaction
 	@Override
+	@JdbcTransaction
 	public boolean deleteById(Workspace workspace, long id) throws SQLException, IOException {
-		// TODO Auto-generated method stub
 		boolean result = false;
 
         String sql = sqlManager.get("eventDelete.sql");

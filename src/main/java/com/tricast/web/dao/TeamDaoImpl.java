@@ -16,7 +16,7 @@ import com.tricast.web.annotations.JdbcTransaction;
 public class TeamDaoImpl implements TeamDao {
 
 	private static final SqlManager sqlManager = SqlManager.getInstance();
-	private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(CountryDao.class);
+    private static final org.apache.log4j.Logger logger = org.apache.log4j.LogManager.getLogger(TeamDao.class);
 
 
 	@Override
@@ -24,23 +24,24 @@ public class TeamDaoImpl implements TeamDao {
 	public List<Team> getAll(Workspace workspace) throws SQLException, IOException {
 		List<Team> result = new ArrayList<Team>();
 		String sql = sqlManager.get("teamGetAll.sql");
-		try (PreparedStatement preparedStatement = workspace.getPreparedStatement(sql);ResultSet rs = preparedStatement.executeQuery()) {
+		
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
 				result.add(buildTeam(rs));
 			}
 		} catch(SQLException ex) {
 	    	logger.error(ex,ex);
+	    	throw ex;
 	    }
 	    return result;
 	}
 
-    @JdbcTransaction
 	private Team buildTeam(ResultSet rs) throws SQLException {
-		Team result = new Team();
-		int c = 1;
-		result.setId(rs.getLong(c++));
-		result.setDescription(rs.getString(c++));
-		return result;
+		Team team = new Team();
+		int i = 1;
+		team.setId(rs.getLong(i++));
+		team.setDescription(rs.getString(i++));
+		return team;
 	}
 
 
@@ -50,13 +51,18 @@ public class TeamDaoImpl implements TeamDao {
 		Team result = null;
         ResultSet rs = null;
 		String sql = sqlManager.get("teamGetById.sql");
+		
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+            ps.setLong(1, id);
             rs = ps.executeQuery();
+            
+            if (rs.next()) {
             result = buildTeam(rs);
+            }
 		}
 		catch(SQLException ex) {
 		   logger.error(ex,ex);
-            throw ex;
+           throw ex;
         } finally {
             rs.close();
         }
@@ -65,17 +71,15 @@ public class TeamDaoImpl implements TeamDao {
 
 	@JdbcTransaction
 	@Override
-	public Long create(Workspace workspace, Team team) throws SQLException, IOException {
+    public Long create(Workspace workspace, Team newTeam) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
-
         String sql = sqlManager.get("teamCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             int i = 1;
-
-            ps.setString(i++, team.getDescription());
+            ps.setString(i++, newTeam.getDescription());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -95,17 +99,16 @@ public class TeamDaoImpl implements TeamDao {
 
 	@JdbcTransaction
 	@Override
-	public Long update(Workspace workspace, Team team) throws SQLException, IOException {
+    public Long update(Workspace workspace, Team updateTeam) throws SQLException, IOException {
 		Long result = null;
         ResultSet rs = null;
-
         String sql = sqlManager.get("teamUpdate.sql");
 
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             int i = 1;
-            ps.setString(i++, team.getDescription());
-            ps.setLong(i++, team.getId());
+            ps.setString(i++, updateTeam.getDescription());
+            ps.setLong(i++, updateTeam.getId());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -125,14 +128,13 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Override
 	@JdbcTransaction
-	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
-		// TODO Auto-generated method stub
+	public boolean deleteById(Workspace workspace, long id) throws SQLException, IOException {
 		boolean result = false;
         String sql = sqlManager.get("teamDelete.sql");
+        
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
-
             int i = 1;
-            ps.setLong(i++, Id);
+            ps.setLong(i++, id);
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 result = true;

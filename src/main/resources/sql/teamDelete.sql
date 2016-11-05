@@ -1,4 +1,4 @@
 DELETE FROM 
-	/*=SCHEMA*/TEAM
+	/*=SCHEMA*/TEAMS
 WHERE 
 	ID = :id

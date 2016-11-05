@@ -1,9 +1,9 @@
 INSERT INTO 
-	/*=SCHEMA*/PERIODTYPE(
+	/*=SCHEMA*/PERIODTYPES(
     	id,
     	description
     	)
 VALUES (
-		NEXTVAL('/*=SCHEMA*/SEQ_PERIODTYPE'),
+		NEXTVAL('/*=SCHEMA*/SEQ_PERIODTYPES'),
 		 :teamDescription
 		)

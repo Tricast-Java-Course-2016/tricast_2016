@@ -1,4 +1,4 @@
 DELETE FROM 
-	/*=SCHEMA*/EVENT
+	/*=SCHEMA*/EVENTS
 WHERE 
 	id = :id
