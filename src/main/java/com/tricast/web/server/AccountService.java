@@ -102,18 +102,18 @@ public class AccountService extends LVSResource {
         }
     }
 
-    @POST
-    @Path("/login")
-    @Produces(APPLICATION_JSON)
-    public Response loginStub(LoginRequest request) throws SQLException, OutOfTransactionException, IOException {
-        log.trace("login");
-
-        // TODO DELETE
-        Account account = new Account();
-        account.setId(-1);
-        account.setFirstName("Ákos");
-
-        return respondPost(account, "\\accounts");
-    }
+	@POST
+	@Path("/login")
+	@Produces(APPLICATION_JSON)
+	@Consumes(APPLICATION_JSON)
+	public Response login(LoginRequest loginRequest) throws SQLException, OutOfTransactionException, IOException {
+		log.trace("Trying to login with account for " + loginRequest.getUserName());
+		try {
+			return respondPost(manager.login(workspace, loginRequest.getUserName(), loginRequest.getPassword()),
+					"\\accounts\\login");
+		} catch (SQLException ex) {
+			return respondPost(ex.getMessage(), "\\accounts\\login", 500);
+		}
+	}
 
 }
