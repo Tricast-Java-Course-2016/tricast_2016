@@ -23,7 +23,7 @@ public enum MarketType {
     }
 
     public static MarketType getType(long id) {
-        return id == 1 ? SINGLE : SYSTEM;
+        return id == SINGLE.getTypeId() ? SINGLE : SYSTEM;
     }
 
 }

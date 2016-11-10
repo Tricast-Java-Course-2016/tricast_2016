@@ -1,12 +1,12 @@
 package com.tricast.beans;
 
 public enum AccountType {
-	
-	OPERATOR(1), 
+
+	OPERATOR(1),
 	JATEKOS(2);
-	
+
 	private long typeId;
-	
+
 	private AccountType(long typeId)
 	{
 		this.typeId = typeId;
@@ -18,7 +18,7 @@ public enum AccountType {
 
 	public static AccountType getType(long id)
 	{
-		return id == 1 ? OPERATOR : JATEKOS;
+        return id == OPERATOR.getTypeId() ? OPERATOR : JATEKOS;
 	}
 
 }

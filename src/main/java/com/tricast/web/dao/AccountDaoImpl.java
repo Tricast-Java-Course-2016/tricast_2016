@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tricast.beans.Account;
+import com.tricast.beans.AccountType;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
@@ -40,7 +41,9 @@ public class AccountDaoImpl implements AccountDao {
         int i = 1;
 
         account.setId(rs.getLong(i++));
-        account.setAccountTypeId(rs.getLong(i++));
+        long typeId = rs.getLong(i++);
+        account.setType(AccountType.getType(typeId));
+        
         account.setUserName(rs.getString(i++));
         // TODO HASHING
         if (isLogin) {
@@ -117,7 +120,7 @@ public class AccountDaoImpl implements AccountDao {
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             int i = 1;
-            ps.setLong(i++, newItem.getAccountTypeId());
+            ps.setLong(i++, newItem.getType().getTypeId());
             ps.setString(i++, newItem.getUserName());
             ps.setString(i++, newItem.getPassword());
             ps.setString(i++, newItem.getFirstName());

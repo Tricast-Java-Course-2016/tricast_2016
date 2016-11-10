@@ -3,11 +3,11 @@ package com.tricast.beans;
 import java.sql.Date;
 
 public class Account {
-	
+
 	private long id;
-	private long accountTypeId;
+	private AccountType type;
 	private String userName;
-	private String password; 
+	private String password;
 	private String firstName;
 	private String lastName;
 	private String DOB;
@@ -18,7 +18,7 @@ public class Account {
 	private String bankAccountNumber;
 	private String bankCardNumber;
 	private Date createdDate;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -27,15 +27,15 @@ public class Account {
 		this.id = id;
 	}
 
-	public long getAccountTypeId() {
-		return accountTypeId;
-	}
+    public AccountType getType() {
+        return type;
+    }
 
-	public void setAccountTypeId(long accountTypeId) {
-		this.accountTypeId = accountTypeId;
-	}
+    public void setType(AccountType type) {
+        this.type = type;
+    }
 
-	public String getUserName() {
+    public String getUserName() {
 		return userName;
 	}
 
@@ -58,7 +58,7 @@ public class Account {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -66,7 +66,7 @@ public class Account {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getDOB() {
 		return DOB;
 	}
@@ -74,7 +74,7 @@ public class Account {
 	public void setDOB(String DOB) {
 		this.DOB = DOB;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -82,7 +82,7 @@ public class Account {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getEmailAddress() {
 		return emailAddress;
 	}
@@ -90,7 +90,7 @@ public class Account {
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -122,7 +122,7 @@ public class Account {
 	public void setBankCardNumber(String bankCardNumber) {
 		this.bankCardNumber = bankCardNumber;
 	}
-	
+
 	public Date getCreatedDate() {
 		return createdDate;
 	}
