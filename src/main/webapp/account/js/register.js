@@ -45,14 +45,13 @@ function getAccountParams() {
         account.type = "PLAYER";
     }
     account.userName = $("#username").val();
-    account.password = $("#password").val();
     account.firstName = $("#firstname").val();
     account.lastName = $("#lastname").val();
-    account.dob = $("#DOB").val();
+    account.dob = $("#dob").val();
     account.address = $("#address").val();
     account.emailAddress = $("#emailaddress").val();
     account.phoneNumber = $("#phonenumber").val();
-    account.pin = $("#PIN").val();
+    account.pin = $("#pin").val();
     account.bankAccountNumber = $("#bankaccountnumber").val();
     account.bankCardNumber = $("#bankcardnumber").val();
 

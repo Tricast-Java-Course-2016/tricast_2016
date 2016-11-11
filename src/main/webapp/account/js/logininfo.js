@@ -5,24 +5,12 @@ $(document).ready(function() {
 
 function assignAction() {
 
-    $("#submitBtn").click(function(e) {
-        e.preventDefault();
 
-        var usrname = $("#loginUsername").val();
-        var passwd = $("#loginPassword").val();
 
-        login(usrname, passwd);
-    });
-
-    $("#registerBtn").click(function(e) {
-        e.preventDefault();
-        window.location.replace('register.html');
-    });
-}
 
 function login(username, password) {
 
-    var url = "/tricast-2016-sportsbook/services/accounts/login";
+    var url = "/tricast-2016-sportsbook/account/operatorhome.html";
 
     var req = {};
     req.userName = username;
