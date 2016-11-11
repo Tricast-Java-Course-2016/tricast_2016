@@ -1,5 +1,0 @@
-package com.tricast.web.dao;
-
-public class AccountDaoImpl {
-
-}
