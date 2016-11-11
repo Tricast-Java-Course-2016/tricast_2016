@@ -12,7 +12,8 @@ INSERT INTO
     	phoneNumber,
     	pin,
     	bankAccountNumber,
-    	bankCardNumber
+    	bankCardNumber,
+    	createdDate
     	)
 VALUES (
 		NEXTVAL('/*=SCHEMA*/SEQ_ACCOUNTS')
@@ -28,5 +29,5 @@ VALUES (
 		, :pin
 		, :bankAccountNumber
 		, :bankCardNumber
-		, :createdDate
+		, CURRENT_TIMESTAMP
 		)

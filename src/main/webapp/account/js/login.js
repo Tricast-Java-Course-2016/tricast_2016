@@ -25,8 +25,11 @@ function login(username, password) {
 
     sendAjax("POST", url, JSON.stringify(req), function(data, textStatus, xhr) {
         $("#userPlacholder").html("HI " + data.firstName);
-//        window.location.href = "account/playerhome.html";
-//        window.location.href = "account/operatorhome.html";
+        if (data.type == "OPERATOR") {
+            window.location.href = "?operatorhome.html";
+        } else {
+            window.location.href = "?playerhome.html";
+        }
     }, null);
 
 }

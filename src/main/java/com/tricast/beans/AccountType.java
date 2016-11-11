@@ -3,8 +3,7 @@ package com.tricast.beans;
 public enum AccountType {
 
 	OPERATOR(1),
-	JATEKOS(2);
-
+    PLAYER(2);
 	private long typeId;
 
     private AccountType(long typeId) {
@@ -16,7 +15,7 @@ public enum AccountType {
 	}
 
     public static AccountType getType(long id) {
-        return id == OPERATOR.getTypeId() ? OPERATOR : JATEKOS;
+        return id == OPERATOR.getTypeId() ? OPERATOR : PLAYER;
 	}
 
 }

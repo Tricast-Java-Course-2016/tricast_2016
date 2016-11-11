@@ -58,7 +58,7 @@ public class AccountDaoImpl implements AccountDao {
         account.setpin(rs.getString(i++));
         account.setBankAccountNumber(rs.getString(i++));
         account.setBankCardNumber(rs.getString(i++));
-        account.setCreatedDate(rs.getDate(i++));
+        // account.setCreatedDate(rs.getDate(i++));
         return account;
     }
 
@@ -132,7 +132,7 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(i++, newItem.getpin());
             ps.setString(i++, newItem.getBankAccountNumber());
             ps.setString(i++, newItem.getBankCardNumber());
-            ps.setDate(i++, newItem.getCreatedDate());
+            // ps.setDate(i++, newItem.getCreatedDate());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
