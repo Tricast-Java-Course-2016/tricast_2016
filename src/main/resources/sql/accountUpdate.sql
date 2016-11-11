@@ -4,11 +4,11 @@ SET
     password = :password, 
     firstName = :firstName, 
     lastName = :lastName,
-    DOB = :DOB,
+    dob = :dob,
     address = :address,
     emailAddress = :emailAddress, 
     phoneNumber = :phoneNumber,
-    PIN = :PIN,
+    pin = :pin,
     bankAccountNumber = :bankAccountNumber,
     bankCardNumber = :bankCardNumber
 WHERE 

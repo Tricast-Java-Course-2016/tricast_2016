@@ -7,8 +7,7 @@ public enum AccountType {
 
 	private long typeId;
 
-	private AccountType(long typeId)
-	{
+    private AccountType(long typeId) {
 		this.typeId = typeId;
 	}
 
@@ -16,8 +15,7 @@ public enum AccountType {
 		return typeId;
 	}
 
-	public static AccountType getType(long id)
-	{
+    public static AccountType getType(long id) {
         return id == OPERATOR.getTypeId() ? OPERATOR : JATEKOS;
 	}
 

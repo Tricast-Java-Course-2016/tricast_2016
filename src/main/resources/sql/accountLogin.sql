@@ -4,11 +4,11 @@ SELECT
     username, 
     firstName, 
     lastName,
-    DOB,
+    dob,
     address,
     emailAddress,
     phoneNumber,
-    PIN,
+    pin,
     bankAccountNumber,
     bankCardNumber,
     createdDate

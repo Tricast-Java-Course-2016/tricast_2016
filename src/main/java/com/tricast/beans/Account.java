@@ -5,16 +5,16 @@ import java.sql.Date;
 public class Account {
 
 	private long id;
-	private AccountType type;
+    private AccountType type;
 	private String userName;
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String DOB;
+    private String dob;
 	private String address;
 	private String emailAddress;
 	private String phoneNumber;
-	private String PIN;
+    private String pin;
 	private String bankAccountNumber;
 	private String bankCardNumber;
 	private Date createdDate;
@@ -67,12 +67,12 @@ public class Account {
 		this.lastName = lastName;
 	}
 
-	public String getDOB() {
-		return DOB;
+    public String getdob() {
+        return dob;
 	}
 
-	public void setDOB(String DOB) {
-		this.DOB = DOB;
+    public void setdob(String dob) {
+        this.dob = dob;
 	}
 
 	public String getAddress() {
@@ -99,12 +99,12 @@ public class Account {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getPIN() {
-		return PIN;
+    public String getpin() {
+        return pin;
 	}
 
-	public void setPIN(String PIN) {
-		this.PIN = PIN;
+    public void setpin(String pin) {
+        this.pin = pin;
 	}
 
 	public String getBankAccountNumber() {

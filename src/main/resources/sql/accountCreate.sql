@@ -6,14 +6,13 @@ INSERT INTO
     	password, 
     	firstName, 
     	lastName,
-    	DOB,
+    	dob,
     	address,
     	emailAddress,
     	phoneNumber,
-    	PIN,
+    	pin,
     	bankAccountNumber,
-    	bankCardNumber,
-    	createdDate
+    	bankCardNumber
     	)
 VALUES (
 		NEXTVAL('/*=SCHEMA*/SEQ_ACCOUNTS')
@@ -22,11 +21,11 @@ VALUES (
 		, :password
 		, :firstName
 		, :lastName
-		, :DOB
+		, :dob
 		, :address
 		, :emailAddress
 		, :phoneNumber
-		, :PIN
+		, :pin
 		, :bankAccountNumber
 		, :bankCardNumber
 		, :createdDate

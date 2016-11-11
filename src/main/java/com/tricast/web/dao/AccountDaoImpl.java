@@ -43,7 +43,7 @@ public class AccountDaoImpl implements AccountDao {
         account.setId(rs.getLong(i++));
         long typeId = rs.getLong(i++);
         account.setType(AccountType.getType(typeId));
-        
+
         account.setUserName(rs.getString(i++));
         // TODO HASHING
         if (isLogin) {
@@ -51,11 +51,11 @@ public class AccountDaoImpl implements AccountDao {
         }
         account.setFirstName(rs.getString(i++));
         account.setLastName(rs.getString(i++));
-        account.setDOB(rs.getString(i++));
+        account.setdob(rs.getString(i++));
         account.setAddress(rs.getString(i++));
         account.setEmailAddress(rs.getString(i++));
         account.setPhoneNumber(rs.getString(i++));
-        account.setPIN(rs.getString(i++));
+        account.setpin(rs.getString(i++));
         account.setBankAccountNumber(rs.getString(i++));
         account.setBankCardNumber(rs.getString(i++));
         account.setCreatedDate(rs.getDate(i++));
@@ -125,11 +125,11 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(i++, newItem.getPassword());
             ps.setString(i++, newItem.getFirstName());
             ps.setString(i++, newItem.getLastName());
-            ps.setString(i++, newItem.getDOB());
+            ps.setString(i++, newItem.getdob());
             ps.setString(i++, newItem.getAddress());
             ps.setString(i++, newItem.getEmailAddress());
             ps.setString(i++, newItem.getPhoneNumber());
-            ps.setString(i++, newItem.getPIN());
+            ps.setString(i++, newItem.getpin());
             ps.setString(i++, newItem.getBankAccountNumber());
             ps.setString(i++, newItem.getBankCardNumber());
             ps.setDate(i++, newItem.getCreatedDate());
@@ -161,11 +161,11 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(i++, updateItem.getPassword());
             ps.setString(i++, updateItem.getFirstName());
             ps.setString(i++, updateItem.getLastName());
-            ps.setString(i++, updateItem.getDOB());
+            ps.setString(i++, updateItem.getdob());
             ps.setString(i++, updateItem.getAddress());
             ps.setString(i++, updateItem.getEmailAddress());
             ps.setString(i++, updateItem.getPhoneNumber());
-            ps.setString(i++, updateItem.getPIN());
+            ps.setString(i++, updateItem.getpin());
             ps.setString(i++, updateItem.getBankAccountNumber());
             ps.setString(i++, updateItem.getBankCardNumber());
             int rows = ps.executeUpdate();
