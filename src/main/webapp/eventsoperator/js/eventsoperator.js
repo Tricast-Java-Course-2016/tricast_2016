@@ -17,6 +17,7 @@ function getAllTeams() {
     var teams = new Map();
 
     sendAjax("GET", url, null, function(data, textStatus, xhr) {
+
         for (var i = 0; i < data.length; i++) {
             teams.set(data[i].id, data[i].description);
         }

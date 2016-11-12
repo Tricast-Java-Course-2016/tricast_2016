@@ -4,6 +4,7 @@ $(document).ready(function() {
 });
 
 function goToChangeAccountInfo() {
+
     window.location.href = "/tricast-2016-sportsbook/account/change.html";
 }
 function goToEventList() {
