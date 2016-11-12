@@ -5,10 +5,13 @@ import java.sql.SQLException;
 import java.util.List;
 import com.tricast.beans.Event;
 import com.tricast.database.Workspace;
+import com.tricast.web.response.EventResponse;
 
 public interface EventManager {
 
-	List<Event> getAll(Workspace workspace) throws SQLException, IOException;
+	List<EventResponse> getAll(Workspace workspace) throws SQLException, IOException;
+	
+	List<EventResponse> getAllOpen(Workspace workspace) throws SQLException, IOException;
 
 	Event getById(Workspace workspace, long id) throws SQLException, IOException;
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<style>
+		table { border-collapse: collapse;}table, th, td {border: 1px solid black;}";
+		</style>
+		<title>Bet placement</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<h1>Place bet</h1>
+		<p>Your current balance: <span id="balance">0</span><br>
+		<p>Country: <span id="country">country</span><br>
+		<p>League: <span id="league">league</span><br>
+		<p>Match: <span id="team1">team1</span> - <span id="team2">team2</span></p>
+		
+		<form>
+          <fieldset id="periodList">
+              <legend>Periods:</legend>
+			  <select name="periods">
+			    <option value="type1">Type1</option>
+			  </select>
+		  </fieldset>
+		  
+		  <fieldset id="outcomeList">
+		      <legend>Outcomes:</legend>
+			  <p>Win/Draw/Win markets:</p>
+			  <table id="wdwMarketOdds">
+				  <thead>
+				  	<tr>
+				  		<td>1</td>
+				  		<td>X</td>
+				  		<td>2</td>
+				  	</tr>
+				  </thead>
+				  <tbody>
+				  	<tr>
+				  		<td><input type="radio" name="outcomes" value="outcome1">0</td>
+				  		<td><input type="radio" name="outcomes" value="outcomeX">0</td>
+				  		<td><input type="radio" name="outcomes" value="outcome2">0</td>
+				  	</tr>
+				  </tbody>
+			  </table>
+			  
+			  <p>Over/Under goal markets:</p>
+			 <table id="ouMarketOdds">
+				  <thead>
+				  	<tr>
+				  		<td>Over 2,5 goals</td>
+				  		<td>Under 2,5 goals</td>
+				  	</tr>
+				  </thead>
+				  <tbody>
+				  	<tr>
+				  		<td><input type="radio" name="outcomes" value="outcomeOver">0</td>
+				  		<td><input type="radio" name="outcomes" value="outcomeUnder">0</td>
+				  	</tr>
+				  </tbody>
+			  </table>
+			  
+			  <p>Correct score markets:</p>
+			 <table id="correctScoreMarketOdds">
+				  <thead>
+				  	<tr>
+				  		<td>Score</td>
+				  		<td>Odds</td>
+				  	</tr>
+				  </thead>
+				  <tbody>
+				  	<tr>
+				  		<td>0-0</td>
+				  		<td><input type="radio" name="outcomes" value="outcomeScore01">2,3</td>
+				  	</tr>
+				  </tbody>
+			  </table>
+			  
+		  </fieldset>
+		  
+		    <fieldset>
+                <label for="stake">Stake: </label><input type="number" name="stake" min="0"><br>
+  				<input type="submit" value="Submit">
+            </fieldset>      
+        </form>
+	</body>
+</html>
