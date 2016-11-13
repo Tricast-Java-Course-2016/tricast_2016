@@ -38,6 +38,7 @@ public class EventService extends LVSResource {
 		}
 
 	    @GET
+    @Path("/all")
 	    @Produces(APPLICATION_JSON)
 	    public Response getAll() throws SQLException, OutOfTransactionException, IOException {
 	        log.trace("Requested to get all Events");
@@ -61,7 +62,7 @@ public class EventService extends LVSResource {
 	            return respondGet(ex.getMessage(), 500);
 	        }
 	    }
-	    
+
 	    @GET
 	    @Path("{id}")
 	    @Produces(APPLICATION_JSON)
