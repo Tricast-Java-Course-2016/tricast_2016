@@ -2,10 +2,10 @@ package com.tricast.beans;
 
 public enum PeriodType {
 
-	ELSOFELIDO(1),
-	MASODIKFELIDO(2),
-	KILENCVENPERC(3),
-	TELJESJATEKIDO(4);
+	FIRSTHALF(1),
+	SECONDHALF(2),
+	NINETYNINEMINS(3),
+	FULLTIME(4);
 	
 	private long typeId;
 
@@ -21,6 +21,18 @@ public enum PeriodType {
 		this.typeId = typeId;
 	}
 	
-	
-	
+	public static PeriodType getType(long id)
+	{
+		if(id== FIRSTHALF.getTypeId()){
+			return FIRSTHALF;
+		}
+		else if(id== SECONDHALF.getTypeId()){
+			return SECONDHALF;
+		}
+		else if(id== NINETYNINEMINS.getTypeId()){
+			return SECONDHALF;
+		}
+		else
+			return FULLTIME;
+		}
 }

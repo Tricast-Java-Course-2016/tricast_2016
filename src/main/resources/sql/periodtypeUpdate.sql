@@ -1,5 +1,5 @@
 UPDATE 
-	/*=SCHEMA*/PERIODTYPE
+	/*=SCHEMA*/PERIODTYPES
 SET 
     description = :description
 WHERE 

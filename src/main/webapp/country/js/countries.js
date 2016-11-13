@@ -4,20 +4,20 @@ $(document).ready(function() {
 });
 
 function assignAction() {
-    var teams = getAllTeams();
+    var countries = getAllCountries();
 
 }
 
-function getAllTeams() {
-	
-	var url = "/tricast-2016-sportsbook/services/teams";
-    var teams = new Map();
+function getAllCountries() {
 
-sendAjax("GET", url, null, function(data, textStatus, xhr) {
+    var url = "/tricast-2016-sportsbook/services/countries";
+    var countries = new Map();
+
+    sendAjax("GET", url, null, function(data, textStatus, xhr) {
         for (var i = 0; i < data.length; i++) {
-            teams.set(data[i].id, data[i].description);
+            countries.set(data[i].id, data[i].description);
             
-            $('#teamTable > tbody:last-child').append(
+            $('#countryTable > tbody:last-child').append(
                     '<tr><td>' +data[i].id+
                     '</td><td>' +data[i].description+
             		'</td></tr>');
@@ -28,5 +28,8 @@ sendAjax("GET", url, null, function(data, textStatus, xhr) {
         alert(errormsg);
     });
 
-return teams;
+    return countries;
 }
+
+
+
