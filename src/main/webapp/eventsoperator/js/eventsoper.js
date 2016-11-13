@@ -12,6 +12,7 @@ function getAllEvents(teams, leagues, countries) {
     var url = "/tricast-2016-sportsbook/services/events/all";
 
     sendAjax("GET", url, null, function(data) {
+
         for (var i = 0; i < data.length; i++) {
 
             $('#eventTable > tbody:last-child').append(

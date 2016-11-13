@@ -33,7 +33,7 @@ public class EventService extends LVSResource {
 
 	    @Inject
 	    public EventService(EventManager manager, Workspace workspace) {
-			this.manager = manager;
+        this.manager = manager;
 			this.workspace = workspace;
 		}
 
