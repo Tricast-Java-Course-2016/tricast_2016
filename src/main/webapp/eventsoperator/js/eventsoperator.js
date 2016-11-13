@@ -1,5 +1,6 @@
 //this method runs every time when the page is reloading
 $(document).ready(function() {
+
     assignAction();
 });
 
@@ -8,7 +9,7 @@ function assignAction() {
     var leagues = getAllLeagues();
     var countries = getAllCountries();
     var events = getAllEvents(teams, leagues, countries);
-
+    igen();
 }
 
 function getAllTeams() {
@@ -66,7 +67,8 @@ function getAllEvents(teams, leagues, countries) {
                         '<tr><td>' + leagues.get(data[i].leagueId) + '</td><td>' + countries.get(data[i].countryId)
                                 + '</td><td>' + teams.get(data[i].homeTeamId) + '</td><td>'
                                 + teams.get(data[i].awayTeamId) + '</td><td>' + data[i].description + '</td><td>'
-                                + data[i].status + '</td></tr>');
+                                + data[i].status + '</td><td></td><td>' + '<button type="button">Edit result</button>'
+                                + '</td></tr>');
             }
 
         }
@@ -75,4 +77,9 @@ function getAllEvents(teams, leagues, countries) {
         alert(errormsg);
     });
 
+}
+function igen() {
+    $('table').on('click', 'button', function() {
+        alert('igen');
+    });
 }
