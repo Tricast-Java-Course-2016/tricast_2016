@@ -24,6 +24,7 @@ import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.EventManager;
 
+
 @Path("/events")
 public class EventService extends LVSResource {
 
