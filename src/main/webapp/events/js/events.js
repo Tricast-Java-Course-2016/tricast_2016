@@ -7,7 +7,7 @@ function assignAction() {
     var events = getAllEvents();
 }
 
-function getAllEvents(teams, leagues, countries) {
+function getAllEvents() {
     var url = "/tricast-2016-sportsbook/services/events/open";
 
     sendAjax("GET", url, null, function(data) {
@@ -15,7 +15,8 @@ function getAllEvents(teams, leagues, countries) {
         	
                 $('#eventTable > tbody:last-child').append(
                 		
-                        '<tr id="'+ data[i].id +'"><td>'  + data[i].league + 
+                        '<tr id="'  + data[i].id +
+                        '"><td>'    + data[i].league + 
                         '</td><td>' + data[i].country + 
                         '</td><td>' + data[i].homeTeam + 
                         '</td><td>' + data[i].awayTeam + 
@@ -24,7 +25,7 @@ function getAllEvents(teams, leagues, countries) {
                 		
                 		var eventid = data[i].id;
 		            	$('#' + eventid).click(function() {
-		            		window.location.href = "../bets/betPlacement.html?=" + eventid;
+		            		window.location.href = "../bets/betPlacement.html?event=" + eventid;
 		            	});
 		            	
         }

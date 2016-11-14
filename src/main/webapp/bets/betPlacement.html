@@ -6,6 +6,9 @@
 		table { border-collapse: collapse;}table, th, td {border: 1px solid black;}";
 		</style>
 		<title>Bet placement</title>
+		<script type="text/javascript" src="../common/js/lib/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../common/js/general.js"></script>
+        <script type="text/javascript" src="js/bets.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
@@ -15,11 +18,14 @@
 		<p>League: <span id="league">league</span><br>
 		<p>Match: <span id="team1">team1</span> - <span id="team2">team2</span></p>
 		
-		<form>
+		<form id="betForm">
           <fieldset id="periodList">
               <legend>Periods:</legend>
 			  <select name="periods">
-			    <option value="type1">Type1</option>
+			    <option value="1" selected="selected">First half</option>
+			    <option value="2">Second half</option>
+			    <option value="3">90 min</option>
+			    <option value="4">Full time</option>
 			  </select>
 		  </fieldset>
 		  
@@ -78,7 +84,8 @@
 		  </fieldset>
 		  
 		    <fieldset>
-                <label for="stake">Stake: </label><input type="number" name="stake" min="0"><br>
+                <label for="stake">Stake: </label>
+                <input type="number" id="stake" min="1" required="true"><br>
   				<input type="submit" value="Submit">
             </fieldset>      
         </form>
