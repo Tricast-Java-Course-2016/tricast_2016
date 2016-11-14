@@ -8,6 +8,7 @@ public class EventResponse {
 	private String homeTeam;
 	private String awayTeam;
 	private String description;
+	private String period;
 	private String status;
 	
 	public String getLeague() {
@@ -52,5 +53,11 @@ public class EventResponse {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public String getPeriod() {
+		return period;
+	}
+	public void setPeriod(String period) {
+		this.period = period;
 	}
 }

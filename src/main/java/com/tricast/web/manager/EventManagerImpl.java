@@ -3,6 +3,7 @@ package com.tricast.web.manager;
 import java.io.Console;
 import java.io.IOException;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,12 +12,15 @@ import com.google.inject.Inject;
 import com.tricast.beans.Country;
 import com.tricast.beans.Event;
 import com.tricast.beans.League;
+import com.tricast.beans.Period;
 import com.tricast.beans.Team;
+
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.CountryDao;
 import com.tricast.web.dao.EventDao;
 import com.tricast.web.dao.LeagueDao;
+import com.tricast.web.dao.PeriodDao;
 import com.tricast.web.dao.TeamDao;
 import com.tricast.web.response.EventResponse;
 
@@ -26,13 +30,15 @@ public class EventManagerImpl implements EventManager {
 	private final LeagueDao leagueDao;
 	private final CountryDao countryDao;
 	private final TeamDao teamDao;
+	private final PeriodDao periodDao;
 	
 	@Inject
-	public EventManagerImpl(EventDao eventDao, LeagueDao leagueDao, CountryDao countryDao, TeamDao teamDao) {
+	public EventManagerImpl(EventDao eventDao, LeagueDao leagueDao, CountryDao countryDao, TeamDao teamDao, PeriodDao periodDao) {
 		this.eventDao = eventDao;
 		this.leagueDao = leagueDao;
 		this.countryDao = countryDao;
 		this.teamDao = teamDao;
+		this.periodDao = periodDao;
 	}
 	
 	@Override
@@ -43,8 +49,14 @@ public class EventManagerImpl implements EventManager {
 		List<Country> countries = countryDao.getAll(workspace);
 		List<Team> teams = teamDao.getAll(workspace);
 		List<Event> events = eventDao.getAll(workspace);
+		List<Period> periods = periodDao.getAll(workspace);
 		
 		//convert Lists to HashMaps for easier id-description access
+		HashMap<Long, String> periodMap = new HashMap<Long, String>();
+		for (Period period : periods) {
+			periodMap.put(period.getId(), period.getDescription());
+		}
+		
 		HashMap<Long, String> leaguesMap = new HashMap<Long, String>();
 		for (League league : leagues) {
 			leaguesMap.put(league.getId(), league.getDescription());
@@ -76,6 +88,7 @@ public class EventManagerImpl implements EventManager {
 			newResponse.setHomeTeam(teamsMap.get(event.getHomeTeamId()));
 			newResponse.setAwayTeam(teamsMap.get(event.getAwayTeamId()));
 			newResponse.setDescription(event.getDescription());
+			newResponse.setPeriod(periodMap.get(event.getAwayTeamId()));
 			newResponse.setStatus(event.getStatus());
 			
 			responses.add(newResponse);
