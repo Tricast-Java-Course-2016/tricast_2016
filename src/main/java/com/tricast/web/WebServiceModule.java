@@ -40,7 +40,7 @@ import com.tricast.web.dao.MarketDaoImpl;
 import com.tricast.web.dao.OutcomeDao;
 import com.tricast.web.dao.OutcomeDaoImpl;
 import com.tricast.web.dao.PeriodDao;
-import com.tricast.web.dao.PeriodDaoIpml;
+import com.tricast.web.dao.PeriodDaoImpl;
 import com.tricast.web.dao.TeamDao;
 import com.tricast.web.dao.TeamDaoImpl;
 import com.tricast.web.dao.TransactionDao;
@@ -106,9 +106,9 @@ public class WebServiceModule extends JerseyServletModule {
         bind(CountryDao.class).to(CountryDaoImpl.class);
         bind(EventDao.class).to(EventDaoImpl.class);
         bind(LeagueDao.class).to(LeagueDaoImpl.class);
-        bind(PeriodDao.class).to(PeriodDaoIpml.class);
+        bind(PeriodDao.class).to(PeriodDaoImpl.class);
         bind(TeamDao.class).to(TeamDaoImpl.class);
-        
+
         bind(AccountManager.class).to(AccountManagerImpl.class);
         bind(BetManager.class).to(BetManagerImpl.class);
         bind(BetDataManager.class).to(BetDataManagerImpl.class);
@@ -120,7 +120,7 @@ public class WebServiceModule extends JerseyServletModule {
         bind(LeagueManager.class).to(LeagueManagerImpl.class);
         bind(PeriodManager.class).to(PeriodManagerImpl.class);
         bind(TeamManager.class).to(TeamManagerImpl.class);
-        
+
         // Binding the REST endpoints
         bind(AccountService.class);
         bind(BetService.class);

@@ -1,7 +1,7 @@
 package com.tricast.web.response;
 
 public class EventResponse {
-	
+
 	private long id;
 	private String league;
 	private String country;
@@ -10,8 +10,17 @@ public class EventResponse {
 	private String description;
 	private String period;
 	private String status;
-	
-	public String getLeague() {
+    private String result;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getLeague() {
 		return league;
 	}
 	public void setLeague(String league) {
@@ -47,7 +56,7 @@ public class EventResponse {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public long getId() {
 		return id;
 	}

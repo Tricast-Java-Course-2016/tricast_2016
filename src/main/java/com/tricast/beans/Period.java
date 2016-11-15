@@ -5,9 +5,16 @@ public class Period {
 	private long eventId;
 	private long periodTypeId;
 	private String description;
+    private String periodTypeDescription;
 	private long homeTeamScore;
 	private long awayTeamScore;
-	
+    private String periodResult;
+
+    public String getPeriodResult() {
+        periodResult = homeTeamScore + " : " + awayTeamScore;
+        return periodResult;
+    }
+
 	public long getId() {
 		return id;
 	}
@@ -29,6 +36,19 @@ public class Period {
 	public String getDescription() {
 		return description;
 	}
+
+    public String getPeriodTypeDescription() {
+        if (periodTypeId == PeriodType.FIRSTHALF.getTypeId()) {
+            periodTypeDescription = "First half";
+        } else if (periodTypeId == PeriodType.SECONDHALF.getTypeId()) {
+            periodTypeDescription = "Second half";
+        } else if (periodTypeId == PeriodType.NINETYNINEMINS.getTypeId()) {
+            periodTypeDescription = "90 min";
+        } else {
+            periodTypeDescription = "Full time";
+        }
+        return periodTypeDescription;
+    }
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -44,9 +64,9 @@ public class Period {
 	public void setAwayTeamScore(long awayTeamScore) {
 		this.awayTeamScore = awayTeamScore;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

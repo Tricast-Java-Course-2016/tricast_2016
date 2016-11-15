@@ -8,7 +8,7 @@ function assignAction() {
     igen();
 }
 
-function getAllEvents(teams, leagues, countries,periods) {
+function getAllEvents(teams, leagues, countries, periods) {
     var url = "/tricast-2016-sportsbook/services/events/all";
 
     sendAjax("GET", url, null, function(data) {
@@ -16,9 +16,10 @@ function getAllEvents(teams, leagues, countries,periods) {
 
             $('#eventTable > tbody:last-child').append(
 
-                    '<tr id="' + data[i].id + '"><td>' + data[i].league + '</td><td>' + data[i].country + '</td><td>'
-                            + data[i].homeTeam + '</td><td>' + data[i].awayTeam + '</td><td>' + data[i].description
-                            + '</td><td>'+data[i].period + '</td><td>'+ data[i].status + '</td><td></td><td>'
+                    '<tr id="' + data[i].id + '"><td>' + data[i].id + '</td><td>' + data[i].league + '</td><td>'
+                            + data[i].country + '</td><td>' + data[i].homeTeam + '</td><td>' + data[i].awayTeam
+                            + '</td><td>' + data[i].description + '</td><td>' + data[i].period + '</td><td>'
+                            + data[i].status + '</td><td>' + data[i].result + '</td><td>'
                             + '<button type="button">Edit result</button>' + '</td></tr>');
 
         }

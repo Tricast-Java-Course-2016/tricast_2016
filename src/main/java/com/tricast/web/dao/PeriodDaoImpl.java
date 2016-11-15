@@ -16,17 +16,17 @@ import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 
-public class PeriodDaoIpml implements PeriodDao {
+public class PeriodDaoImpl implements PeriodDao {
 
-	 private static final Logger log = LogManager.getLogger(PeriodDaoIpml.class);
+    private static final Logger log = LogManager.getLogger(PeriodDaoImpl.class);
 	 private static final SqlManager sqlManager = SqlManager.getInstance();
-	 
+
 	@Override
 	public List<Period> getAll(Workspace workspace) throws SQLException, IOException {
 		List<Period> result = new ArrayList<Period>();
-		
+
 		String sql = sqlManager.get("periodGetAll.sql");
-		
+
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
 				result.add(buildPeriod(rs));
@@ -42,13 +42,13 @@ public class PeriodDaoIpml implements PeriodDao {
 	public Period getById(Workspace workspace, long id) throws SQLException, IOException {
 		Period result = null;
 		ResultSet rs = null;
-		
+
 		String sql = sqlManager.get("periodGetById.sql");
-		
+
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 			 ps.setLong(1, id);
 			 rs = ps.executeQuery();
-			 
+
 			 if (rs.next()) {
 	                result = buildPeriod(rs);
 	            }
@@ -61,7 +61,7 @@ public class PeriodDaoIpml implements PeriodDao {
 	        return result;
 	    }
 
-	
+
 	@Override
 	@JdbcTransaction
 	public Long create(Workspace workspace, Period newItem) throws SQLException, IOException {
@@ -105,7 +105,7 @@ public class PeriodDaoIpml implements PeriodDao {
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
         	int i = 1;
-         
+
             ps.setLong(i++, updateItem.getEventId());
             ps.setLong(i++, updateItem.getPeriodTypeId());
     		ps.setString(i++, updateItem.getDescription());
@@ -133,26 +133,26 @@ public class PeriodDaoIpml implements PeriodDao {
 	@JdbcTransaction
 	public boolean deleteById(Workspace workspace, long id) throws SQLException, IOException {
 		boolean result = false;
-		
+
         String sql = sqlManager.get("periodDelete.sql");
-        
+
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
-        	
+
             int i = 1;
             ps.setLong(i++, id);
-            
+
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 result = true;
             }
-  
+
         } catch (SQLException ex) {
             log.error(ex, ex);
             throw ex;
         }
         return result;
 	}
-	
+
 	private Period buildPeriod(ResultSet rs) throws SQLException {
 		Period period = new Period();
 		int i = 1;
@@ -164,5 +164,5 @@ public class PeriodDaoIpml implements PeriodDao {
 		period.setAwayTeamScore((int)rs.getLong(i++));
 		return period;
 	}
-	
+
 }
