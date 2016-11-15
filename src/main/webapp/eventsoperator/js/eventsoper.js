@@ -6,6 +6,7 @@ $(document).ready(function() {
 
 function assignAction() {
     var events = getAllEvents();
+
     getIndex();
 
 }
@@ -13,43 +14,60 @@ var tomb = [];
 function getAllEvents(teams, leagues, countries, periods) {
     var url = "/tricast-2016-sportsbook/services/events/all";
 
-    sendAjax("GET", url, null, function(data) {
-        for (var i = 0; i < data.length; i++) {
-            tomb[i] = data[i].periodId;
-            $('#eventTable > tbody:last-child').append(
+    sendAjax(
+            "GET",
+            url,
+            null,
+            function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    tomb[i] = data[i].periodId;
+                    $('#eventTable > tbody:last-child')
+                            .append(
 
-                    '<tr id="' + data[i].id + '"><td>' + data[i].id + '</td><td>' + data[i].league + '</td><td>'
-                            + data[i].country + '</td><td>' + data[i].homeTeam + '</td><td>' + data[i].awayTeam
-                            + '</td><td>' + data[i].description + '</td><td>' + data[i].period + '</td><td>'
-                            + data[i].status + '</td><td>' + data[i].result + '</td><td>'
-                            + '<button type="button">Edit result</button>' + '</td></tr>');
+                                    '<tr id="'
+                                            + data[i].id
+                                            + '"><td>'
+                                            + data[i].id
+                                            + '</td><td>'
+                                            + data[i].league
+                                            + '</td><td>'
+                                            + data[i].country
+                                            + '</td><td>'
+                                            + data[i].homeTeam
+                                            + '</td><td>'
+                                            + data[i].awayTeam
+                                            + '</td><td>'
+                                            + data[i].description
+                                            + '</td><td>'
+                                            + data[i].period
+                                            + '</td><td>'
+                                            + data[i].status
+                                            + '</td><td>'
+                                            + data[i].result
+                                            + '</td><td><button id="edit">Edit result</button>'
+                                            + '</td><td class="el"><input type="text" name="hteam"><input type="text" name="ateam"></td>'
+                                            + '<td class="el"><button id="submit">Submit result</button></td></tr>');
 
-        }
-
-    }, function(xhr) {
-        var errormsg = getErrorMsg(xhr);
-        alert(errormsg);
-    });
+                }
+                $('.el').hide();
+            }, function(xhr) {
+                var errormsg = getErrorMsg(xhr);
+                alert(errormsg);
+            });
 
 }
 
 function getIndex() {
-    $('table').on('click', 'button', function() {
+    $('table').on('click', '#edit', function() {
+        $('.el').toggle();
+    });
+    $('table').on('click', '#submit', function() {
         var row = this.parentNode.parentNode;
 
         getPeriodParams(row.rowIndex);
 
     });
 }
-
-/*
- * function editPeriod() { var period = getPeriodParams();
- * 
- * var method = "PUT"; var url = "/tricast-2016-sportsbook/services/periods";
- * 
- * sendAjax(method, url, JSON.stringify(period), function(data, textStatus, xhr) { alert("Succesfully saved"); },
- * function(xhr) { $("#accountMsg").html(getErrorMsg(xhr)); }); }
- */
 
 function getPeriodParams(row) {
     var period = {};
