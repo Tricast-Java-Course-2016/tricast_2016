@@ -28,6 +28,7 @@ public class EventManagerImpl implements EventManager {
 	private final CountryDao countryDao;
 	private final TeamDao teamDao;
 	private final PeriodDao periodDao;
+    private long i;
 
 	@Inject
 	public EventManagerImpl(EventDao eventDao, LeagueDao leagueDao, CountryDao countryDao, TeamDao teamDao, PeriodDao periodDao) {
@@ -51,7 +52,13 @@ public class EventManagerImpl implements EventManager {
         HashMap<Long, String> resultMap = new HashMap<Long, String>();
         for (Period period : periods) {
             resultMap.put(period.getId(), period.getPeriodResult());
+        }
 
+        i = 1;
+        HashMap<Long, Long> periodIdMap = new HashMap<Long, Long>();
+        for (Period period : periods) {
+            periodIdMap.put(i, period.getId());
+            i++;
         }
 
 		//convert Lists to HashMaps for easier id-description access
@@ -95,10 +102,10 @@ public class EventManagerImpl implements EventManager {
                     newResponse.setDescription(event.getDescription());
                     newResponse.setPeriod(periodMap.get(period.getId()));
                     newResponse.setStatus(event.getStatus());
+                    newResponse.setPeriodId(period.getId());
                     newResponse.setResult(resultMap.get(period.getId()));
                     responses.add(newResponse);
                 }
-
             }
 		}
 		return responses;
@@ -148,6 +155,7 @@ public class EventManagerImpl implements EventManager {
 			newResponse.setAwayTeam(teamsMap.get(event.getAwayTeamId()));
 			newResponse.setDescription(event.getDescription());
 			newResponse.setStatus(event.getStatus());
+
 			responses.add(newResponse);
 		}
 

@@ -11,6 +11,15 @@ public class EventResponse {
 	private String period;
 	private String status;
     private String result;
+    private long periodId;
+
+    public long getPeriodId() {
+        return periodId;
+    }
+
+    public void setPeriodId(long periodId) {
+        this.periodId = periodId;
+    }
 
     public String getResult() {
         return result;
@@ -66,6 +75,7 @@ public class EventResponse {
 	public String getPeriod() {
 		return period;
 	}
+
 	public void setPeriod(String period) {
 		this.period = period;
 	}
