@@ -63,23 +63,23 @@ function getIndex() {
     });
     $('table').on('click', '#submit', function() {
         var row = this.parentNode.parentNode;
-
-        getPeriodParams(row.rowIndex);
+        var hteam = $(this).parent().parent().find("input[name='hteam']").val();
+        var ateam = $(this).parent().parent().find("input[name='ateam']").val();
+        getPeriodParams(row.rowIndex, hteam, ateam);
 
     });
 }
 
-function getPeriodParams(row) {
+function getPeriodParams(row, hteam, ateam) {
     var period = {};
 
     var url = "/tricast-2016-sportsbook/services/periods/" + tomb[row - 1];
 
     sendAjax("GET", url, null, function(data) {
         // alert("Success get");
-        var htScore = 5;
-        var atScore = 10;
-        data.homeTeamScore = htScore;
-        data.awayTeamScore = atScore;
+
+        data.homeTeamScore = hteam;
+        data.awayTeamScore = ateam;
         var url2 = "/tricast-2016-sportsbook/services/periods/";
         sendAjax("PUT", url2, JSON.stringify(data), function(data, textStatus, xhr) {
             alert("Succesfully saved");
