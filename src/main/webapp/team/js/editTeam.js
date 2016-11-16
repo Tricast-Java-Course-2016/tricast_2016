@@ -1,26 +1,28 @@
 var teamId = null;
 
 $(document).ready(function() {
-    assignAction();
+	assignAction();
 });
 
 
 function assignAction() {
-	$("#btnAddTeam").click(function(e) {
-    addTeam();
+	$("#btnreplaceTeam").click(function(e) {
+		 replaceTeam();
+		 alert("megynyomtad a replacet");
 	});
 }
 
-function addTeam() {
+
+function replaceTeam() {
 	
 	var team = getTeamParams();
-	var method = "POST";
+	var method = "PUT";
 	var url ="/tricast-2016-sportsbook/services/teams";
 	
 	  sendAjax(method, url, JSON.stringify(team),
 		  function(data, textStatus, xhr ) {
-		  	alert("Succesfully saved");
-	
+		  	alert("Succesfully replaced");
+		  	
 	    }, function(xhr) {
 	        var errormsg = getErrorMsg(xhr);
 	        alert(errormsg);
@@ -29,8 +31,8 @@ function addTeam() {
 
 function getTeamParams(){
 	var team ={};
-	team.id = teamId;
-	team.description = $('#addTeamId').val();
+	team.id = $('#replaceTeamId').val();
+	team.description = $('#replaceTeam').val();
 	
 	return team;
 }

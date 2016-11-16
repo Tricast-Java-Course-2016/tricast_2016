@@ -1,11 +1,17 @@
-//this method runs every time when the page is reloading
+var teamId = null;
+
 $(document).ready(function() {
     assignAction();
 });
 
 function assignAction() {
+	
     var teams = getAllTeams();
-
+    
+    $("#btnAddTeam").click(function(e) {
+        addTeam();
+    	});
+    
 }
 
 function getAllTeams() {
@@ -20,9 +26,9 @@ sendAjax("GET", url, null, function(data, textStatus, xhr) {
             $('#teamTable > tbody:last-child').append(
                     '<tr><td>' +data[i].id+
                     '</td><td>' +data[i].description+
-            		'</td></tr>');
+                    '</td></tr>');
         }
-
+        $('.el').hide();
     }, function(xhr) {
         var errormsg = getErrorMsg(xhr);
         alert(errormsg);
@@ -30,3 +36,40 @@ sendAjax("GET", url, null, function(data, textStatus, xhr) {
 
 return teams;
 }
+
+function addTeam() {
+	
+	var addteam = getTeamParams();
+	var method = "POST";
+	var url ="/tricast-2016-sportsbook/services/teams";
+	
+	  sendAjax(method, url, JSON.stringify(addteam),
+		  function(data, textStatus, xhr ) {
+		  	alert("Succesfully saved");
+	
+	    }, function(xhr) {
+	        var errormsg = getErrorMsg(xhr);
+	        alert(errormsg);
+	    });
+}
+
+function getTeamParams(){
+	var addteam ={};
+	addteam.id = teamId;
+	addteam.description = $('#inputTeam').val();
+	
+	return addteam;
+}
+
+function goToEditTeam() {
+	window.location.href = "/tricast-2016-sportsbook/team/editTeam.html";
+}
+
+
+
+
+
+
+
+
+
