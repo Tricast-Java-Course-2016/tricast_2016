@@ -42,9 +42,9 @@ function getAllEvents(teams, leagues, countries, periods) {
                                             + data[i].period
                                             + '</td><td>'
                                             + data[i].status
-                                            + '</td><td>'
+                                            + '</td><td class="periodResult">'
                                             + data[i].result
-                                            + '</td><td><button id="edit">Edit result</button>'
+                                            + '</td><td><button id="edit" class="btn btn-info">Edit result</button>'
                                             + '</td><td class="el"><input type="text" name="hteam"><input type="text" name="ateam"></td>'
                                             + '<td class="el"><button id="submit">Submit result</button></td></tr>');
 
@@ -82,7 +82,9 @@ function getPeriodParams(row, hteam, ateam) {
         data.awayTeamScore = ateam;
         var url2 = "/tricast-2016-sportsbook/services/periods/";
         sendAjax("PUT", url2, JSON.stringify(data), function(data, textStatus, xhr) {
-            alert("Succesfully saved");
+            // alert("Succesfully saved");
+            // console.log(row);
+            // $('#eventTable .periodResult').find("tr:1").html("test");
         }, function(xhr) {
             var errormsg2 = getErrorMsg(xhr);
             alert(errormsg2);
