@@ -1,6 +1,6 @@
 //this method runs every time when the page is reloading
 $(document).ready(function() {
-    assignAction();
+	assignAction();
 });
 
 function assignAction() {
@@ -43,18 +43,31 @@ function assignAction() {
 function getAllData() {
 	//get the actual event's id from the URL
 	var eventId = location.search.split('event=')[1];
-	
+	//PLACEHOLDER? get the account's id, who will place this bet
+	var accountId = location.search.split('account=')[1];
+
 	if(eventId == null) {
 		alert("=====DEBUG=====\nevent=EventId missing from the URL");
 		return false;
 	}
 	
-	//TODO fix this placeholder - create dao,manager,service with the usage of BetPlacementResponse
+	if(accountId == null) {
+		alert("=====DEBUG=====\nevent=AccountId missing from the URL");
+		return false;
+	}
+	
+	sendAjax("GET", "/tricast-2016-sportsbook/services/transactions/balance/" + accountId, null, function(data) {
+		$("#balance").html(data);
+    }, function(xhr) { });
+	
+
+/*	//TODO fix this placeholder - create dao,manager,service with the usage of BetPlacementResponse
     var url = "/tricast-2016-sportsbook/services/events/" + eventId;
 
     sendAjax("GET", url, null, function(data) {
         //TODO balance calculation from Transactions
-        $("#balance").html();
+    	
+        $("#balance").html(data1);
         
         //TODO replace IDs with actual names
         $("#country").html(data.countryId);
@@ -69,7 +82,7 @@ function getAllData() {
     }, function(xhr) {
         var errormsg = getErrorMsg(xhr);
         alert(errormsg);
-    });
+    });*/
 }
 
 

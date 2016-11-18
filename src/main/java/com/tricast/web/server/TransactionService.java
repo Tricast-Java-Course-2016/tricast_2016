@@ -62,6 +62,19 @@ public class TransactionService extends LVSResource {
             return respondGet(ex.getMessage(), 500);
         }
     }
+    
+    @GET
+    @Path("balance/{id}")
+    @Produces(APPLICATION_JSON)
+    public Response getAmountByAccountId(@PathParam("id") long accountId) throws SQLException, OutOfTransactionException, IOException {
+        log.trace("Requested to get current balance for accountId = " + accountId);
+        try {
+            return respondGet(manager.getAmountByAccountId(workspace, accountId));
+        } catch (SQLException ex) {
+
+            return respondGet(ex.getMessage(), 500);
+        }
+    }
 
     @POST
     @Produces(APPLICATION_JSON)

@@ -59,5 +59,11 @@ public class TransactionManagerImpl implements TransactionManager {
     public boolean deleteById(Workspace workspace, long transactionId) throws SQLException, IOException {
         return transactionDao.deleteById(workspace, transactionId);
     }
+    
+    @Override
+    @JdbcTransaction
+    public double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
+        return transactionDao.getAmountByAccountId(workspace, accountId);
+    }
 
 }

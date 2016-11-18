@@ -25,7 +25,7 @@ function getAllEvents() {
                 		
                 		var eventid = data[i].id;
 		            	$('#' + eventid).click(function() {
-		            		window.location.href = "../bets/betPlacement.html?event=" + eventid;
+		            		window.location.href = "../bets/betPlacement.html?event=" + eventid + "&account=2";
 		            	});
 		            	
         }

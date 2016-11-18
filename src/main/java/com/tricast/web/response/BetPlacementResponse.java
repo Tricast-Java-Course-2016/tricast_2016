@@ -5,6 +5,7 @@ import java.util.List;
 
 public class BetPlacementResponse {
 
+	private long accountId;
 	private long eventId;
     private String eventDescription;
     private String countryDescription;
@@ -15,6 +16,13 @@ public class BetPlacementResponse {
     private String eventStatus;
     private List<String> periodDescription;
     private List<MarketResponse> markets;
+    
+	public long getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
+	}
     
     public long getEventId() {
 		return eventId;

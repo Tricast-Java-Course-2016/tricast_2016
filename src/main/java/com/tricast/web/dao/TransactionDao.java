@@ -18,4 +18,6 @@ public interface TransactionDao {
     Long update(Workspace workspace, Transaction updateItem) throws SQLException, IOException;
 
     boolean deleteById(Workspace workspace, long id) throws SQLException, IOException;
+    
+    double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
 }

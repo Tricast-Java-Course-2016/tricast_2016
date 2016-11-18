@@ -172,5 +172,30 @@ public class TransactionDaoImpl implements TransactionDao {
         }
         return result;
     }
+    
+    public double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
+        double result = 0.0;
+        ResultSet rs = null;
+        String sql = sqlManager.get("accountGetBalance.sql");
+
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+            ps.setDouble(1, accountId);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getDouble(1);
+            }
+
+        } catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        } finally {
+            rs.close();
+        }
+        return result;
+    	
+    	
+    }
+    
 
 }
