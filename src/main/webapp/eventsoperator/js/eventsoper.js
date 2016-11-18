@@ -44,12 +44,11 @@ function getAllEvents(teams, leagues, countries, periods) {
                                             + data[i].status
                                             + '</td><td class="periodResult">'
                                             + data[i].result
-                                            + '</td><td><button id="edit" class="btn btn-info">Edit result</button>'
-                                            + '</td><td class="el"><input type="text" name="hteam"><input type="text" name="ateam"></td>'
-                                            + '<td class="el"><button id="submit">Submit result</button></td></tr>');
+                                            + '</td><td><button id="edit" class="btn btn-info"  data-toggle="modal" data-target="#addEventModal">Edit result</button>'
+                                            + '</td></tr>');
 
                 }
-                $('.el').hide();
+
             }, function(xhr) {
                 var errormsg = getErrorMsg(xhr);
                 alert(errormsg);
@@ -58,14 +57,16 @@ function getAllEvents(teams, leagues, countries, periods) {
 }
 
 function getIndex() {
+    var row;
     $('table').on('click', '#edit', function() {
-        $('.el').toggle();
+        row = this.parentNode.parentNode.rowIndex;
     });
-    $('table').on('click', '#submit', function() {
-        var row = this.parentNode.parentNode;
-        var hteam = $(this).parent().parent().find("input[name='hteam']").val();
-        var ateam = $(this).parent().parent().find("input[name='ateam']").val();
-        getPeriodParams(row.rowIndex, hteam, ateam);
+
+    $('#save').on('click', function() {
+
+        var hteam = $('#hteam').val();
+        var ateam = $('#ateam').val();
+        getPeriodParams(row, hteam, ateam);
 
     });
 }
@@ -82,10 +83,10 @@ function getPeriodParams(row, hteam, ateam) {
         data.awayTeamScore = ateam;
         var url2 = "/tricast-2016-sportsbook/services/periods/";
         sendAjax("PUT", url2, JSON.stringify(data), function(data, textStatus, xhr) {
-            // alert("Succesfully saved");
+            // alert("Successfully saved");
             // TODO display the new result in the events table
             var selector = '#eventTable tr:eq(' + row + ') .periodResult';
-            $(selector).html("test");
+            $(selector).html(hteam + " : " + ateam);
         }, function(xhr) {
             var errormsg2 = getErrorMsg(xhr);
             alert(errormsg2);
