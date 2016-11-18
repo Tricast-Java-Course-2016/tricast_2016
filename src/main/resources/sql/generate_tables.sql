@@ -131,6 +131,7 @@ BEGIN
     awayteamid integer NOT NULL,
     description character varying(100) NOT NULL,
     status character varying(30) NOT NULL,
+    starttime timestamp(6) with time zone NOT NULL,
     CONSTRAINT EVENTS_PK PRIMARY KEY (id),
       CONSTRAINT league_event_fk1 FOREIGN KEY (leagueid) 
       REFERENCES TRICAST2016.LEAGUES(id),
@@ -234,10 +235,10 @@ INSERT INTO TRICAST2016.TEAMS (ID, DESCRIPTION)
 VALUES (1, 'Arsenal'), (2, 'Manchester United'), (3, 'Chelsea'), (4, 'Blackburn Rovers'), (5, 'Leicester City'),
   (6, 'Tottenham');
 
-INSERT INTO TRICAST2016.EVENTS (ID, LEAGUEID, COUNTRYID, HOMETEAMID, AWAYTEAMID, DESCRIPTION, STATUS)
-VALUES (1, 2, 1, 1, 4, 'arsenal vs blackburn rovers', 'OPEN'),
-  (2, 2, 1, 2, 5, 'manchester united vs leicester city', 'CLOSED'),
-  (3, 2, 1, 3, 6, 'chelsea vs tottenham', 'OPEN');
+INSERT INTO TRICAST2016.EVENTS (ID, LEAGUEID, COUNTRYID, HOMETEAMID, AWAYTEAMID, DESCRIPTION, STATUS, STARTTIME)
+VALUES (1, 2, 1, 1, 4, 'arsenal vs blackburn rovers', 'OPEN', current_timestamp),
+  (2, 2, 1, 2, 5, 'manchester united vs leicester city', 'CLOSED', current_timestamp),
+  (3, 2, 1, 3, 6, 'chelsea vs tottenham', 'OPEN', current_timestamp);
 
 INSERT INTO TRICAST2016.PERIODTYPES (ID, DESCRIPTION)
 VALUES (1, 'first half'), (2, 'second half'), (3, '90 mins'), (4, 'full time');
@@ -248,7 +249,7 @@ VALUES (1, 1, 1, 'arsenal vs blackburn first half'), (2, 1, 3, 'arsenal vs black
   (7, 3, 1, 'chelsea vs tottenham first half'), (8, 3, 3, 'chelsea vs tottenham 90 mins'), (9, 3, 4, 'chelsea vs tottenham full time');
 
 INSERT INTO TRICAST2016.MARKETTYPES (ID, DESCRIPTION)
-VALUES (1, 'Win/Draw/Win'), (2, 'Total Goals O/U 2.5'), (3, 'Correct score');
+VALUES (1, 'Win/Draw/Win'), (2, 'Total Goals O/U 2.5'), (3, 'Correct score'), (4, 'Double Chance');
 
 INSERT INTO TRICAST2016.MARKETS (ID, PERIODID, EVENTID, MARKETTYPEID, DESCRIPTION)
 VALUES (1, 3, 1, 1, 'arsenal vs blackburn full time WDW'), (2, 3, 1, 2, 'arsenal vs blackburn FT Total Goals O/U 2.5');

@@ -1,5 +1,7 @@
 package com.tricast.beans;
 
+import java.util.Date;
+
 public class Event {
 
 	private long id;
@@ -9,6 +11,8 @@ public class Event {
 	private long awayTeamId;
 	private String description;
 	private String status;
+    private Date startTime;
+
 	public long getId() {
 		return id;
 	}
@@ -51,6 +55,14 @@ public class Event {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+
 }

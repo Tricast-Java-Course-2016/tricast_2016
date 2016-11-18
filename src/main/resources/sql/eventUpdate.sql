@@ -6,6 +6,7 @@ SET
     	homeTeamId = :homeTeamId,
     	awayTeamId = :awayTeamId,
     	description = :description,
-    	status = :status
+    	status = :status,
+    	starttime = :starttime
 WHERE 
 	ID = :id

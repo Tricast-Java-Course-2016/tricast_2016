@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.tricast.beans.Event;
@@ -22,10 +24,10 @@ public class EventDaoImpl implements EventDao {
 	@Override
 	public List<Event> getAll(Workspace workspace) throws SQLException, IOException {
 		List<Event> result = new ArrayList<Event>();
-		
+
 		String sql = sqlManager.get("eventGetAll.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
-			
+
 			while (rs.next()) {
 				result.add(buildEvent(rs));
 			}
@@ -39,7 +41,7 @@ public class EventDaoImpl implements EventDao {
 	private Event buildEvent(ResultSet rs) throws SQLException {
 		Event event = new Event();
 		int i = 1;
-		
+
 		event.setId(rs.getLong(i++));
 		event.setLeagueId(rs.getLong(i++));
 		event.setCountryId(rs.getLong(i++));
@@ -47,9 +49,11 @@ public class EventDaoImpl implements EventDao {
 		event.setAwayTeamId(rs.getLong(i++));
 		event.setDescription(rs.getString(i++));
 		event.setStatus(rs.getString(i++));
+        Timestamp timestamp = rs.getTimestamp(i++);
+        event.setStartTime(new Date(timestamp.getTime()));
 		return event;
 	}
-	
+
 	@Override
 	@JdbcTransaction
 	public Event getById(Workspace workspace, long id) throws SQLException, IOException {
@@ -57,7 +61,7 @@ public class EventDaoImpl implements EventDao {
 		ResultSet rs = null;
 
 		String sql = sqlManager.get("eventGetById.sql");
-		
+
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 			   ps.setLong(1, id);
 	            rs = ps.executeQuery();
@@ -93,6 +97,7 @@ public class EventDaoImpl implements EventDao {
             ps.setLong(i++, newItem.getAwayTeamId());
             ps.setString(i++, newItem.getDescription());
             ps.setString(i++, newItem.getStatus());
+            ps.setTimestamp(i++, new Timestamp(newItem.getStartTime().getTime()));
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -128,6 +133,7 @@ public class EventDaoImpl implements EventDao {
 	            ps.setString(i++,updateItem.getDescription());
 	            ps.setString(i++,updateItem.getStatus());
 	            ps.setLong(i++, updateItem.getId());
+            ps.setTimestamp(i++, new Timestamp(updateItem.getStartTime().getTime()));
 	            int rows = ps.executeUpdate();
 	            if (rows > 0) {
 	                rs = ps.getGeneratedKeys();

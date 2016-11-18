@@ -5,6 +5,7 @@ SELECT
     	homeTeamId,
     	awayTeamId,
     	description,
-    	status
+    	status,
+    	starttime
 FROM
 	/*=SCHEMA*/EVENTS
