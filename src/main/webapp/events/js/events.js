@@ -21,7 +21,7 @@ function getAllEvents() {
                         '</td><td>' + data[i].homeTeam + 
                         '</td><td>' + data[i].awayTeam + 
                         '</td><td>' + data[i].description + 
-                        '</td><td>' + data[i].status + '</td></tr>');
+                        '</td><td>' + data[i].startTime + '</td></tr>');
                 		
                 		var eventid = data[i].id;
 		            	$('#' + eventid).click(function() {

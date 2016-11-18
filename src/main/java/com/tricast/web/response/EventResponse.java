@@ -1,5 +1,7 @@
 package com.tricast.web.response;
 
+import java.sql.Date;
+
 public class EventResponse {
 
 	private long id;
@@ -12,6 +14,7 @@ public class EventResponse {
 	private String status;
     private String result;
     private long periodId;
+    private Date startTime;
 
     public long getPeriodId() {
         return periodId;
@@ -78,5 +81,13 @@ public class EventResponse {
 
 	public void setPeriod(String period) {
 		this.period = period;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 }

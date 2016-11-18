@@ -104,6 +104,7 @@ public class EventManagerImpl implements EventManager {
                     newResponse.setStatus(event.getStatus());
                     newResponse.setPeriodId(period.getId());
                     newResponse.setResult(resultMap.get(period.getId()));
+                    newResponse.setStartTime(event.getStartTime());
                     responses.add(newResponse);
                 }
             }
@@ -155,7 +156,7 @@ public class EventManagerImpl implements EventManager {
 			newResponse.setAwayTeam(teamsMap.get(event.getAwayTeamId()));
 			newResponse.setDescription(event.getDescription());
 			newResponse.setStatus(event.getStatus());
-
+			newResponse.setStartTime(event.getStartTime());
 			responses.add(newResponse);
 		}
 
