@@ -14,6 +14,7 @@ import com.tricast.beans.Event;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
+import com.tricast.web.response.EventOpenResponse;
 
 public class EventDaoImpl implements EventDao {
 
@@ -22,6 +23,7 @@ public class EventDaoImpl implements EventDao {
 
 
 	@Override
+	@JdbcTransaction
 	public List<Event> getAll(Workspace workspace) throws SQLException, IOException {
 		List<Event> result = new ArrayList<Event>();
 
@@ -172,6 +174,37 @@ public class EventDaoImpl implements EventDao {
             throw ex;
         }
         return result;
+	}
+	
+	@Override
+	@JdbcTransaction
+	public List<EventOpenResponse> getOpenEvents(Workspace workspace) throws SQLException, IOException {
+		List<EventOpenResponse> result = new ArrayList<EventOpenResponse>();
+
+		String sql = sqlManager.get("eventOpen.sql");
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				
+				EventOpenResponse event = new EventOpenResponse();
+				int i = 1;
+
+				event.setId(rs.getLong(i++));
+				event.setLeague(rs.getString(i++));
+				event.setCountry(rs.getString(i++));
+				event.setHomeTeam(rs.getString(i++));
+				event.setAwayTeam(rs.getString(i++));
+				event.setDescription(rs.getString(i++));
+		        Timestamp timestamp = rs.getTimestamp(i++);
+		        event.setStartTime(new Date(timestamp.getTime()));
+		     
+		        result.add(event);
+			}
+		} catch(SQLException ex) {
+	    	logger.error(ex,ex);
+	    	throw ex;
+	    }
+	    return result;
 	}
 
 }

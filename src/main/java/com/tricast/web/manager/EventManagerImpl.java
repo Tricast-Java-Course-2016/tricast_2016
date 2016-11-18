@@ -19,6 +19,7 @@ import com.tricast.web.dao.EventDao;
 import com.tricast.web.dao.LeagueDao;
 import com.tricast.web.dao.PeriodDao;
 import com.tricast.web.dao.TeamDao;
+import com.tricast.web.response.EventOpenResponse;
 import com.tricast.web.response.EventResponse;
 
 public class EventManagerImpl implements EventManager {
@@ -115,54 +116,8 @@ public class EventManagerImpl implements EventManager {
 
 	@Override
     @JdbcTransaction
-	public List<EventResponse> getAllOpen(Workspace workspace) throws SQLException, IOException {
-
-	List<League> leagues = leagueDao.getAll(workspace);
-	List<Country> countries = countryDao.getAll(workspace);
-	List<Team> teams = teamDao.getAll(workspace);
-	List<Event> events = eventDao.getAll(workspace);
-
-	//convert Lists to HashMaps for easier id-description access
-	HashMap<Long, String> leaguesMap = new HashMap<Long, String>();
-	for (League league : leagues) {
-		leaguesMap.put(league.getId(), league.getDescription());
-	}
-
-	HashMap<Long, String> countriesMap = new HashMap<Long, String>();
-	for (Country country : countries) {
-		countriesMap.put(country.getId(), country.getDescription());
-	}
-
-	HashMap<Long, String> teamsMap = new HashMap<Long, String>();
-	for (Team team : teams) {
-		teamsMap.put(team.getId(), team.getDescription());
-	}
-
-	HashMap<Long, String> eventsMap = new HashMap<Long, String>();
-	for (Event event : events) {
-		eventsMap.put(event.getId(), event.getDescription());
-	}
-
-	List<EventResponse> responses = new ArrayList<EventResponse>();
-
-	for (Event event : events) {
-
-		if(event.getStatus().trim().compareTo("OPEN") == 0){
-			EventResponse newResponse = new EventResponse();
-			newResponse.setId(event.getId());
-			newResponse.setLeague(leaguesMap.get(event.getLeagueId()));
-			newResponse.setCountry(countriesMap.get(event.getCountryId()));
-			newResponse.setHomeTeam(teamsMap.get(event.getHomeTeamId()));
-			newResponse.setAwayTeam(teamsMap.get(event.getAwayTeamId()));
-			newResponse.setDescription(event.getDescription());
-			newResponse.setStatus(event.getStatus());
-			newResponse.setStartTime(event.getStartTime());
-			responses.add(newResponse);
-		}
-
-	}
-
-	return responses;
+	public List<EventOpenResponse> getAllOpen(Workspace workspace) throws SQLException, IOException {
+		return eventDao.getOpenEvents(workspace);
 	}
 
 	@Override

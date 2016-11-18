@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import com.tricast.beans.Event;
 import com.tricast.database.Workspace;
+import com.tricast.web.response.EventOpenResponse;
 
 public interface EventDao {
 
@@ -17,4 +18,6 @@ public interface EventDao {
 	Long update(Workspace workspace, Event updateItem) throws SQLException, IOException;
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
+	
+	List<EventOpenResponse> getOpenEvents(Workspace workspace) throws SQLException, IOException;
 }
