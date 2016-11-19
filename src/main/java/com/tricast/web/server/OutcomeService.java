@@ -99,4 +99,17 @@ public class OutcomeService extends LVSResource {
             return respondDeleteNotOK(ex.getMessage(), null, 500);
         }
     }
+    
+    @GET
+    @Path("/markets/{id}")
+    @Produces(APPLICATION_JSON)
+    public Response getByMarketId(@PathParam("id") long marketId) throws SQLException, OutOfTransactionException, IOException {
+        log.trace("Requested to get outcomes with this marketId = " + marketId);
+        try {
+            return respondGet(manager.getByMarketId(workspace, marketId));
+        } catch (SQLException ex) {
+
+            return respondGet(ex.getMessage(), 500);
+        }
+    }
 }

@@ -5,7 +5,15 @@ import java.util.List;
 
 public class BetPlacementResponse {
 
+//	le kell kérni: 
+//1 OK account balance id alapján (accountGetBalance.sql)
+//2 eseményről alap infókat (új REST hívás: eventGetDetailsById.sql)
+//3 OK periódusok listáját (periodGetAll.sql)
+//4 ehhez az eseményhez tartozó Market-ok listáját (új REST hívás: MarketResponse objektummal) (marketGetDetailsByEventId.sql)
+//5 ki kell listázni majd táblázat szerűen a Market-hoz tartozó Outcome-okat (outcomeGetDetailsById.sql)
+
 	private long accountId;
+	private double balance;
 	private long eventId;
     private String eventDescription;
     private String countryDescription;
@@ -13,7 +21,7 @@ public class BetPlacementResponse {
     private String homeTeamDescription;
     private String awayTeamDescription;
     private Date eventStartDate;
-    private String eventStatus;
+    private String eventStatus;	//csak akkor engedjük legenerálni a fogadás oldalat, ha ez OPEN
     private List<String> periodDescription;
     private List<MarketResponse> markets;
     
@@ -83,6 +91,12 @@ public class BetPlacementResponse {
 	}
 	public void setMarkets(List<MarketResponse> markets) {
 		this.markets = markets;
+	}
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 

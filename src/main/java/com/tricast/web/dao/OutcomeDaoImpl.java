@@ -15,6 +15,7 @@ import com.tricast.beans.Outcome;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
+import com.tricast.web.response.OutcomeResponse;
 
 public class OutcomeDaoImpl implements OutcomeDao {
     private static final Logger log = LogManager.getLogger(OutcomeDaoImpl.class);
@@ -168,6 +169,35 @@ public class OutcomeDaoImpl implements OutcomeDao {
             outcome.setResult(result);
         }
         return outcome;
+    }
+    
+    @Override
+    @JdbcTransaction
+    public List<OutcomeResponse> getByMarketId(Workspace workspace, long marketId) throws SQLException, IOException {
+    	List<OutcomeResponse> result = new ArrayList<OutcomeResponse>();
+
+        String sql = sqlManager.get("outcomeGetDetailsByMarketId.sql");
+
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql);) {
+        	ps.setLong(1, marketId);
+        	ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+            	OutcomeResponse outcome = new OutcomeResponse();
+                int i = 1;
+                outcome.setOutcomeId(rs.getLong(i++));
+                outcome.setDescription(rs.getString(i++));
+                outcome.setOutcomeCode(rs.getString(i++));
+                outcome.setOdds(rs.getDouble(i++));
+                
+                result.add(outcome);
+            }
+
+        } catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        }
+        return result;
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.tricast.beans.Outcome;
 import com.tricast.database.Workspace;
+import com.tricast.web.response.OutcomeResponse;
 
 public interface OutcomeDao {
     List<Outcome> getAll(Workspace workspace) throws SQLException, IOException;
@@ -17,4 +18,6 @@ public interface OutcomeDao {
     Long update(Workspace workspace, Outcome updateItem) throws SQLException, IOException;
 
     boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
+    
+    List<OutcomeResponse> getByMarketId(Workspace workspace, long marketId) throws SQLException, IOException;
 }

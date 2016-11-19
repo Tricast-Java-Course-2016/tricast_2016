@@ -10,6 +10,7 @@ import com.tricast.beans.Outcome;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.OutcomeDao;
+import com.tricast.web.response.OutcomeResponse;
 
 public class OutcomeManagerImpl implements OutcomeManager {
     private OutcomeDao outcomeDao;
@@ -59,6 +60,12 @@ public class OutcomeManagerImpl implements OutcomeManager {
     @JdbcTransaction
     public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
         return outcomeDao.deleteById(workspace, Id);
+    }
+    
+    @Override
+    @JdbcTransaction
+    public List<OutcomeResponse> getByMarketId(Workspace workspace, long marketId) throws SQLException, IOException {
+        return outcomeDao.getByMarketId(workspace, marketId);
     }
 
 }

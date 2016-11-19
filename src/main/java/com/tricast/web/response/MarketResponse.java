@@ -8,6 +8,9 @@ public class MarketResponse {
     private long periodId;
     private String periodDescription;
     private long eventId;
+    private long marketTypeId;
+    private String marketType;
+    private List<OutcomeResponse> outcomes;
 
     public long getMarketId() {
         return marketId;
@@ -56,7 +59,14 @@ public class MarketResponse {
     public void setOutcomes(List<OutcomeResponse> outcomes) {
         this.outcomes = outcomes;
     }
-    private long marketTypeId;
-    private List<OutcomeResponse> outcomes;
+
+	public String getMarketType() {
+		return marketType;
+	}
+
+	public void setMarketType(String marketType) {
+		this.marketType = marketType;
+	}
+
 
 }
