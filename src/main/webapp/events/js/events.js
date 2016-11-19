@@ -10,9 +10,10 @@ function assignAction() {
 function getAllEvents() {
     var url = "/tricast-2016-sportsbook/services/events/open";
 
+    eventid = [];
     sendAjax("GET", url, null, function(data) {
         for (var i = 0; i < data.length; i++) {
-        	
+
                 $('#eventTable > tbody:last-child').append(
                 		
                         '<tr id="'  + data[i].id +
@@ -22,10 +23,10 @@ function getAllEvents() {
                         '</td><td>' + data[i].awayTeam + 
                         '</td><td>' + data[i].description + 
                         '</td><td>' + data[i].startTime + '</td></tr>');
+                		eventid.push(data[i].id);
                 		
-                		var eventid = data[i].id;
-		            	$('#' + eventid).click(function() {
-		            		window.location.href = "../bets/betPlacement.html?event=" + eventid + "&account=2";
+		            	$('#' + data[i].id).click(function(id) {
+		            		window.location.href = "../bets/betPlacement.html?event=" + this.id + "&account=2"
 		            	});
 		            	
         }

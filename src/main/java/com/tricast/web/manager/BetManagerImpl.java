@@ -19,6 +19,7 @@ import com.tricast.web.dao.TransactionDao;
 import com.tricast.web.response.BetPlacementResponse;
 import com.tricast.web.response.EventResponse;
 import com.tricast.web.response.MarketResponse;
+import com.tricast.web.response.OutcomeResponse;
 
 public class BetManagerImpl implements BetManager {
 
@@ -99,33 +100,22 @@ public class BetManagerImpl implements BetManager {
 		data.setEventStartDate(event.getStartTime());
 		data.setEventStatus(event.getStatus());
 		
-		/*
-		//period list
-		List<PeriodType> periods = periodDao.getAll(workspace);
-		data.setPeriods(periods);
-		
-		List<String> periodDescriptions = new ArrayList<String>();
-		for(Period p : periods){
-			periodDescriptions.add(p.getDescription());			
-		}
-		data.setPeriodDescription(periodDescriptions);
-		*/
-		
-		//TODO placeholder for Period Strings
+		// Period Strings
 		List<String> periodDescriptions = new ArrayList<String>();
 		periodDescriptions.add("1st half");
 		periodDescriptions.add("2nd half");
-		periodDescriptions.add("90 mind");
+		periodDescriptions.add("90 mins");
 		periodDescriptions.add("full time");
 		data.setPeriodDescription(periodDescriptions);
 		
-		//all markets for this eventId
+		//all markets for this eventId - TODO Only if the event is OPEN
 		List<MarketResponse> marketList = marketDao.getDetailsByEventId(workspace, eventId);
-		for(MarketResponse m : marketList){
-			long marketId = m.getMarketId();
-			m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
-		}
-		data.setMarkets(marketList);
+			for(MarketResponse m : marketList) {
+					long marketId = m.getMarketId();
+					m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
+	
+			}
+			data.setMarkets(marketList);
 		
 		return data;
 	}
