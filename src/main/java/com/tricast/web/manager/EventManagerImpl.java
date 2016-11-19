@@ -155,4 +155,10 @@ public class EventManagerImpl implements EventManager {
 		return eventDao.deleteById(workspace, Id);
 	}
 
+	@Override
+	@JdbcTransaction
+	public EventResponse getEventDetails(Workspace workspace, long eventId) throws SQLException, IOException {
+		return eventDao.getEventDetails(workspace, eventId);
+	}
+
 }

@@ -9,7 +9,7 @@ public class MarketResponse {
     private String periodDescription;
     private long eventId;
     private long marketTypeId;
-    private String marketType;
+    private String marketTypeDescription;
     private List<OutcomeResponse> outcomes;
 
     public long getMarketId() {
@@ -61,11 +61,11 @@ public class MarketResponse {
     }
 
 	public String getMarketType() {
-		return marketType;
+		return marketTypeDescription;
 	}
 
-	public void setMarketType(String marketType) {
-		this.marketType = marketType;
+	public void setMarketTypeDescription(String marketTypeDescription) {
+		this.marketTypeDescription = marketTypeDescription;
 	}
 
 

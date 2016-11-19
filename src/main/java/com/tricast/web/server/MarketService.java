@@ -100,5 +100,19 @@ public class MarketService extends LVSResource{
             return respondDeleteNotOK(ex.getMessage(), null, 500);
         }
     }
+    
+    @GET
+    @Path("event/{id}")
+    @Produces(APPLICATION_JSON)
+    public Response getDetailsByEventId(@PathParam("id") long eventId) 
+    		throws SQLException, OutOfTransactionException, IOException {
+        log.trace("Requested to get markets by eventId = " + eventId);
+        try {
+            return respondGet(manager.getDetailsByEventId(workspace, eventId));
+        } catch (SQLException ex) {
+
+            return respondGet(ex.getMessage(), 500);
+        }
+    }
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.tricast.beans.Event;
 import com.tricast.database.Workspace;
 import com.tricast.web.response.EventOpenResponse;
+import com.tricast.web.response.EventResponse;
 
 public interface EventDao {
 
@@ -20,4 +21,6 @@ public interface EventDao {
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 	
 	List<EventOpenResponse> getOpenEvents(Workspace workspace) throws SQLException, IOException;
+	
+	EventResponse getEventDetails(Workspace workspace, long eventId) throws SQLException, IOException;
 }

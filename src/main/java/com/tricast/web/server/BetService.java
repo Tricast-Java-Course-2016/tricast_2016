@@ -62,6 +62,20 @@ public class BetService extends LVSResource {
             return respondGet(ex.getMessage(), 500);
         }
     }
+    
+    @GET
+    @Path("details/{eventId}/{accountId}")
+    @Produces(APPLICATION_JSON)
+    public Response getBetInformation(@PathParam("eventId") long eventId, @PathParam("accountId") long accountId) 
+    		throws SQLException, OutOfTransactionException, IOException {
+        log.trace("Requested to get details for betting page with event ID = " + eventId +" account ID = "+ accountId);
+        try {
+            return respondGet(manager.getBetInformation(workspace, eventId, accountId));
+        } catch (SQLException ex) {
+
+            return respondGet(ex.getMessage(), 500);
+        }
+    }
 
     @POST
     @Produces(APPLICATION_JSON)

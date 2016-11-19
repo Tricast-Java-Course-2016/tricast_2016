@@ -21,4 +21,6 @@ public interface EventManager {
 	Event update(Workspace workspace, Event updateEvent) throws SQLException, IOException;
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
+	
+	EventResponse getEventDetails(Workspace workspace, long eventId) throws SQLException, IOException;
 }

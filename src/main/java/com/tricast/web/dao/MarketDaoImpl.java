@@ -15,6 +15,7 @@ import com.tricast.beans.Market;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
+import com.tricast.web.response.MarketResponse;
 
 public class MarketDaoImpl implements MarketDao {
 	 private static final Logger log = LogManager.getLogger(MarketDaoImpl.class);
@@ -168,6 +169,39 @@ public class MarketDaoImpl implements MarketDao {
 
         return market;
     }
+	
+	@Override
+	@JdbcTransaction
+	public List<MarketResponse> getDetailsByEventId(Workspace workspace, long eventId) throws SQLException, IOException {
+		List<MarketResponse> result = new ArrayList<MarketResponse>();
+		ResultSet rs = null;
+		
+		String sql = sqlManager.get("marketGetDetailsByEventId.sql");
+
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+            ps.setLong(1, eventId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+            	
+            	MarketResponse market = new MarketResponse();
+                int i = 1;
+                market.setMarketId(rs.getLong(i++));
+                market.setPeriodId(rs.getLong(i++));
+                market.setPeriodDescription(rs.getString(i++));
+                market.setEventId(rs.getLong(i++));
+                market.setMarketTypeId(rs.getLong(i++));
+                market.setMarketTypeDescription(rs.getString(i++));           	
+            	
+                result.add(market);
+            }
+
+        } catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        }
+        return result;
+	}
 
 	
 

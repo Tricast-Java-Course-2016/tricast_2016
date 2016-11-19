@@ -10,13 +10,17 @@ import com.tricast.beans.Market;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.MarketDao;
+import com.tricast.web.dao.OutcomeDao;
+import com.tricast.web.response.MarketResponse;
 
 public class MarketManagerImpl implements MarketManager{
 	private final MarketDao marketDao;
+	private final OutcomeDao outcomeDao;
 
 	@Inject
-    public MarketManagerImpl(MarketDao marketDao) {
+    public MarketManagerImpl(MarketDao marketDao, OutcomeDao outcomeDao) {
 		this.marketDao = marketDao;
+		this.outcomeDao = outcomeDao;
 	}
 	
 	@Override
@@ -58,6 +62,19 @@ public class MarketManagerImpl implements MarketManager{
 	@JdbcTransaction
 	public boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException {
 		return marketDao.deleteById(workspace, Id);
+	}
+
+	@Override
+	@JdbcTransaction
+	public List<MarketResponse> getDetailsByEventId(Workspace workspace, long eventId)
+			throws SQLException, IOException {
+		List<MarketResponse> marketList = marketDao.getDetailsByEventId(workspace, eventId);
+		for(MarketResponse m : marketList){
+			long marketId = m.getMarketId();
+			m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
+		}
+		
+		return marketList;
 	}
 
 }

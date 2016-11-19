@@ -2,6 +2,7 @@ package com.tricast.web.manager;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,14 +11,31 @@ import com.tricast.beans.Bet;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.BetDao;
+import com.tricast.web.dao.EventDao;
+import com.tricast.web.dao.MarketDao;
+import com.tricast.web.dao.OutcomeDao;
+import com.tricast.web.dao.PeriodDao;
+import com.tricast.web.dao.TransactionDao;
+import com.tricast.web.response.BetPlacementResponse;
+import com.tricast.web.response.EventResponse;
+import com.tricast.web.response.MarketResponse;
 
 public class BetManagerImpl implements BetManager {
 
     private final BetDao betDao;
+    private final MarketDao marketDao;
+    private final TransactionDao transactionDao;
+    private final EventDao eventDao;
+    private final OutcomeDao outcomeDao;
 
     @Inject
-    public BetManagerImpl(BetDao betDao) {
+    public BetManagerImpl(BetDao betDao, MarketDao marketDao, PeriodDao periodDao,
+    		TransactionDao transactionDao, EventDao eventDao, OutcomeDao outcomeDao) {
         this.betDao = betDao;
+        this.marketDao = marketDao;
+        this.transactionDao = transactionDao;
+        this.eventDao = eventDao;
+        this.outcomeDao = outcomeDao;
     }
 
     @Override
@@ -59,5 +77,58 @@ public class BetManagerImpl implements BetManager {
     public boolean deleteById(Workspace workspace, long betId) throws SQLException, IOException {
         return betDao.deleteById(workspace, betId);
     }
+    
+	@Override
+	@JdbcTransaction
+	public BetPlacementResponse getBetInformation(Workspace workspace, long eventId, long accountId)
+			throws SQLException, IOException {
+		
+		
+		BetPlacementResponse data = new BetPlacementResponse();
+		//account data
+		data.setBalance(transactionDao.getAmountByAccountId(workspace, accountId));
+
+		//event data
+		EventResponse event = eventDao.getEventDetails(workspace, eventId);
+		data.setEventId(eventId);
+		data.setEventDescription(event.getDescription());
+		data.setCountryDescription(event.getCountry());
+		data.setLeagueDescription(event.getLeague());
+		data.setHomeTeamDescription(event.getHomeTeam());
+		data.setAwayTeamDescription(event.getAwayTeam());
+		data.setEventStartDate(event.getStartTime());
+		data.setEventStatus(event.getStatus());
+		
+		/*
+		//period list
+		List<PeriodType> periods = periodDao.getAll(workspace);
+		data.setPeriods(periods);
+		
+		List<String> periodDescriptions = new ArrayList<String>();
+		for(Period p : periods){
+			periodDescriptions.add(p.getDescription());			
+		}
+		data.setPeriodDescription(periodDescriptions);
+		*/
+		
+		//TODO placeholder for Period Strings
+		List<String> periodDescriptions = new ArrayList<String>();
+		periodDescriptions.add("1st half");
+		periodDescriptions.add("2nd half");
+		periodDescriptions.add("90 mind");
+		periodDescriptions.add("full time");
+		data.setPeriodDescription(periodDescriptions);
+		
+		//all markets for this eventId
+		List<MarketResponse> marketList = marketDao.getDetailsByEventId(workspace, eventId);
+		for(MarketResponse m : marketList){
+			long marketId = m.getMarketId();
+			m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
+		}
+		data.setMarkets(marketList);
+		
+		return data;
+	}
+
 
 }

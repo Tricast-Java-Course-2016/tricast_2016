@@ -15,6 +15,7 @@ import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.response.EventOpenResponse;
+import com.tricast.web.response.EventResponse;
 
 public class EventDaoImpl implements EventDao {
 
@@ -200,6 +201,38 @@ public class EventDaoImpl implements EventDao {
 		     
 		        result.add(event);
 			}
+		} catch(SQLException ex) {
+	    	logger.error(ex,ex);
+	    	throw ex;
+	    }
+	    return result;
+	}
+
+	@Override
+	public EventResponse getEventDetails(Workspace workspace, long eventId) throws SQLException, IOException {
+		EventResponse result = new EventResponse();
+		ResultSet rs = null;
+		
+		String sql = sqlManager.get("eventGetDetailsById.sql");
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+			   ps.setLong(1, eventId);
+	            rs = ps.executeQuery();
+
+				if (rs.next()) {
+					EventResponse event = new EventResponse();
+					int i = 1;
+
+					event.setId(rs.getLong(i++));
+					event.setDescription(rs.getString(i++));
+					event.setCountry(rs.getString(i++));
+					event.setLeague(rs.getString(i++));					
+					event.setHomeTeam(rs.getString(i++));
+					event.setAwayTeam(rs.getString(i++));					
+			        Timestamp timestamp = rs.getTimestamp(i++);
+			        event.setStartTime(new Date(timestamp.getTime()));
+			        event.setStatus(rs.getString(i++));
+			        result = event;
+				}
 		} catch(SQLException ex) {
 	    	logger.error(ex,ex);
 	    	throw ex;

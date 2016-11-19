@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.tricast.beans.Market;
 import com.tricast.database.Workspace;
+import com.tricast.web.response.MarketResponse;
 
 public interface MarketDao {
 	List<Market> getAll(Workspace workspace) throws SQLException, IOException;
@@ -18,5 +19,5 @@ public interface MarketDao {
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 
-
+	List<MarketResponse> getDetailsByEventId(Workspace workspace, long eventId) throws SQLException, IOException;
 }

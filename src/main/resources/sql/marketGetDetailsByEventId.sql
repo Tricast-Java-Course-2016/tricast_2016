@@ -3,8 +3,8 @@ select
 	p.id,
 	pt.description,
 	p.eventid,
-	mt.description,
-	m.markettypeid	
+	m.markettypeid,
+	mt.description		
 from
 	/*=SCHEMA*/periodtypes pt
 	inner join /*=SCHEMA*/periods p on pt.id = p.periodtypeid
