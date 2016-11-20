@@ -168,6 +168,7 @@ public class AccountDaoImpl implements AccountDao {
             ps.setString(i++, updateItem.getpin());
             ps.setString(i++, updateItem.getBankAccountNumber());
             ps.setString(i++, updateItem.getBankCardNumber());
+            ps.setLong(i++, updateItem.getId());
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();

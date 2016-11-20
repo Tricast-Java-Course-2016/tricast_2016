@@ -6,22 +6,24 @@
         
         <script type="text/javascript" src="../common/js/lib/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="../common/js/general.js"></script>
-        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="../common/js/lib/bootstrap.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>        
+        <link rel="stylesheet" href="../common/css/bootstrap.css">
     </head>
     <body>
-        <h1>LOGIN</h1>
+        <h1 style="width: auto; text-align: center;">LOGIN</h1>
         <form>
-            <fieldset id="loginInputs">
+            <fieldset id="loginInputs" style="width: auto; text-align: center;">
                 <input id="loginUsername" type="text" placeholder="username" autofocus="autofocus">
                 <input id="loginPassword" type="password" placeholder="password">
             </fieldset>
-            <fieldset id="loginControlls">
+            <br>
+            <br>
+            <fieldset id="loginControlls" style="width: auto; text-align: center;">
                 <button id="submitBtn" type="submit">Log in</button>
                 <button id="registerBtn" type="submit">Register</button>
             </fieldset> 
                     
-        </form>
-        <h2 id="userPlacholder"></h2>
-        
+        </form>        
     </body>
 </html>

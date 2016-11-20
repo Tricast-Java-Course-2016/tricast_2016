@@ -2,26 +2,22 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Register</title>
+        <title>Change Info</title>
         
         <script type="text/javascript" src="../common/js/lib/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="../common/js/general.js"></script>
         <script type="text/javascript" src="../common/js/lib/bootstrap.js"></script>
-        <script type="text/javascript" src="js/register.js"></script>
+        <script type="text/javascript" src="js/changeinfo.js"></script>
         <link rel="stylesheet" href="../common/css/bootstrap.css">
     </head>
     <body>
-    	<div id="registerBox" class="fullpageBox">
-    		<form id="register" class="fullpage">
-				<h1 id="regTitle" style="width: auto; text-align: center;">Registration</h1>
-				<div style="width: auto; text-align: center;">Please fill in these fields!</div>
+    	<div id="updateBox" class="fullpageBox">
+    		<form id="update" class="fullpage">
+				<h1 id="updtateTitle" style="width: auto; text-align: center;">Change Account Information</h1>
+				<div style="width: auto; text-align: center;">You can change your personal informations here.</div>
 				<div id="accountMsg" style="width: auto; text-align: center;"></div>
-				<fieldset id="registerInputs" style="width: auto; text-align: center;">
-                        <input type="radio" name="type" id="Player"> Player<br>
-                        <input type="radio" name="type" id="Operator"> Operator<br>
-                        <label for="username">User name:</label>
-				        <input id="username" type="text" placeholder="Username" autofocus required><br>
-				        <label for="password">Password:</label>
+				<fieldset id="updateInputs" style="width: auto; text-align: center;">
+			         	<label for="password">Password:</label>
 			         	<input id="password" type="password" placeholder="Password" required><br>
 			         	<label for="firstname">First name:</label>
                         <input id="firstname" type="text" placeholder="firstname" required><br>
@@ -44,8 +40,8 @@
 				</fieldset>
 				<br>
             	<br>
-				<fieldset id="registerControls" style="width: auto; text-align: center;">
-					<button class="submitBtn" type="submit" id="saveAccount">Create Account</button>
+				<fieldset id="updateControls" style="width: auto; text-align: center;">
+					<button class="submitBtn" type="submit" id="updateAccount">Update Account</button>
 					
 				</fieldset>
 			</form>
