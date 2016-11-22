@@ -45,6 +45,7 @@ function getAccountParams() {
         account.type = "PLAYER";
     }
     account.userName = $("#username").val();
+    account.password = $("#password").val();
     account.firstName = $("#firstname").val();
     account.lastName = $("#lastname").val();
     account.dob = $("#dob").val();

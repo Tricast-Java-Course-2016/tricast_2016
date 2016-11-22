@@ -43,7 +43,6 @@ public class AccountDaoImpl implements AccountDao {
         account.setId(rs.getLong(i++));
         long typeId = rs.getLong(i++);
         account.setType(AccountType.getType(typeId));
-
         account.setUserName(rs.getString(i++));
         // TODO HASHING
         if (isLogin) {
@@ -118,7 +117,6 @@ public class AccountDaoImpl implements AccountDao {
         String sql = sqlManager.get("accountCreate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
             int i = 1;
             ps.setLong(i++, newItem.getType().getTypeId());
             ps.setString(i++, newItem.getUserName());

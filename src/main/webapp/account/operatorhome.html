@@ -6,26 +6,21 @@
         
         <script type="text/javascript" src="../common/js/lib/jquery-3.1.1.js"></script>
         <script type="text/javascript" src="../common/js/general.js"></script>
+                <script type="text/javascript" src="../common/js/lib/bootstrap.js"></script>
         <script type="text/javascript" src="js/operatorhome.js"></script>
+                <link rel="stylesheet" href="../common/css/bootstrap.css">
     </head>
     <body>
         <h1>Operator Home</h1>
         <form>
-           
-        <a href="javascript:void(0)"  onclick="javascript:goToChangeAccountInfo()">Change Account Info</a><br>
-        <a href="javascript:void(0)"  onclick="javascript:goToEventList()">Event List</a><br>
-        <a href="javascript:void(0)"  onclick="javascript:goToPeriods()">Periods</a><br>
-        
-        <a href="javascript:void(0)"  onclick="javascript:goToCountries()">Countries</a><br>
-        
-        <a href="javascript:void(0)"  onclick="javascript:goToLeagues()">Leagues</a><br>
-       
-        <a href="javascript:void(0)"  onclick="javascript:goToTeams()">Teams</a><br>
-        
+                    <h2 id="welcomeUser"></h2>
+            <button id="updateBtn" type="submit">Change Account Info</button><br><br>
+            <button id="eventListBtn" type="submit">Event List</button><br><br>
+            <button id="periodsBtn" type="submit">Periods</button><br><br>
+            <button id="countriesBtn" type="submit">Countries</button><br><br>
+            <button id="leaguesBtn" type="submit">Leagues</button><br><br>
+            <button id="teamsBtn" type="submit">Teams</button>
         </form>
-               <h2 id="userPlacholder"></h2>
-        
-        
-        
+     
     </body>
 </html>
