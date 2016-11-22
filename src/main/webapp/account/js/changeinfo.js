@@ -2,20 +2,20 @@
 var accountId = null;
 // this method runs every time when the page is reloading
 $(document).ready(function() {
-	//get the accountId from the url
-	var url = document.URL;
-	accountId = url.split("id=")[1];
-	//if the accountId is not null, then load the account info from the server
-	if(accountId !== null){
-		displayAccountInfo();	 
-		assignActions();
-	}	
+    // get the accountId from the url
+    var url = document.URL;
+    accountId = url.split("id=")[1];
+    // if the accountId is not null, then load the account info from the server
+    if (accountId !== null) {
+        displayAccountInfo();
+        assignActions();
+    }
 });
 
 function assignActions() {
     // assign action to Home button
     $("#homeBtn").click(function(e) {
-        window.location.href = "home.html";
+        window.history.back();
     });
 
     // assign save account action
@@ -39,31 +39,29 @@ function saveAccount() {
 }
 
 function displayAccountInfo() {
-	var url = "/tricast-2016-sportsbook/services/accounts/"+accountId;
-	sendAjax("GET", url, null, 
-	 	function(data) {
-			setAccountInfo(data);
-		}, null
-	);	
+    var url = "/tricast-2016-sportsbook/services/accounts/" + accountId;
+    sendAjax("GET", url, null, function(data) {
+        setAccountInfo(data);
+    }, null);
 }
 
-function setAccountInfo(account){
-	loggedInAccount = account;
-	document.getElementById('password').value = account.password;
-	document.getElementById('firstname').value = account.firstName;
-	document.getElementById('lastname').value = account.lastName;
-	document.getElementById('dob').value = account.dob;
-	document.getElementById('address').value = account.address;
-	document.getElementById('emailaddress').value = account.emailAddress;
-	document.getElementById('phonenumber').value = account.phoneNumber;
-	document.getElementById('pin').value = account.pin;
-	document.getElementById('bankaccountnumber').value = account.bankAccountNumber;
-	document.getElementById('bankcardnumber').value = account.bankCardNumber;
+function setAccountInfo(account) {
+    loggedInAccount = account;
+    document.getElementById('password').value = account.password;
+    document.getElementById('firstname').value = account.firstName;
+    document.getElementById('lastname').value = account.lastName;
+    document.getElementById('dob').value = account.dob;
+    document.getElementById('address').value = account.address;
+    document.getElementById('emailaddress').value = account.emailAddress;
+    document.getElementById('phonenumber').value = account.phoneNumber;
+    document.getElementById('pin').value = account.pin;
+    document.getElementById('bankaccountnumber').value = account.bankAccountNumber;
+    document.getElementById('bankcardnumber').value = account.bankCardNumber;
 }
 
 function getAccountParams() {
     var account = {};
-    
+
     account.password = $("#password").val();
     account.firstName = $("#firstname").val();
     account.lastName = $("#lastname").val();
