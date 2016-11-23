@@ -6,7 +6,6 @@ $(document).ready(function() {
 
 function assignAction() {
     var events = getAllEvents();
-
     getIndex();
 
 }
@@ -84,7 +83,6 @@ function getPeriodParams(row, hteam, ateam) {
         var url2 = "/tricast-2016-sportsbook/services/periods/";
         sendAjax("PUT", url2, JSON.stringify(data), function(data, textStatus, xhr) {
             // alert("Successfully saved");
-            // TODO display the new result in the events table
             var selector = '#eventTable tr:eq(' + row + ') .periodResult';
             $(selector).html(hteam + " : " + ateam);
         }, function(xhr) {
