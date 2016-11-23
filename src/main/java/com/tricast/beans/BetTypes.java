@@ -14,7 +14,7 @@ public enum BetTypes {
 
 	public static BetTypes getType(long id)
 	{
-		return id == 1 ? SINGLE : SYSTEM;
+		return id == SINGLE.getTypeId() ? SINGLE : SYSTEM;
 	}
 
 	public long getTypeId() { return typeId; }

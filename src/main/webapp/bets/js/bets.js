@@ -1,5 +1,6 @@
 var currBalance = 0.0;
 var loadedMarkets;
+var accountId;
 
 $(document).ready(function() {
 	assignAction();
@@ -28,16 +29,12 @@ function assignAction() {
         		return false;
         	}
             // which outcome has been selected?
-            var outcomeId;
+            var outcomeId = selectedOutcome.split("e")[1];
             
-            alert("=====DEBUG=====\nStake: " + stake + 
-            		"\nThis outcome has been checked: " + selectedOutcome);
+            // SINGLE bet
+            var betTypeId = 1; 
             
-            // get to know who's placing this bet?
-            var accountId;
-            
-            //TODO finish this method below
-            //placeBet(stake, outcomeId, accountId);
+            placeBet(stake, outcomeId, betTypeId);
         
         } else {
         	alert("Error! You haven't selected any outcome or the stake is missing.");
@@ -179,7 +176,7 @@ function getAllData() {
 	var params = parseQueryString();
 	var eventId = params['event'];
 	//get the account's id, who will place this bet
-	var accountId = params['account'];
+	accountId = params['account'];
 
 	if(eventId == null) {
 		alert("=====DEBUG=====\nevent=EventId missing from the URL");
@@ -196,7 +193,7 @@ function getAllData() {
     sendAjax("GET", url, null, function(data) {
     	
     	//periods
-    	$("#balance").html(data.balance + " $");
+    	$("#balance").html(data.balance + " HUF");
     	currBalance = data.balance;
     	$("#country").html(data.countryDescription);
     	$("#league").html(data.leagueDescription);
@@ -222,18 +219,18 @@ function getAllData() {
 }
 
 
-function placeBet(stake, outcomeId, accountId) {
+function placeBet(stake, outcomeId, betTypeId) {
 	
-	//TODO create service,manager,dao for placing bet
-    var url = "/tricast-2016-sportsbook/services/bets/";
+	var url = "/tricast-2016-sportsbook/services/bets/new";
 
     var req = {};
-    req.accountId = accountId;
-    req.outcomeId = outcomeId;
     req.stake = stake;
+    req.outcomeId = outcomeId;
+    req.accountId = accountId;    
+    req.betTypeId = betTypeId;
     
     sendAjax("POST", url, JSON.stringify(req), function(data, textStatus, xhr) {
-        
+        alert(textStatus);
     }, function(xhr) {
         var errormsg = getErrorMsg(xhr);
         alert(errormsg);

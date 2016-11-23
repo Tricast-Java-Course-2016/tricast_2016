@@ -6,17 +6,6 @@ public class BetData {
 	private long outcomeId;
 	private double odds;
 
-	public BetData(long betId, long outcomeId, double odds)
-	{
-		this.betId = betId;
-		this.outcomeId = outcomeId;
-		this.odds = odds;
-	}
-
-    public BetData() {
-        this(-1, -1, 0.0);
-    }
-
 	public long getBetId() { return betId; }
 	public void setBetId(long betId) { this.betId = betId; }
 

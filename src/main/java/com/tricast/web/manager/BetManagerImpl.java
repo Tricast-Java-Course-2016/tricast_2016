@@ -1,29 +1,36 @@
 package com.tricast.web.manager;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import com.tricast.beans.Bet;
+import com.tricast.beans.BetData;
+import com.tricast.beans.Outcome;
+import com.tricast.beans.Transaction;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.BetDao;
+import com.tricast.web.dao.BetDataDao;
 import com.tricast.web.dao.EventDao;
 import com.tricast.web.dao.MarketDao;
 import com.tricast.web.dao.OutcomeDao;
 import com.tricast.web.dao.PeriodDao;
 import com.tricast.web.dao.TransactionDao;
+import com.tricast.web.request.BetRequest;
 import com.tricast.web.response.BetPlacementResponse;
 import com.tricast.web.response.EventResponse;
 import com.tricast.web.response.MarketResponse;
-import com.tricast.web.response.OutcomeResponse;
 
 public class BetManagerImpl implements BetManager {
 
     private final BetDao betDao;
+    private final BetDataDao betDataDao;
     private final MarketDao marketDao;
     private final TransactionDao transactionDao;
     private final EventDao eventDao;
@@ -31,12 +38,13 @@ public class BetManagerImpl implements BetManager {
 
     @Inject
     public BetManagerImpl(BetDao betDao, MarketDao marketDao, PeriodDao periodDao,
-    		TransactionDao transactionDao, EventDao eventDao, OutcomeDao outcomeDao) {
+    		TransactionDao transactionDao, EventDao eventDao, OutcomeDao outcomeDao, BetDataDao betDataDao) {
         this.betDao = betDao;
         this.marketDao = marketDao;
         this.transactionDao = transactionDao;
         this.eventDao = eventDao;
         this.outcomeDao = outcomeDao;
+        this.betDataDao = betDataDao;
     }
 
     @Override
@@ -119,6 +127,41 @@ public class BetManagerImpl implements BetManager {
 		
 		return data;
 	}
+	
+	@Override
+	@JdbcTransaction
+	public BetRequest placeBet(Workspace workspace, double stake, long outcomeId, long accountId, long betTypeId)
+			throws SQLException, IOException {
+		
+		Bet newBet = new Bet();
+		BetData newBetData = new BetData();
+		BetRequest data = new BetRequest();
+		Transaction trans = new Transaction();
+		Outcome selectedOutcome = outcomeDao.getById(workspace, outcomeId);
+				
+		newBet.setAccountId(accountId);
+		newBet.setBetTypeId(betTypeId);
 
-
+		data.setStake(stake);
+		data.setOutcomeId(outcomeId);
+		data.setAccountId(accountId);
+		data.setBetTypeId(betTypeId);
+		
+		// FIXME get the newly created bet's CORRECT betId!!!
+		long betId = betDao.create(workspace, newBet);
+		betDataDao.create(workspace, newBetData);
+		
+		newBetData.setOdds(selectedOutcome.getOdds());
+		newBetData.setOutcomeId(outcomeId);
+		newBetData.setBetId(betId);
+		
+		trans.setAccountId(accountId);
+		trans.setBetId(betId);
+		trans.setAmount(stake);
+		trans.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
+		trans.setDescription("Place bet for " + stake + " HUF");
+		
+		return data;
+	}
+	
 }

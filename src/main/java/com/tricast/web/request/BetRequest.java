@@ -1,18 +1,16 @@
 package com.tricast.web.request;
 
-import java.math.BigDecimal;
-
 public class BetRequest {
 
-	private BigDecimal stake;
+	private double stake;
     private long outcomeId;
     private long accountId;
     private long betTypeId;
     
-    public BigDecimal getStake() {
+    public double getStake() {
 		return stake;
 	}
-	public void setStake(BigDecimal stake) {
+	public void setStake(double stake) {
 		this.stake = stake;
 	}
 	public long getOutcomeId() {

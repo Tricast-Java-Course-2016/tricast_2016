@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.tricast.beans.Bet;
 import com.tricast.database.Workspace;
+import com.tricast.web.request.BetRequest;
 import com.tricast.web.response.BetPlacementResponse;
 
 public interface BetManager {
@@ -20,5 +21,9 @@ public interface BetManager {
 
     boolean deleteById(Workspace workspace, long betId) throws SQLException, IOException;
     
-    BetPlacementResponse getBetInformation(Workspace workspace, long eventId, long accountId) throws SQLException, IOException;
+    BetPlacementResponse getBetInformation(Workspace workspace, long eventId, long accountId) 
+    		throws SQLException, IOException;
+    
+    BetRequest placeBet(Workspace workspace, double stake, long outcomeId, long accountId, long betTypeId)
+			throws SQLException, IOException;
 }

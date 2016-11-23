@@ -23,6 +23,7 @@ import com.tricast.beans.Bet;
 import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.manager.BetManager;
+import com.tricast.web.request.BetRequest;
 
 @Path("/bets")
 public class BetService extends LVSResource {
@@ -88,7 +89,7 @@ public class BetService extends LVSResource {
             return respondPost(ex.getMessage(), "\\bets", 500);
         }
     }
-
+    
     @PUT
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
@@ -112,6 +113,28 @@ public class BetService extends LVSResource {
             return respondDelete(manager.deleteById(workspace, id));
         } catch (SQLException ex) {
             return respondDeleteNotOK(ex.getMessage(), null, 500);
+        }
+    }
+    
+    @POST
+    @Path("new/")
+    @Produces(APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
+    public Response placeBet(BetRequest newBetRequest) throws OutOfTransactionException, IOException {
+    	
+    	log.trace("Trying to PLACE new bet for account #" + newBetRequest.getAccountId() + 
+        		" to outcome #" + newBetRequest.getOutcomeId() +
+        		" with this stake: " + newBetRequest.getStake()+
+        		" and this betType #" + newBetRequest.getBetTypeId()
+        		);
+        try {
+            return respondPost(manager.placeBet(workspace, 
+            		newBetRequest.getStake(), 
+            		newBetRequest.getOutcomeId(), 
+            		newBetRequest.getAccountId(), 
+            		newBetRequest.getBetTypeId()), "\\bets\\new");
+        } catch (SQLException ex) {
+            return respondPost(ex.getMessage(), "\\bets\\new", 500);
         }
     }
 }
