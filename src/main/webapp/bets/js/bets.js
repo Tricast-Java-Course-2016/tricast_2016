@@ -23,16 +23,16 @@ function assignAction() {
         var selectedOutcome = $('input[name=outcomes]:checked', '#betForm').val();
         
         if(!isNaN(stake) && stake > 0 && selectedOutcome != null) {
-        	if(stake < currBalance) {
-        		alert("You don't have enough money to place this bet with this stake = " + stake);
+        	if(stake > currBalance) {
+        		alert("Hey, you don't have enough money to place this bet :" + stake);
         		return false;
         	}
             // which outcome has been selected?
             var outcomeId;
             
-            /*alert("=====DEBUG=====\nStake: " + stake + 
-            		"\nThis outcome has been checked" + selectedOutcome);
-            */
+            alert("=====DEBUG=====\nStake: " + stake + 
+            		"\nThis outcome has been checked: " + selectedOutcome);
+            
             // get to know who's placing this bet?
             var accountId;
             
@@ -119,6 +119,34 @@ function loadMarkets(periodId) {
 				case 2: // Total Goals O/U 2.5
 					var over, under;
 					
+					// get all the outcomes for O/U markets
+					for(var j = 0; j < (loadedMarkets[i].outcomes).length; j++){
+						
+						// what is the outcome code here?
+						switch(loadedMarkets[i].outcomes[j].outcomeCode) {
+					
+							case 'O':	//Over 2,5
+								outcome1 = '<td>' + 
+									loadedMarkets[i].outcomes[j].description + 
+									'<input type="radio" name="outcomes" value="outcome' + 
+									loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+									loadedMarkets[i].outcomes[j].odds + '</td>';
+								break;
+							case 'U':	//Under 2,5
+								outcome2 = '<td>' + 
+								loadedMarkets[i].outcomes[j].description + 
+								'<input type="radio" name="outcomes" value="outcome' + 
+								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+								loadedMarkets[i].outcomes[j].odds + '</td>';
+								break;
+						}
+						
+					}
+					
+					$('#ouMarketOdds > tbody:last-child').append(
+							'<tr>' + outcome1 + outcome2 + '</tr>'				
+					);
+					
 					break; 
 				case 3: // Correct score
 					
@@ -135,7 +163,7 @@ function loadMarkets(periodId) {
 					}
 					break; 
 				case 4: // Double Chance
-					
+					// TODO make this if neccessary
 					
 					break; 
 			}
@@ -169,6 +197,7 @@ function getAllData() {
     	
     	//periods
     	$("#balance").html(data.balance + " $");
+    	currBalance = data.balance;
     	$("#country").html(data.countryDescription);
     	$("#league").html(data.leagueDescription);
     	$("#team1").html(data.homeTeamDescription);

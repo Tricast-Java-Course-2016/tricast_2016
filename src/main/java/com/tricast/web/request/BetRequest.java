@@ -7,7 +7,7 @@ public class BetRequest {
 	private BigDecimal stake;
     private long outcomeId;
     private long accountId;
-    // private long betTypeId;
+    private long betTypeId;
     
     public BigDecimal getStake() {
 		return stake;
@@ -26,6 +26,12 @@ public class BetRequest {
 	}
 	public void setAccountId(long accountId) {
 		this.accountId = accountId;
+	}
+	public long getBetTypeId() {
+		return betTypeId;
+	}
+	public void setBetTypeId(long betTypeId) {
+		this.betTypeId = betTypeId;
 	}
 
 }
