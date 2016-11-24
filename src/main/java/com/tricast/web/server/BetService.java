@@ -128,11 +128,7 @@ public class BetService extends LVSResource {
         		" and this betType #" + newBetRequest.getBetTypeId()
         		);
         try {
-            return respondPost(manager.placeBet(workspace, 
-            		newBetRequest.getStake(), 
-            		newBetRequest.getOutcomeId(), 
-            		newBetRequest.getAccountId(), 
-            		newBetRequest.getBetTypeId()), "\\bets\\new");
+            return respondPost(manager.placeBet(workspace, newBetRequest), "\\bets\\new");
         } catch (SQLException ex) {
             return respondPost(ex.getMessage(), "\\bets\\new", 500);
         }

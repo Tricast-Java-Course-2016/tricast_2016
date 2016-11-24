@@ -130,38 +130,32 @@ public class BetManagerImpl implements BetManager {
 	
 	@Override
 	@JdbcTransaction
-	public BetRequest placeBet(Workspace workspace, double stake, long outcomeId, long accountId, long betTypeId)
-			throws SQLException, IOException {
+	public BetRequest placeBet(Workspace workspace, BetRequest betRequest) throws SQLException, IOException {
 		
 		Bet newBet = new Bet();
 		BetData newBetData = new BetData();
-		BetRequest data = new BetRequest();
-		Transaction trans = new Transaction();
-		Outcome selectedOutcome = outcomeDao.getById(workspace, outcomeId);
+		Transaction newTransaction = new Transaction();
+		Outcome selectedOutcome = outcomeDao.getById(workspace, betRequest.getOutcomeId());
 				
-		newBet.setAccountId(accountId);
-		newBet.setBetTypeId(betTypeId);
+		newBet.setAccountId(betRequest.getAccountId());
+		newBet.setBetTypeId(betRequest.getBetTypeId());
 
-		data.setStake(stake);
-		data.setOutcomeId(outcomeId);
-		data.setAccountId(accountId);
-		data.setBetTypeId(betTypeId);
-		
-		// FIXME get the newly created bet's CORRECT betId!!!
+		// get the newly created bet's CORRECT betId!!!
 		long betId = betDao.create(workspace, newBet);
-		betDataDao.create(workspace, newBetData);
 		
 		newBetData.setOdds(selectedOutcome.getOdds());
-		newBetData.setOutcomeId(outcomeId);
+		newBetData.setOutcomeId(betRequest.getOutcomeId());
 		newBetData.setBetId(betId);
+		betDataDao.create(workspace, newBetData);
 		
-		trans.setAccountId(accountId);
-		trans.setBetId(betId);
-		trans.setAmount(stake);
-		trans.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
-		trans.setDescription("Place bet for " + stake + " HUF");
+		newTransaction.setAccountId(betRequest.getAccountId());
+		newTransaction.setBetId(betId);
+		newTransaction.setAmount(betRequest.getStake());
+		newTransaction.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
+		newTransaction.setDescription("Place bet for " + betRequest.getStake() + " HUF");
+		transactionDao.create(workspace, newTransaction);
 		
-		return data;
+		return betRequest;
 	}
 	
 }

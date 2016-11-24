@@ -24,6 +24,6 @@ public interface BetManager {
     BetPlacementResponse getBetInformation(Workspace workspace, long eventId, long accountId) 
     		throws SQLException, IOException;
     
-    BetRequest placeBet(Workspace workspace, double stake, long outcomeId, long accountId, long betTypeId)
+    BetRequest placeBet(Workspace workspace, BetRequest betRequest)
 			throws SQLException, IOException;
 }
