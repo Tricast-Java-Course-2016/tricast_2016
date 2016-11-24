@@ -150,7 +150,7 @@ public class BetManagerImpl implements BetManager {
 		
 		newTransaction.setAccountId(betRequest.getAccountId());
 		newTransaction.setBetId(betId);
-		newTransaction.setAmount(betRequest.getStake());
+		newTransaction.setAmount(-betRequest.getStake());
 		newTransaction.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
 		newTransaction.setDescription("Place bet for " + betRequest.getStake() + " HUF");
 		transactionDao.create(workspace, newTransaction);
