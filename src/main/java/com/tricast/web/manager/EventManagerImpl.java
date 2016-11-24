@@ -19,6 +19,7 @@ import com.tricast.web.dao.EventDao;
 import com.tricast.web.dao.LeagueDao;
 import com.tricast.web.dao.PeriodDao;
 import com.tricast.web.dao.TeamDao;
+import com.tricast.web.response.DataForEventCreationScreenResponse;
 import com.tricast.web.response.EventOpenResponse;
 import com.tricast.web.response.EventResponse;
 
@@ -112,6 +113,46 @@ public class EventManagerImpl implements EventManager {
 		}
 		return responses;
 	}
+
+    @Override
+    @JdbcTransaction
+    public DataForEventCreationScreenResponse getDataForEvenCreationScreen(Workspace workspace)
+            throws SQLException, IOException {
+
+        DataForEventCreationScreenResponse response = new DataForEventCreationScreenResponse();
+
+        List<League> leagues = leagueDao.getAll(workspace);
+        List<Country> countries = countryDao.getAll(workspace);
+        List<Team> teams = teamDao.getAll(workspace);
+        List<Period> periods = periodDao.getAll(workspace);
+
+        HashMap<Long, String> periodMap = new HashMap<Long, String>();
+        for (Period period : periods) {
+            periodMap.put(period.getId(), period.getPeriodTypeDescription());
+        }
+
+        HashMap<Long, String> leaguesMap = new HashMap<Long, String>();
+        for (League league : leagues) {
+            leaguesMap.put(league.getId(), league.getDescription());
+        }
+
+        HashMap<Long, String> countriesMap = new HashMap<Long, String>();
+        for (Country country : countries) {
+            countriesMap.put(country.getId(), country.getDescription());
+        }
+
+        HashMap<Long, String> teamsMap = new HashMap<Long, String>();
+        for (Team team : teams) {
+            teamsMap.put(team.getId(), team.getDescription());
+        }
+
+        response.setPeriods(periodMap);
+        response.setLeagues(leaguesMap);
+        response.setPeriods(periodMap);
+        response.setTeams(teamsMap);
+
+        return response;
+    }
 
 
 	@Override
