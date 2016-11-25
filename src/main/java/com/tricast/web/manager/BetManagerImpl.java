@@ -3,7 +3,6 @@ package com.tricast.web.manager;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,16 +34,19 @@ public class BetManagerImpl implements BetManager {
     private final TransactionDao transactionDao;
     private final EventDao eventDao;
     private final OutcomeDao outcomeDao;
+    private final PeriodDao periodDao;
 
     @Inject
     public BetManagerImpl(BetDao betDao, MarketDao marketDao, PeriodDao periodDao,
-    		TransactionDao transactionDao, EventDao eventDao, OutcomeDao outcomeDao, BetDataDao betDataDao) {
+    		TransactionDao transactionDao, EventDao eventDao, OutcomeDao outcomeDao, 
+    		BetDataDao betDataDao) {
         this.betDao = betDao;
         this.marketDao = marketDao;
         this.transactionDao = transactionDao;
         this.eventDao = eventDao;
         this.outcomeDao = outcomeDao;
         this.betDataDao = betDataDao;
+        this.periodDao = periodDao;
     }
 
     @Override
@@ -108,22 +110,19 @@ public class BetManagerImpl implements BetManager {
 		data.setEventStartDate(event.getStartTime());
 		data.setEventStatus(event.getStatus());
 		
-		// Period Strings
-		List<String> periodDescriptions = new ArrayList<String>();
-		periodDescriptions.add("1st half");
-		periodDescriptions.add("2nd half");
-		periodDescriptions.add("90 mins");
-		periodDescriptions.add("full time");
-		data.setPeriodDescription(periodDescriptions);
+		// Periods
+		data.setPeriods(periodDao.getAllPeriodType(workspace));
 		
 		//all markets for this eventId - TODO Only if the event is OPEN
 		List<MarketResponse> marketList = marketDao.getDetailsByEventId(workspace, eventId);
-			for(MarketResponse m : marketList) {
-					long marketId = m.getMarketId();
-					m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
-	
-			}
-			data.setMarkets(marketList);
+		
+		// all outcomes for these markets
+		for(MarketResponse m : marketList) {
+				long marketId = m.getMarketId();
+				m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
+
+		}
+		data.setMarkets(marketList);
 		
 		return data;
 	}

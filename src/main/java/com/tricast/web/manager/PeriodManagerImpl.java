@@ -9,6 +9,7 @@ import com.tricast.beans.Period;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.PeriodDao;
+import com.tricast.web.response.PeriodTypeResponse;
 
 public class PeriodManagerImpl implements PeriodManager {
 	private final PeriodDao periodDao;
@@ -57,6 +58,12 @@ public class PeriodManagerImpl implements PeriodManager {
 	public boolean deleteById(Workspace workspace, long id) throws SQLException, IOException {
 		return periodDao.deleteById(workspace, id);
 		
+	}
+
+	@Override
+	@JdbcTransaction
+	public List<PeriodTypeResponse> getAllPeriodType(Workspace workspace) throws SQLException, IOException {
+		return periodDao.getAllPeriodType(workspace);
 	}
 
 

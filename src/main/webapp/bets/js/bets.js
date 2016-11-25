@@ -1,5 +1,6 @@
 var currBalance = 0.0;
 var loadedMarkets;
+var loadedPeriods;
 var accountId;
 
 $(document).ready(function() {
@@ -171,6 +172,19 @@ function loadMarkets(periodId) {
 
 }
 
+function loadPeriods() {
+
+	var s = "";
+	
+	for(var i = 0; i < loadedPeriods.length; i++){
+		s += '<option value="'+ loadedPeriods[i].periodTypeId + 
+			'">' + loadedPeriods[i].description +'</option>';    		
+	}
+	
+	$("#periods").html(s);
+		
+}
+
 function getAllData() {
 	//get the actual event's id from the URL
 	var params = parseQueryString();
@@ -201,15 +215,12 @@ function getAllData() {
     	$("#team2").html(data.awayTeamDescription);
     	$("#date").html(data.eventStartDate);
         
-    	var s = "";
-    	for(var i = 0; i < data.periodDescription.length; i++){
-    		s += '<option value="'+ i + '">' + data.periodDescription[i] +'</option>';    		
-    	}
-    	$("#periods").html(s);
+    	//periods list
+    	loadedPeriods = data.periods;
+    	loadPeriods();
     	
     	//markets and outcomes
-    	
-    	loadedMarkets=data.markets;
+    	loadedMarkets = data.markets;
     	loadMarkets(1);
     	
     }, function(xhr) {

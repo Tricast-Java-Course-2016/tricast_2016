@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.tricast.beans.Period;
 import com.tricast.database.Workspace;
+import com.tricast.web.response.PeriodTypeResponse;
 
 public interface PeriodManager {
 
@@ -18,4 +19,6 @@ public interface PeriodManager {
 	Period update(Workspace workspace, Period updatePeriod) throws SQLException, IOException;
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
+	
+	List<PeriodTypeResponse> getAllPeriodType(Workspace workspace) throws SQLException, IOException;
 }

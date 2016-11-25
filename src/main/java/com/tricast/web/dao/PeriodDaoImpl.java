@@ -15,6 +15,7 @@ import com.tricast.beans.Period;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
+import com.tricast.web.response.PeriodTypeResponse;
 
 public class PeriodDaoImpl implements PeriodDao {
 
@@ -163,6 +164,31 @@ public class PeriodDaoImpl implements PeriodDao {
 		period.setHomeTeamScore((int)rs.getLong(i++));
 		period.setAwayTeamScore((int)rs.getLong(i++));
 		return period;
+	}
+	
+	@Override
+	@JdbcTransaction
+	public List<PeriodTypeResponse> getAllPeriodType(Workspace workspace) throws SQLException, IOException {
+		List<PeriodTypeResponse> result = new ArrayList<PeriodTypeResponse>();
+
+		String sql = sqlManager.get("periodtypeGetAll.sql");
+
+		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
+			while (rs.next()) {
+				
+				PeriodTypeResponse pt = new PeriodTypeResponse();
+				
+				int i = 1;
+				
+				pt.setPeriodTypeId(rs.getLong(i++));
+				pt.setDescription(rs.getString(i++));
+				
+				result.add(pt);
+			}
+		} catch(SQLException ex) {
+	    	log.error(ex,ex);
+	    }
+	    return result;
 	}
 
 }

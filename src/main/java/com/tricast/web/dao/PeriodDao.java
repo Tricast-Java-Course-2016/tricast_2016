@@ -1,6 +1,7 @@
 package com.tricast.web.dao;
 import com.tricast.beans.Period;
 import com.tricast.database.Workspace;
+import com.tricast.web.response.PeriodTypeResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,5 +14,5 @@ public interface PeriodDao {
 	Long create(Workspace workspace, Period newItem) throws SQLException, IOException;
 	Long update(Workspace workspace, Period updateItem) throws SQLException, IOException;
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
-	
+	List<PeriodTypeResponse> getAllPeriodType(Workspace workspace) throws SQLException,IOException;
 }

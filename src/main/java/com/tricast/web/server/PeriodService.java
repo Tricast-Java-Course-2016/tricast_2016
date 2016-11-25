@@ -100,5 +100,17 @@ public class PeriodService extends LVSResource {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }
 	    }
+	    
+	    @GET
+	    @Path("/types")
+	    @Produces(APPLICATION_JSON)
+	    public Response getAllPeriodTypes()throws SQLException, OutOfTransactionException, IOException {
+	        log.trace("Requested to get all period types");
+	        try {
+	            return respondGet(manager.getAllPeriodType(workspace));
+	        } catch (SQLException ex) {
+	            return respondGet(ex.getMessage(), 500);
+	        }
+	    }
 
 }
