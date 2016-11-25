@@ -146,26 +146,67 @@ function loadMarkets(periodId) {
 					);
 					
 					break; 
+					
 				case 3: // Correct score
 					
 					// get all the outcomes for the correct score markets
 					for(var j = 0; j < (loadedMarkets[i].outcomes).length; j++){
 						
+						// here the outcome code is the match result e.g. '3-0'
+						var outcomeText = loadedMarkets[i].outcomes[j].outcomeCode;
+						
+						// but there is az Other option, where there is no correct score there
+						if (loadedMarkets[i].outcomes[j].outcomeCode == 'O') {
+							outComeText = "Other";
+						}
+						
 						$('#correctScoreMarketOdds > tbody:last-child').append(
-								'<tr><td>'+
-								loadedMarkets[i].outcomes[j].outcomeCode + 
+								'<tr><td>'+ outcomeText + 
 								'</td><td><input type="radio" name="outcomes" value="outcome' +
 								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
 								loadedMarkets[i].outcomes[j].odds + '</td></tr>'				
 						);
 					}
 					break; 
-				case 4: // Double Chance
-					// TODO make this if neccessary
 					
+				case 4: // Double Chance
+					
+					var outcome1X, outcome2X, outcome12;
+					
+					// what is the outcome code here?
+					switch(loadedMarkets[i].outcomes[j].outcomeCode) {
+				
+						case '1X':
+							outcome1X = '<td>' + 
+								loadedMarkets[i].outcomes[j].description + 
+								'<input type="radio" name="outcomes" value="outcome' + 
+								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+								loadedMarkets[i].outcomes[j].odds + '</td>';
+							break;
+						case '2X':
+							outcome2X = '<td>' + 
+							loadedMarkets[i].outcomes[j].description + 
+							'<input type="radio" name="outcomes" value="outcome' + 
+							loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+							loadedMarkets[i].outcomes[j].odds + '</td>';
+							break;
+						case '12':
+							outcome12 = '<td>' + 
+							loadedMarkets[i].outcomes[j].description + 
+							'<input type="radio" name="outcomes" value="outcome' + 
+							loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+							loadedMarkets[i].outcomes[j].odds + '</td>';
+							break;
+						}
+						
+					}
+					
+					$('#doubleChanceMarketOdds > tbody:last-child').append(
+							'<tr>' + outcome1X + outcome2X + outcome12 + '</tr>'				
+					);
+				
 					break; 
-			}
-			
+		
 		}	
 	
 	}
