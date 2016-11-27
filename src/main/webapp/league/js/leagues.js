@@ -1,6 +1,7 @@
 //this method runs every time when the page is reloading
 var leagueId = null;
 $(document).ready(function() {
+	logInCheck();
     assignAction();
 });
 

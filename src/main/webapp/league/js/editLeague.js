@@ -1,6 +1,7 @@
 var leagueId = null;
 
 $(document).ready(function() {
+	logInCheck();
 	assignAction();
 });
 

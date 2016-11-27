@@ -125,11 +125,11 @@ public abstract class LVSResource {
     }
 
     private Response respond(ResponseBuilder responseBuilder, Map<String, Object> headersMap) {
-        if (headersMap != null) {
-            for (Map.Entry<String, Object> entry : headersMap.entrySet()) {
-                responseBuilder.header(entry.getKey(), headersMap.get(entry.getValue()));
-            }
-        }
+    	if (headersMap != null) {
+			for (String name : headersMap.keySet()) {
+				responseBuilder.header(name, headersMap.get(name));
+			}
+		}
         return responseBuilder.build();
     }
 

@@ -19,13 +19,16 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.sun.jersey.spi.container.ResourceFilters;
 import com.tricast.beans.Transaction;
 import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
+import com.tricast.web.filters.AuthenticationFilter;
 //import com.tricast.web.manager.BetManager;
 import com.tricast.web.manager.TransactionManager;
 
 @Path("/transactions")
+@ResourceFilters(AuthenticationFilter.class)
 public class TransactionService extends LVSResource {
     private static final Logger log = LogManager.getLogger(TransactionService.class);
 

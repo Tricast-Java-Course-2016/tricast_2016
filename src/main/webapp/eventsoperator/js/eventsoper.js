@@ -1,5 +1,6 @@
 //this method runs every time when the page is reloading
 $(document).ready(function() {
+	logInCheck();
     assignAction();
 
 });

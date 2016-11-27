@@ -4,6 +4,7 @@ var loadedPeriods;
 var accountId;
 
 $(document).ready(function() {
+	logInCheck();
 	assignAction();
 });
 

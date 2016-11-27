@@ -29,6 +29,12 @@ function login(username, password) {
     req.password = password;
 
     sendAjax("POST", url, JSON.stringify(req), function(data, textStatus, xhr) {
+    	
+    	// get the token from the header
+    	var token = xhr.getResponseHeader('Authorization');
+    	// save it in the session storage
+		sessionStorage.setItem('Token', token);
+		
         if (data.type === "OPERATOR") {
             window.location.href = "/tricast-2016-sportsbook/account/operatorhome.html?id=" + data.id;
         } else {

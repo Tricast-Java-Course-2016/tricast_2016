@@ -2,6 +2,8 @@
 var accountId = null;
 // this method runs every time when the page is reloading
 $(document).ready(function() {
+	logInCheck();
+	
     // get the accountId from the url
     var url = document.URL;
     accountId = url.split("id=")[1];

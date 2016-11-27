@@ -19,12 +19,15 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.sun.jersey.spi.container.ResourceFilters;
 import com.tricast.beans.Period;
 import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
+import com.tricast.web.filters.AuthenticationFilter;
 import com.tricast.web.manager.PeriodManager;
 
 @Path("/periods")
+@ResourceFilters(AuthenticationFilter.class)
 public class PeriodService extends LVSResource {
 
 		private static final Logger log = LogManager.getLogger(PeriodService.class);

@@ -33,6 +33,7 @@ function sendAjax(method, url, data, successCallback, errorCallback) {
 var beforeSendCallback = function(xhr){
 	var headers = {};
 	headers["Content-type"] = "application/json; charset=UTF-8";
+	headers["Authorization"] = sessionStorage.getItem("Token");
 	
 	for (var key in headers){
 		xhr.setRequestHeader(key, headers[key]);
@@ -48,4 +49,11 @@ function getErrorMsg(xhr) {
 	}
 	console.log(errorMsg);
 	return errorMsg;
+}
+
+function logInCheck() {
+	var token = sessionStorage.getItem("Token");
+	if(token === undefined || token === null || token === "null") {
+		window.location.href = "/tricast-2016-sportsbook/account/login.html";
+	}
 }

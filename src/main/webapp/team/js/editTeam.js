@@ -1,6 +1,7 @@
 var teamId = null;
 
 $(document).ready(function() {
+	logInCheck();
 	assignAction();
 });
 

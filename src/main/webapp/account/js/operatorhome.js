@@ -1,6 +1,8 @@
 //this method runs every time when the page is reloading
 var accountId = null;
 $(document).ready(function() {
+	logInCheck();
+	
     var url = document.URL;
     accountId = url.split("id=")[1];
     if (accountId !== null) {

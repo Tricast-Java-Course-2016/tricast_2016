@@ -4,6 +4,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -19,17 +21,22 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.auth0.jwt.JWTSigner;
+import com.sun.jersey.spi.container.ResourceFilters;
 import com.tricast.beans.Account;
 import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
+import com.tricast.web.filters.AuthenticationFilter;
+import com.tricast.web.filters.AuthenticationSettings;
 import com.tricast.web.manager.AccountManager;
 import com.tricast.web.request.LoginRequest;
 
-@Path("accounts")
+
+@Path("/accounts")
 public class AccountService extends LVSResource {
 
 	private static final Logger log = LogManager.getLogger(AccountService.class);
-
+	
 	private final AccountManager manager;
 
 	private Workspace workspace;
@@ -42,6 +49,7 @@ public class AccountService extends LVSResource {
 
 	@GET
 	@Produces(APPLICATION_JSON)
+	@ResourceFilters(AuthenticationFilter.class)
 	public Response getAll() throws SQLException, OutOfTransactionException, IOException {
 		log.trace("Requested to get All");
 		try {
@@ -54,6 +62,7 @@ public class AccountService extends LVSResource {
 	@GET
 	@Path("{id}")
 	@Produces(APPLICATION_JSON)
+	@ResourceFilters(AuthenticationFilter.class)
 	public Response getById(@PathParam("id") long id) throws SQLException, OutOfTransactionException, IOException {
 		log.trace("Requested to get ID = " + id);
 		try {
@@ -63,22 +72,11 @@ public class AccountService extends LVSResource {
 			return respondGet(ex.getMessage(), 500);
 		}
 	}
-
-	@POST
-	@Produces(APPLICATION_JSON)
-	@Consumes(APPLICATION_JSON)
-	public Response createAccount(Account newAccount) throws SQLException, OutOfTransactionException, IOException {
-		log.trace("Trying to create new account for " + newAccount.getFirstName() + ' ' + newAccount.getLastName());
-		try {
-			return respondPost(manager.create(workspace, newAccount), "\\accounts");
-		} catch (SQLException ex) {
-			return respondPost(ex.getMessage(), "\\accounts", 500);
-		}
-	}
 	
 	@PUT
 	@Produces(APPLICATION_JSON)
 	@Consumes(APPLICATION_JSON)
+	@ResourceFilters(AuthenticationFilter.class)
 	public Response updateAccount(Account updateAccount) throws SQLException, OutOfTransactionException, IOException {
 		log.trace("Trying to update account for " + updateAccount.getFirstName() + ' ' + updateAccount.getLastName());
 		try {
@@ -92,6 +90,7 @@ public class AccountService extends LVSResource {
     @Path("{id}")
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
+	@ResourceFilters(AuthenticationFilter.class)
     public Response deleteOutcome(@PathParam("id") long id)
             throws SQLException, OutOfTransactionException, IOException {
         log.trace("Trying to delete user with id #" + id);
@@ -101,6 +100,19 @@ public class AccountService extends LVSResource {
             return respondDeleteNotOK(ex.getMessage(), null, 500);
         }
     }
+	
+
+	@POST
+	@Produces(APPLICATION_JSON)
+	@Consumes(APPLICATION_JSON)
+	public Response createAccount(Account newAccount) throws SQLException, OutOfTransactionException, IOException {
+		log.trace("Trying to create new account for " + newAccount.getFirstName() + ' ' + newAccount.getLastName());
+		try {
+			return respondPost(manager.create(workspace, newAccount), "\\accounts");
+		} catch (SQLException ex) {
+			return respondPost(ex.getMessage(), "\\accounts", 500);
+		}
+	}
 
 	@POST
 	@Path("/login")
@@ -109,11 +121,31 @@ public class AccountService extends LVSResource {
 	public Response login(LoginRequest loginRequest) throws SQLException, OutOfTransactionException, IOException {
 		log.trace("Trying to login with account for " + loginRequest.getUserName());
 		try {
-			return respondPost(manager.login(workspace, loginRequest.getUserName(), loginRequest.getPassword()),
-					"\\accounts\\login");
+			Account account = manager.login(workspace, loginRequest.getUserName(), loginRequest.getPassword());
+			String token = issueToken(account.getUserName());
+			
+			Map<String, Object> header = new HashMap<>();
+			header.put("Authorization", token);	
+				
+			return respondPost(account, "\\accounts\\login", header);
 		} catch (SQLException ex) {
 			return respondPost(ex.getMessage(), "\\accounts\\login", 500);
 		}
 	}
+	
+    private String issueToken(String username) {   	
+    	// issued at claim 
+    	final long iat = System.currentTimeMillis() / 1000L; 
+    	// expires claim. In this case the token expires in 10 min
+    	final long exp = iat + AuthenticationSettings.EXPIRY_TIME_IN_SEC; 
+    	
+    	final JWTSigner signer = new JWTSigner(AuthenticationSettings.SECRET_KEY);
+    	final HashMap<String, Object> claims = new HashMap<String, Object>();
+    	claims.put("iss", AuthenticationSettings.ISSUER);
+    	claims.put("exp", exp);
+    	claims.put("iat", iat);
+    	claims.put("aud", username);
 
+    	return signer.sign(claims);
+    }
 }
