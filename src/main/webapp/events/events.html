@@ -10,8 +10,20 @@
         <link rel="stylesheet" href="../common/css/bootstrap.css">
 	</head>
 	<body>
+		
+		<form>
+			<button id="homeBtn" type="submit" class="btn btn-primary">
+            Home</button>
+        	<button id="eventsBtn" type="submit" class="btn btn-primary">
+            Events</button>
+            <button id="transactionBtn" type="submit" class="btn btn-primary">
+            Transactions</button>
+            <button id="historyBtn" type="submit" class="btn btn-primary">
+            Account History</button>
+        </form>
+            
 		<h1>Event list:</h1>
-		<table id="eventTable" class="table table-bordered">
+		<table id="eventTable" class="table table-bordered table-hover">
 			<thead>
 				<tr>
 					<td>League</td>

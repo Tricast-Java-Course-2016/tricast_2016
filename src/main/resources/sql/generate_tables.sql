@@ -252,11 +252,14 @@ INSERT INTO TRICAST2016.MARKETTYPES (ID, DESCRIPTION)
 VALUES (1, 'Win/Draw/Win'), (2, 'Total Goals O/U 2.5'), (3, 'Correct score'), (4, 'Double Chance');
 
 INSERT INTO TRICAST2016.MARKETS (ID, PERIODID, EVENTID, MARKETTYPEID, DESCRIPTION)
-VALUES (1, 4, 1, 1, 'arsenal vs blackburn full time WDW'), (2, 4, 1, 3, 'arsenal vs blackburn FT Total Goals O/U 2.5');
+VALUES (1, 4, 1, 1, 'arsenal vs blackburn full time wdw'), (2, 4, 1, 3, 'arsenal vs blackburn FT correct score'),
+(3, 4, 1, 2, 'arsenal vs blackburn FT Total Goals O/U 2.5'), (4, 4, 1, 4, 'arsenal vs blackburn FT Double Chance');
 
 INSERT INTO TRICAST2016.OUTCOMES (ID, MARKETID, OUTCOMECODE, DESCRIPTION, ODDS)
 VALUES (1, 1, '1', 'Arsenal', 1.24), (2, 1, '2', 'Blackburn', 1.94), (3, 1, 'X', 'Draw', 1.11),
-  (4, 2, '0-0', '0-0', 3.64), (5, 2, '1-0', '1-0', 3.11), (6, 2, '0-1', '0-1', 2.64);
+  (4, 2, '0-0', '0-0', 3.64), (5, 2, '1-0', '1-0', 3.11), (6, 2, '0-1', '0-1', 2.64), (7, 2, 'O', 'Other', 2.00),
+  (8, 3, 'O', 'Over 2.5 goals', 1.50), (9, 3, 'U', 'Under 2.5 goals', 2.50),
+  (10, 4, '12', 'double chance 12', 1.30), (11, 4, '1X', 'double chance 1X', 1.35), (12, 4, '2X', 'double chance 2X', 1.40);
 
 INSERT INTO TRICAST2016.BETTYPES (ID, DESCRIPTION)
 VALUES (1, 'SINGLE'), (2, 'SYSTEM');

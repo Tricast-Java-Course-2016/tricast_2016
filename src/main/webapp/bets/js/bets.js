@@ -11,39 +11,68 @@ $(document).ready(function() {
 function assignAction() {
 	getAllData();
 	
-	// if we change period, we replace all the markets and outcomes with new ones
-	// so, we have to uncheck every previously checked radio buttons
-	$('select').on('change', function() {
-		  $("input:radio").prop('checked', false);
-		  loadMarkets(($('select').prop('selectedIndex') + 1));
-		});
-	
-	//on submit
-	$("#betForm").submit(function(e) {
-        e.preventDefault();
+	if(accountId !== undefined && accountId !== null && accountId !== "null") {
+		
+	    $("#homeBtn").click(function(e) {
+	        e.preventDefault();
 
-        var stake = parseFloat($("#stake").val());
-        var selectedOutcome = $('input[name=outcomes]:checked', '#betForm').val();
-        
-        if(!isNaN(stake) && stake > 0 && selectedOutcome != null) {
-        	if(stake > currBalance) {
-        		alert("Hey, you don't have enough money to place this bet :" + stake);
-        		return false;
-        	}
-            // which outcome has been selected?
-            var outcomeId = selectedOutcome.split("e")[1];
-            
-            // SINGLE bet
-            var betTypeId = 1; 
-            
-            placeBet(stake, outcomeId, betTypeId);
-        
-        } else {
-        	alert("Error! You haven't selected any outcome or the stake is missing.");
-        }
-        
-    });
-        
+	            window.location.href = "/tricast-2016-sportsbook/account/playerhome.html?id=" + accountId;
+
+	    });
+
+	    $("#eventsBtn").click(function(e) {
+	        e.preventDefault();
+
+	        window.location.href = "/tricast-2016-sportsbook/events/events.html?id=" + accountId;
+	    });
+
+	    $("#transactionBtn").click(function(e) {
+	        e.preventDefault();
+
+	        // window.location.href = "/tricast-2016-sportsbook/<>.html?id=" + accountId;
+	    });
+
+	    $("#historyBtn").click(function(e) {
+	        e.preventDefault();
+
+	        // window.location.href = "/tricast-2016-sportsbook/<>.html?id=" + accountId;
+	    });
+	
+	
+		// if we change period, we replace all the markets and outcomes with new ones
+		// so, we have to uncheck every previously checked radio buttons
+		$('select').on('change', function() {
+			  $("input:radio").prop('checked', false);
+			  loadMarkets(($('select').prop('selectedIndex') + 1));
+			});
+		
+		//on submit
+		$("#betForm").submit(function(e) {
+	        e.preventDefault();
+	
+	        var stake = parseFloat($("#stake").val());
+	        var selectedOutcome = $('input[name=outcomes]:checked', '#betForm').val();
+	        
+	        if(!isNaN(stake) && stake > 0 && selectedOutcome != null) {
+	        	if(stake > currBalance) {
+	        		alert("Hey, you don't have enough money to place this bet :" + stake);
+	        		return false;
+	        	}
+	            // which outcome has been selected?
+	            var outcomeId = selectedOutcome.split("e")[1];
+	            
+	            // SINGLE bet
+	            var betTypeId = 1; 
+	            
+	            placeBet(stake, outcomeId, betTypeId);
+	        
+	        } else {
+	        	alert("Error! You haven't selected any outcome or the stake is missing.");
+	        }
+	        
+	    });
+     
+	}
 }
 
 var parseQueryString = function() {
@@ -67,7 +96,7 @@ function loadMarkets(periodId) {
 	$("#doubleChanceMarketOdds > tbody").html("");
 	
 	// iterate through all the markets
-	for(var i = 0; i < loadedMarkets.length; i++){
+	for(var i = 0; i < loadedMarkets.length; i++) {
 		
 		// we display only the markets that are in the previously chosen period
 		if(loadedMarkets[i].periodId == periodId) {
@@ -87,30 +116,30 @@ function loadMarkets(periodId) {
 							case '1':	//homeTeamWin
 								outcome1 = '<td>' + 
 									loadedMarkets[i].outcomes[j].description + 
-									'<input type="radio" name="outcomes" value="outcome' + 
+									' <input type="radio" name="outcomes" value="outcome' + 
 									loadedMarkets[i].outcomes[j].outcomeId + '">' + 
 									loadedMarkets[i].outcomes[j].odds + '</td>';
 								break;
 							case '2':	//awayTeamWin
 								outcome2 = '<td>' + 
-								loadedMarkets[i].outcomes[j].description + 
-								'<input type="radio" name="outcomes" value="outcome' + 
-								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
-								loadedMarkets[i].outcomes[j].odds + '</td>';
+									loadedMarkets[i].outcomes[j].description + 
+									' <input type="radio" name="outcomes" value="outcome' + 
+									loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+									loadedMarkets[i].outcomes[j].odds + '</td>';
 								break;
 							case 'X':	//draw
 								outcomeX = '<td>' + 
-								loadedMarkets[i].outcomes[j].description + 
-								'<input type="radio" name="outcomes" value="outcome' + 
-								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
-								loadedMarkets[i].outcomes[j].odds + '</td>';
+									loadedMarkets[i].outcomes[j].description + 
+									' <input type="radio" name="outcomes" value="outcome' + 
+									loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+									loadedMarkets[i].outcomes[j].odds + '</td>';
 								break;
 						}
 						
 					}
 					
 					$('#wdwMarketOdds > tbody:last-child').append(
-							'<tr>' + outcome1 + outcome2 + outcomeX + '</tr>'				
+							'<tr>' + outcome1 + outcomeX + outcome2 + '</tr>'				
 					);
 					
 					break; 
@@ -126,14 +155,12 @@ function loadMarkets(periodId) {
 					
 							case 'O':	//Over 2,5
 								outcome1 = '<td>' + 
-									loadedMarkets[i].outcomes[j].description + 
 									'<input type="radio" name="outcomes" value="outcome' + 
 									loadedMarkets[i].outcomes[j].outcomeId + '">' + 
 									loadedMarkets[i].outcomes[j].odds + '</td>';
 								break;
 							case 'U':	//Under 2,5
 								outcome2 = '<td>' + 
-								loadedMarkets[i].outcomes[j].description + 
 								'<input type="radio" name="outcomes" value="outcome' + 
 								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
 								loadedMarkets[i].outcomes[j].odds + '</td>';
@@ -156,9 +183,9 @@ function loadMarkets(periodId) {
 						// here the outcome code is the match result e.g. '3-0'
 						var outcomeText = loadedMarkets[i].outcomes[j].outcomeCode;
 						
-						// but there is az Other option, where there is no correct score there
+						// but there is an Other option, where there is no correct score there
 						if (loadedMarkets[i].outcomes[j].outcomeCode == 'O') {
-							outComeText = "Other";
+							outcomeText = "Other";
 						}
 						
 						$('#correctScoreMarketOdds > tbody:last-child').append(
@@ -174,40 +201,40 @@ function loadMarkets(periodId) {
 					
 					var outcome1X, outcome2X, outcome12;
 					
-					// what is the outcome code here?
-					switch(loadedMarkets[i].outcomes[j].outcomeCode) {
-				
-						case '1X':
-							outcome1X = '<td>' + 
-								loadedMarkets[i].outcomes[j].description + 
+					// get all the outcomes for the Double Chance markets
+					for(var j = 0; j < (loadedMarkets[i].outcomes).length; j++){
+						
+						// what is the outcome code here?
+						switch(loadedMarkets[i].outcomes[j].outcomeCode) {
+					
+							case '1X':
+								outcome1X = '<td>' + 
+									'<input type="radio" name="outcomes" value="outcome' + 
+									loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+									loadedMarkets[i].outcomes[j].odds + '</td>';
+								break;
+							case '2X':
+								outcome2X = '<td>' + 
 								'<input type="radio" name="outcomes" value="outcome' + 
 								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
 								loadedMarkets[i].outcomes[j].odds + '</td>';
-							break;
-						case '2X':
-							outcome2X = '<td>' + 
-							loadedMarkets[i].outcomes[j].description + 
-							'<input type="radio" name="outcomes" value="outcome' + 
-							loadedMarkets[i].outcomes[j].outcomeId + '">' + 
-							loadedMarkets[i].outcomes[j].odds + '</td>';
-							break;
-						case '12':
-							outcome12 = '<td>' + 
-							loadedMarkets[i].outcomes[j].description + 
-							'<input type="radio" name="outcomes" value="outcome' + 
-							loadedMarkets[i].outcomes[j].outcomeId + '">' + 
-							loadedMarkets[i].outcomes[j].odds + '</td>';
-							break;
-						}
-						
+								break;
+							case '12':
+								outcome12 = '<td>' + 
+								'<input type="radio" name="outcomes" value="outcome' + 
+								loadedMarkets[i].outcomes[j].outcomeId + '">' + 
+								loadedMarkets[i].outcomes[j].odds + '</td>';
+								break;
+							}
+
 					}
 					
 					$('#doubleChanceMarketOdds > tbody:last-child').append(
 							'<tr>' + outcome1X + outcome2X + outcome12 + '</tr>'				
 					);
-				
+					
 					break; 
-		
+			}
 		}	
 	
 	}
@@ -235,12 +262,12 @@ function getAllData() {
 	accountId = params['account'];
 
 	if(eventId == null) {
-		alert("=====DEBUG=====\nevent=EventId missing from the URL");
+		//alert("=====DEBUG=====\nevent=EventId missing from the URL");
 		return false;
 	}
 	
 	if(accountId == null) {
-		alert("=====DEBUG=====\nevent=AccountId missing from the URL");
+		//alert("=====DEBUG=====\nevent=AccountId missing from the URL");
 		return false;
 	}
 	
@@ -283,7 +310,16 @@ function placeBet(stake, outcomeId, betTypeId) {
     req.betTypeId = betTypeId;
     
     sendAjax("POST", url, JSON.stringify(req), function(data, textStatus, xhr) {
-        alert(textStatus);
+    	
+        if(textStatus == "success") {
+        	alert("Your bet has been placed. Thank you!");
+        	window.location.href = "../events/events.html?id=" + accountId;
+        	
+        } else {
+        	
+        	alert("Error while placing your bet.");
+        }
+        
     }, function(xhr) {
         var errormsg = getErrorMsg(xhr);
         alert(errormsg);

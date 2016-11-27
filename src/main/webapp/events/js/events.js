@@ -1,11 +1,44 @@
 //this method runs every time when the page is reloading
+var accountId;
+
 $(document).ready(function() {
 	logInCheck();
     assignAction();
 });
 
 function assignAction() {
-    var events = getAllEvents();
+
+	accountId = document.URL.split("id=")[1];
+	
+	if (accountId !== undefined && accountId !== null && accountId !== "null") {
+		var events = getAllEvents();
+		
+	    $("#homeBtn").click(function(e) {
+	        e.preventDefault();
+
+	            window.location.href = "/tricast-2016-sportsbook/account/playerhome.html?id=" + accountId;
+
+	    });
+
+	    $("#eventsBtn").click(function(e) {
+	        e.preventDefault();
+
+	        window.location.href = "/tricast-2016-sportsbook/events/events.html?id=" + accountId;
+	    });
+
+	    $("#transactionBtn").click(function(e) {
+	        e.preventDefault();
+
+	        // window.location.href = "/tricast-2016-sportsbook/<>.html?id=" + accountId;
+	    });
+
+	    $("#historyBtn").click(function(e) {
+	        e.preventDefault();
+
+	        // window.location.href = "/tricast-2016-sportsbook/<>.html?id=" + accountId;
+	    });
+		
+    }
 }
 
 function getAllEvents() {
@@ -25,7 +58,7 @@ function getAllEvents() {
                         '</td><td>' + data[i].startTime + '</td></tr>');
                 		
 		            	$('#' + data[i].id).click(function() {
-		            		window.location.href = "../bets/betPlacement.html?event=" + this.id + "&account=2"
+		            		window.location.href = "../bets/betPlacement.html?event=" + this.id + "&account=" + accountId;
 		            	});
 		            	
         }
