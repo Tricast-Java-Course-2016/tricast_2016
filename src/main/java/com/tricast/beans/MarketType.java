@@ -2,28 +2,25 @@ package com.tricast.beans;
 
 public enum MarketType {
 
-    SINGLE(1), SYSTEM(2);
+    WDW(1, "Win/Draw/Win"),
+    TOTAL_GOALS_OU(2, "Total Goals O/U 2.5"),
+    CORRECT_SCORE(3, "Correct score"),
+    DOUBLE_CHANCE(4, "Chance");
 
-    private long marketTypeId;
-    private String marketTypeIdDescription;
+    private int id;
+    private String description;
 
-    private MarketType(long typeId) {
-        this.marketTypeId = typeId;
+    private MarketType(int id, String description) {
+        this.id = id;
+        this.description = description;
     }
 
-    public String getMarketTypeIdDescription() {
-        return marketTypeIdDescription;
+    public int getId() {
+        return id;
     }
 
-    public void setMarketTypeIdDescription(String marketTypeIdDescription) {
-        this.marketTypeIdDescription = marketTypeIdDescription;
-    }
-    public long getTypeId() {
-        return marketTypeId;
-    }
-
-    public static MarketType getType(long id) {
-        return id == SINGLE.getTypeId() ? SINGLE : SYSTEM;
+    public String getDescription() {
+        return description;
     }
 
 }
