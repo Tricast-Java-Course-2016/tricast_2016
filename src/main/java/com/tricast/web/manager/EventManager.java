@@ -6,25 +6,26 @@ import java.util.List;
 
 import com.tricast.beans.Event;
 import com.tricast.database.Workspace;
+import com.tricast.web.request.EventCreationRequest;
 import com.tricast.web.response.DataForEventCreationScreenResponse;
 import com.tricast.web.response.EventOpenResponse;
 import com.tricast.web.response.EventResponse;
 
 public interface EventManager {
 
-	List<EventResponse> getAll(Workspace workspace) throws SQLException, IOException;
+    List<EventResponse> getAll(Workspace workspace) throws SQLException, IOException;
 
-	List<EventOpenResponse> getAllOpen(Workspace workspace) throws SQLException, IOException;
+    List<EventOpenResponse> getAllOpen(Workspace workspace) throws SQLException, IOException;
 
-	Event getById(Workspace workspace, long id) throws SQLException, IOException;
+    Event getById(Workspace workspace, long id) throws SQLException, IOException;
 
-	Event create(Workspace workspace, Event newEvent) throws SQLException, IOException;
+    Event create(Workspace workspace, EventCreationRequest newEventRequest) throws SQLException, IOException;
 
-	Event update(Workspace workspace, Event updateEvent) throws SQLException, IOException;
+    Event update(Workspace workspace, Event updateEvent) throws SQLException, IOException;
 
-	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
+    boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 
-	EventResponse getEventDetails(Workspace workspace, long eventId) throws SQLException, IOException;
+    EventResponse getEventDetails(Workspace workspace, long eventId) throws SQLException, IOException;
 
     DataForEventCreationScreenResponse getDataForEvenCreationScreen(Workspace workspace)
             throws SQLException, IOException;

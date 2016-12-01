@@ -25,6 +25,7 @@ import com.tricast.database.Workspace;
 import com.tricast.guice.OutOfTransactionException;
 import com.tricast.web.filters.AuthenticationFilter;
 import com.tricast.web.manager.EventManager;
+import com.tricast.web.request.EventCreationRequest;
 
 @Path("/events")
 @ResourceFilters(AuthenticationFilter.class)
@@ -94,10 +95,10 @@ public class EventService extends LVSResource {
     @POST
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
-    public Response createEvent(Event newEvent) throws OutOfTransactionException, IOException {
-        log.trace("Trying to create new event with this decription #" + newEvent.getDescription());
+    public Response createEvent(EventCreationRequest newEventRequest) throws OutOfTransactionException, IOException {
+        log.trace("Trying to create new event.");
         try {
-            return respondPost(manager.create(workspace, newEvent), "\\events");
+            return respondPost(manager.create(workspace, newEventRequest), "\\events");
         } catch (SQLException ex) {
             return respondPost(ex.getMessage(), "\\events", 500);
         }
