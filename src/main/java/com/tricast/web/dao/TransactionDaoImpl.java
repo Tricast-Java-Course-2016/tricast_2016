@@ -78,6 +78,31 @@ public class TransactionDaoImpl implements TransactionDao {
         }
         return result;
     }
+    
+    @Override
+    @JdbcTransaction
+    public Transaction getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
+        Transaction result = null;
+        ResultSet rs = null;
+
+        String sql = sqlManager.get("transactionsGetByAccountId.sql");
+
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+        	ps.setDouble(1, accountId);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                result = buildTransaction(rs);
+            }
+
+        } catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        } finally {
+            rs.close();
+        }
+        return result;
+    }
 
     @Override
     @JdbcTransaction

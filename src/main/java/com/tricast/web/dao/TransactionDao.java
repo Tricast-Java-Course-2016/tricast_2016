@@ -20,4 +20,6 @@ public interface TransactionDao {
     boolean deleteById(Workspace workspace, long id) throws SQLException, IOException;
     
     double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
+
+	Transaction getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
 }

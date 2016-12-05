@@ -40,7 +40,8 @@ function login(username, password) {
         } else {
             window.location.href = "/tricast-2016-sportsbook/account/playerhome.html?id=" + data.id;
         }
-        $("#userPlacholder").html("Welcome " + data.firstName);
-    }, null);
+    }, function(xhr) {
+        alert("Wrong username or password!");
+    });
 
 }
