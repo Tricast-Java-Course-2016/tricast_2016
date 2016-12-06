@@ -118,7 +118,6 @@ function populateListsToNewEvent() {
             url,
             null,
             function(data) {
-            	alert(JSON.stringify(data));
             	var list = $("#leaguesList");
             	$.each(data.leagues, function(index, item) {
             	  list.append(new Option(item,index));
