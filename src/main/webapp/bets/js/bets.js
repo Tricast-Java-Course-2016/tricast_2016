@@ -90,10 +90,16 @@ var parseQueryString = function() {
 };
 
 function loadMarkets(periodId) {
+	$("#outcomeList").attr("hidden", "hidden");
+	
+	$("#outcomeMessage").html("");
 	$("#wdwMarketOdds > tbody").html("");
 	$("#ouMarketOdds > tbody").html("");
 	$("#correctScoreMarketOdds > tbody").html("");
 	$("#doubleChanceMarketOdds > tbody").html("");
+	
+
+	var isMarketAvailable = false;
 	
 	// iterate through all the markets
 	for(var i = 0; i < loadedMarkets.length; i++) {
@@ -142,6 +148,8 @@ function loadMarkets(periodId) {
 							'<tr>' + outcome1 + outcomeX + outcome2 + '</tr>'				
 					);
 					
+					isMarketAvailable = true;
+					
 					break; 
 					
 				case 2: // Total Goals O/U 2.5
@@ -173,6 +181,8 @@ function loadMarkets(periodId) {
 							'<tr>' + outcome1 + outcome2 + '</tr>'				
 					);
 					
+					isMarketAvailable = true;
+					
 					break; 
 					
 				case 3: // Correct score
@@ -195,6 +205,9 @@ function loadMarkets(periodId) {
 								loadedMarkets[i].outcomes[j].odds + '</td></tr>'				
 						);
 					}
+					
+					isMarketAvailable = true;
+					
 					break; 
 					
 				case 4: // Double Chance
@@ -233,11 +246,21 @@ function loadMarkets(periodId) {
 							'<tr>' + outcome1X + outcome2X + outcome12 + '</tr>'				
 					);
 					
+					isMarketAvailable = true;
+					
 					break; 
 			}
 		}	
 	
 	}
+	
+	// if there are no markets for this period, then show a message about it
+	if(!isMarketAvailable) {
+		$("#outcomeMessage").html("There are no available markets for this period.");
+	} else {
+		$("#outcomeList").removeAttr("hidden");
+	}
+	
 
 }
 
