@@ -32,7 +32,7 @@ function assignActions() {
     $("#transactionBtn").click(function(e) {
         e.preventDefault();
 
-        // window.location.href = "/tricast-2016-sportsbook/<>.html?id=" + accountId;
+        window.location.href = "/tricast-2016-sportsbook/account/transactions.html?id=" + accountId;
     });
 
     $("#historyBtn").click(function(e) {

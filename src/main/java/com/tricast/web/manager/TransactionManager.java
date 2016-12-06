@@ -20,4 +20,6 @@ public interface TransactionManager {
     boolean deleteById(Workspace workspace, long transactionId) throws SQLException, IOException;
     
     double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
+
+	Transaction getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
 }
