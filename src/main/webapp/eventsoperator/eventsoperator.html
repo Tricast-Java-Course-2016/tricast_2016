@@ -32,12 +32,13 @@
 			</tbody>
 		</table>
   		<!-- Button trigger modal -->
-         <button id="addEvent" type="button" class="btn btn-primary">
+         <button id="addEventButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addEventModal">
+            
             Add event
          </button>
         
         <!-- Modal -->
-        <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -50,6 +51,60 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="save">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+	</body>
+	<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add event</h4>
+              </div>
+              <div class="modal-body">
+                <table id="neweventtable">
+                	<tr>
+                		<th>League</th>
+                		<th>Country</th>
+                		<th>HomeTeam</th>
+                		<th>AwayTeam</th>
+                		
+                	</tr>
+                	<tr>
+                		<td >
+                			<select id="leaguesList">
+                			</select>
+                		</td>
+                		<td >
+                			<select id="countriesList">
+                				
+                			</select>
+                		</td>
+                		<td >
+                			<select id="hometeamsList">
+                				
+                			</select>
+                		</td>
+                		<td >
+                			<select id="awayteamsList">
+                				
+                			</select>
+                		</td>
+                		
+                	</tr>
+                	<tr>
+                		<td>
+                			<input type="datetime-local" id="time" />
+                		</td>
+                	</tr>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Save changes</button>
               </div>
             </div>
           </div>

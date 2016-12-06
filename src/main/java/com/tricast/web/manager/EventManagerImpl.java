@@ -153,7 +153,7 @@ public class EventManagerImpl implements EventManager {
             teamsMap.put(team.getId(), team.getDescription());
         }
 
-        response.setPeriods(periodMap);
+        response.setCountries(countriesMap);
         response.setLeagues(leaguesMap);
         response.setPeriods(periodMap);
         response.setTeams(teamsMap);
