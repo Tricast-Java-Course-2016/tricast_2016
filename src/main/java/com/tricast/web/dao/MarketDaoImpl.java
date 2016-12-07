@@ -146,7 +146,6 @@ public class MarketDaoImpl implements MarketDao {
 
 	            int i = 1;
 	            ps.setLong(i++, Id);
-
 	            int rows = ps.executeUpdate();
 	            if (rows > 0) {
 	                result = true;

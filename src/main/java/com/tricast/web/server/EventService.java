@@ -96,7 +96,8 @@ public class EventService extends LVSResource {
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
     public Response createEvent(EventCreationRequest newEventRequest) throws OutOfTransactionException, IOException {
-        log.trace("Trying to create new event.");
+        log.trace("Trying to create new event.: service szinten a dátum: "+newEventRequest.getStartDateTime().toGMTString());
+        
         try {
             return respondPost(manager.create(workspace, newEventRequest), "\\events");
         } catch (SQLException ex) {

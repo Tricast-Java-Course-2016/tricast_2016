@@ -149,23 +149,24 @@ function saveNewEvent() {
 	var hometeam = $('#hometeamsList').find(":selected").val();
 	var awayteam = $('#awayteamsList').find(":selected").val();
 	var time = $('#time').val();
-	time = time.replace('T',' ');
 	if (hometeam !== awayteam) {
 	var addEvent = {};
-	addEvent.countryId = country;
-	addEvent.leagueId = league;  
-	addEvent.homeTeamId = hometeam;
-	addEvent.awayTeamId = awayteam;
+	time = time + ':00.000Z';
+	addEvent.countryId = parseFloat(country.toString());
+	addEvent.leagueId = parseFloat(league.toString());  
+	addEvent.homeTeamId = parseFloat(hometeam.toString());
+	addEvent.awayTeamId = parseFloat(awayteam.toString());
 	addEvent.startDateTime = time;
     alert(JSON.stringify(addEvent));
-    $('#countriesList').clear();
+    /*$('#countriesList').clear();
     $('#leaguesList').clear();
      $('#hometeamsList').clear();
-     $('#awayteamsList').clear();
+     $('#awayteamsList').clear();*/
     var url = "/tricast-2016-sportsbook/services/events";
     var method = "POST";
 	    sendAjax(method, url, JSON.stringify(addEvent), function(data, textStatus, xhr) {      
-	         alert(textStatus);
+	         alert("Successfully Saved");
+	         location.reload();
 	    }, function(xhr) {
 	        var errormsg2 = getErrorMsg(xhr);
 	        alert(errormsg2);

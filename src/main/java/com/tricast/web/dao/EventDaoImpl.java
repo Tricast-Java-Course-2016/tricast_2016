@@ -1,13 +1,13 @@
 package com.tricast.web.dao;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 import com.tricast.beans.Event;
@@ -99,8 +99,9 @@ public class EventDaoImpl implements EventDao {
             ps.setLong(i++, newItem.getHomeTeamId());
             ps.setLong(i++, newItem.getAwayTeamId());
             ps.setString(i++, newItem.getDescription());
-            ps.setString(i++, newItem.getStatus());
-            ps.setTimestamp(i++, new Timestamp(newItem.getStartTime().getTime()));
+            ps.setString(i++, newItem.getStatus()); 
+            ps.setDate(i++,(Date)newItem.getStartTime());
+            System.out.println("EventDaon vagyunk");
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
