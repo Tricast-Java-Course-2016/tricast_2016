@@ -11,7 +11,7 @@ VALUES (
 		NEXTVAL('/*=SCHEMA*/SEQ_TRANSACTIONS'),
 		 :accountid,
 		 :betid,
-		 :createddate,
+		 CURRENT_TIMESTAMP,
 		 :description,
 		 :amount
 		)

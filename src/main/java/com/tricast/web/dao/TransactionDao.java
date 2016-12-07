@@ -21,5 +21,5 @@ public interface TransactionDao {
     
     double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
 
-	Transaction getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
+    List<Transaction> getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
 }

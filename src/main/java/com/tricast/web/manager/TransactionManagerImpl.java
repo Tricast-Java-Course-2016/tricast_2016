@@ -68,7 +68,7 @@ public class TransactionManagerImpl implements TransactionManager {
     
     @Override
     @JdbcTransaction
-    public Transaction getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
+    public List<Transaction> getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
         return transactionDao.getByAccountId(workspace, accountId);
     }
 

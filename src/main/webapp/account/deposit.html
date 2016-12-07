@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Deposit</title>
+        
+        <script type="text/javascript" src="../common/js/lib/jquery-3.1.1.js"></script>
+        <script type="text/javascript" src="../common/js/general.js"></script>
+        <script type="text/javascript" src="../common/js/lib/bootstrap.js"></script>
+        <script type="text/javascript" src="js/deposit.js"></script>
+        <link rel="stylesheet" href="../common/css/bootstrap.css">
+    </head>
+    <body>
+    	<div id="depositBox" class="fullpageBox">
+    		<form id="create" class="fullpage">
+				<h1 id="depositTitle" style="width: auto; text-align: center;">Deposit</h1>
+				<div id="depositMsg" style="width: auto; text-align: center;"></div>
+				<fieldset id="updateInputs" style="width: auto; text-align: center;">
+				        <label for="amount">Amount:</label>
+				        <input id="amount" type="number" placeholder="HUF" required><br>
+				        <label for="bankcardnumber">Bank Card Number:</label>
+				        <input id="bankcardnumber" type="text" placeholder="Bank Card Number" required>
+				   		<label for="pin">PIN:</label>
+				        <input id="pin" type="text" placeholder="PIN" required><br>
+				</fieldset>
+				<br>
+            	<br>
+				<fieldset id="updateControls" style="width: auto; text-align: center;">
+					<button  id="applyBtn" type="submit" class="btn btn-primary">
+                    Apply</button>
+					<button  id="homeBtn" type="submit" class="btn btn-primary">
+                    Home</button>
+					
+				</fieldset>
+			</form>
+    	</div>  	
+    	
+    </body>
+</html>

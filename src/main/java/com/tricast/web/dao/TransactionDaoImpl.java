@@ -81,8 +81,8 @@ public class TransactionDaoImpl implements TransactionDao {
     
     @Override
     @JdbcTransaction
-    public Transaction getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
-        Transaction result = null;
+    public List<Transaction> getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
+    	List<Transaction> result = new ArrayList<Transaction>();
         ResultSet rs = null;
 
         String sql = sqlManager.get("transactionsGetByAccountId.sql");
@@ -92,7 +92,7 @@ public class TransactionDaoImpl implements TransactionDao {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                result = buildTransaction(rs);
+                result.add(buildTransaction(rs));
             }
 
         } catch (SQLException ex) {
@@ -119,7 +119,7 @@ public class TransactionDaoImpl implements TransactionDao {
             ps.setLong(i++, newItem.getAccountId());
             ps.setLong(i++, newItem.getBetId());
 
-            ps.setDate(i++, newItem.getCreatedDate());
+            //ps.setDate(i++, newItem.getCreatedDate());
             // System.out.print("" + newItem.getCreatedDate() + newItem.getCreatedDate());
             ps.setString(i++, newItem.getDescription());
             ps.setDouble(i++, newItem.getAmount());

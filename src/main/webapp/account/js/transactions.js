@@ -1,7 +1,7 @@
 //this method runs every time when the page is reloading
 var accountId = null;
 $(document).ready(function() {
-	logInCheck();
+	//logInCheck();
 	
     var url = document.URL;
     accountId = url.split("id=")[1];
@@ -14,6 +14,12 @@ function assignActions() {
 	if (accountId !== undefined && accountId !== null && accountId !== "null") {
 		var transactions = displayTransactions();
 	}
+	
+	$( "#depositBtn" ).click(function(e) {
+        e.preventDefault();
+
+        window.location.href = "/tricast-2016-sportsbook/account/deposit.html?id=" + accountId;
+	});
 }
 
 function displayTransactions() {

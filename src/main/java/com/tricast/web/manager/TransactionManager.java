@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.tricast.beans.Transaction;
 import com.tricast.database.Workspace;
+import com.tricast.web.response.EventOpenResponse;
 
 public interface TransactionManager {
 
@@ -21,5 +22,5 @@ public interface TransactionManager {
     
     double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
 
-	Transaction getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
+    List<Transaction> getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException;
 }

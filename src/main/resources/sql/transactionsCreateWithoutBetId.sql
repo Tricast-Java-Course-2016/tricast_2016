@@ -9,7 +9,7 @@ INSERT INTO
 VALUES (
 		NEXTVAL('/*=SCHEMA*/SEQ_TRANSACTIONS'),
 		 :accountid,
-		 :createdDate,
+		 CURRENT_TIMESTAMP,
 		 :description,
 		 :amount
 		)
