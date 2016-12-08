@@ -99,9 +99,9 @@ public class EventDaoImpl implements EventDao {
             ps.setLong(i++, newItem.getHomeTeamId());
             ps.setLong(i++, newItem.getAwayTeamId());
             ps.setString(i++, newItem.getDescription());
-            ps.setString(i++, newItem.getStatus()); 
-            ps.setDate(i++,(Date)newItem.getStartTime());
-            System.out.println("EventDaon vagyunk");
+            ps.setString(i++, newItem.getStatus());
+            // ps.setDate(i++, new java.sql.Date(newItem.getStartTime().getTime()));
+            // System.out.println("EventDaon vagyunk");
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -177,7 +177,7 @@ public class EventDaoImpl implements EventDao {
         }
         return result;
 	}
-	
+
 	@Override
 	@JdbcTransaction
 	public List<EventOpenResponse> getOpenEvents(Workspace workspace) throws SQLException, IOException {
@@ -187,7 +187,7 @@ public class EventDaoImpl implements EventDao {
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql);ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				
+
 				EventOpenResponse event = new EventOpenResponse();
 				int i = 1;
 
@@ -199,7 +199,7 @@ public class EventDaoImpl implements EventDao {
 				event.setDescription(rs.getString(i++));
 		        Timestamp timestamp = rs.getTimestamp(i++);
 		        event.setStartTime(new Date(timestamp.getTime()));
-		     
+
 		        result.add(event);
 			}
 		} catch(SQLException ex) {
@@ -213,7 +213,7 @@ public class EventDaoImpl implements EventDao {
 	public EventResponse getEventDetails(Workspace workspace, long eventId) throws SQLException, IOException {
 		EventResponse result = new EventResponse();
 		ResultSet rs = null;
-		
+
 		String sql = sqlManager.get("eventGetDetailsById.sql");
 		try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
 			   ps.setLong(1, eventId);
@@ -226,9 +226,9 @@ public class EventDaoImpl implements EventDao {
 					event.setId(rs.getLong(i++));
 					event.setDescription(rs.getString(i++));
 					event.setCountry(rs.getString(i++));
-					event.setLeague(rs.getString(i++));					
+					event.setLeague(rs.getString(i++));
 					event.setHomeTeam(rs.getString(i++));
-					event.setAwayTeam(rs.getString(i++));					
+					event.setAwayTeam(rs.getString(i++));
 			        Timestamp timestamp = rs.getTimestamp(i++);
 			        event.setStartTime(new Date(timestamp.getTime()));
 			        event.setStatus(rs.getString(i++));

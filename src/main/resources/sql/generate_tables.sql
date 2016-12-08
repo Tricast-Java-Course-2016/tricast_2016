@@ -115,9 +115,7 @@ BEGIN
     amount numeric(18,2) NOT NULL,
     CONSTRAINT TRANSACTIONS_PK PRIMARY KEY (id),
       CONSTRAINT account_transaction_fk1 FOREIGN KEY (accountid) 
-      REFERENCES TRICAST2016.ACCOUNTS(id),
-      CONSTRAINT bet_transaction_fk1 FOREIGN KEY (betid) 
-      REFERENCES TRICAST2016.BETS(id)
+      REFERENCES TRICAST2016.ACCOUNTS(id)
     );
 
     CREATE SEQUENCE TRICAST2016.SEQ_TRANSACTIONS INCREMENT BY 1 MINVALUE 100 NO MAXVALUE START WITH 100 CACHE 20 NO CYCLE;
@@ -131,7 +129,7 @@ BEGIN
     awayteamid integer NOT NULL,
     description character varying(100) NOT NULL,
     status character varying(30) NOT NULL,
-    starttime timestamp(6) with time zone NOT NULL,
+    starttime timestamp(6) with time zone,
     CONSTRAINT EVENTS_PK PRIMARY KEY (id),
       CONSTRAINT league_event_fk1 FOREIGN KEY (leagueid) 
       REFERENCES TRICAST2016.LEAGUES(id),

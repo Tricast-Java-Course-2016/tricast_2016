@@ -78,7 +78,7 @@ public class TransactionDaoImpl implements TransactionDao {
         }
         return result;
     }
-    
+
     @Override
     @JdbcTransaction
     public List<Transaction> getByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
@@ -91,7 +91,7 @@ public class TransactionDaoImpl implements TransactionDao {
         	ps.setDouble(1, accountId);
             rs = ps.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 result.add(buildTransaction(rs));
             }
 
@@ -197,7 +197,8 @@ public class TransactionDaoImpl implements TransactionDao {
         }
         return result;
     }
-    
+
+    @Override
     public double getAmountByAccountId(Workspace workspace, long accountId) throws SQLException, IOException {
         double result = 0.0;
         ResultSet rs = null;
@@ -218,9 +219,9 @@ public class TransactionDaoImpl implements TransactionDao {
             rs.close();
         }
         return result;
-    	
-    	
+
+
     }
-    
+
 
 }

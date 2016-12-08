@@ -6,8 +6,7 @@ INSERT INTO
     	homeTeamId,
     	awayTeamId,
     	description,
-    	status,
-    	starttime
+    	status
     	)
 VALUES (
 		NEXTVAL('/*=SCHEMA*/SEQ_EVENTS'),
@@ -16,6 +15,5 @@ VALUES (
     	 :homeTeamId,
     	 :awayTeamId,
     	 :description,
-    	 :status,
-    	 :starttime
+    	 :status
 		)
