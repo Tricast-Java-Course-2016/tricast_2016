@@ -9,6 +9,7 @@ public class MarketResponse {
     private long marketId;
     private long periodId;
     private String periodDescription;
+    private long periodTypeId;
     private long eventId;
     private long marketTypeId;
     private String marketTypeDescription;
@@ -77,6 +78,14 @@ public class MarketResponse {
 
     public MarketType getMarketType() {
         return marketType;
+    }
+
+    public long getPeriodTypeId() {
+        return periodTypeId;
+    }
+
+    public void setPeriodTypeId(long periodTypeId) {
+        this.periodTypeId = periodTypeId;
     }
 
 }

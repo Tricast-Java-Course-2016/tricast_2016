@@ -12,6 +12,7 @@ import com.tricast.beans.Bet;
 import com.tricast.beans.BetData;
 import com.tricast.beans.BetForSettlement;
 import com.tricast.beans.Outcome;
+import com.tricast.beans.Period;
 import com.tricast.beans.Transaction;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
@@ -119,9 +120,11 @@ public class BetManagerImpl implements BetManager {
 
 		// all outcomes for these markets
 		for(MarketResponse m : marketList) {
-				long marketId = m.getMarketId();
-				m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
+            long marketId = m.getMarketId();
+            m.setOutcomes(outcomeDao.getByMarketId(workspace, marketId));
 
+            Period period = periodDao.getById(workspace, m.getPeriodId());
+            m.setPeriodTypeId(period.getPeriodTypeId());
 		}
 		data.setMarkets(marketList);
 

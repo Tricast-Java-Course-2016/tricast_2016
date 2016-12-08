@@ -105,7 +105,7 @@ function loadMarkets(periodId) {
 	for(var i = 0; i < loadedMarkets.length; i++) {
 		
 		// we display only the markets that are in the previously chosen period
-		if(loadedMarkets[i].periodId == periodId) {
+		if(loadedMarkets[i].periodTypeId == periodId) {
 			
 			// different types of markets
 			switch(loadedMarkets[i].marketTypeId) {
