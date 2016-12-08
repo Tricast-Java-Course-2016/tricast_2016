@@ -12,6 +12,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.tricast.beans.Bet;
+import com.tricast.beans.BetForSettlement;
 import com.tricast.database.SqlManager;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
@@ -38,6 +39,33 @@ public class BetDaoImpl implements BetDao {
         } catch (SQLException ex) {
             log.error(ex, ex);
             throw ex;
+        }
+        return result;
+    }
+
+    @Override
+    @JdbcTransaction
+    public List<BetForSettlement> getBetsForSettlement(Workspace workspace, long outcomeId)
+            throws SQLException, IOException {
+
+        List<BetForSettlement> result = new ArrayList<BetForSettlement>();
+        ResultSet rs = null;
+
+        String sql = sqlManager.get("betsGetForSettlement.sql");
+
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+
+            ps.setLong(1, outcomeId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(buildBetForSettlement(rs));
+            }
+
+        } catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        } finally {
+            rs.close();
         }
         return result;
     }
@@ -160,6 +188,16 @@ public class BetDaoImpl implements BetDao {
         bet.setId(rs.getLong(i++));
         bet.setAccountId(rs.getLong(i++));
         bet.setBetTypeId(rs.getLong(i++));
+        return bet;
+    }
+
+    private BetForSettlement buildBetForSettlement(ResultSet rs) throws SQLException {
+        BetForSettlement bet = new BetForSettlement();
+        int i = 1;
+        bet.setBetId(rs.getLong(i++));
+        bet.setAccountId(rs.getLong(i++));
+        bet.setAmount(rs.getDouble(i++));
+        bet.setOdds(rs.getDouble(i++));
         return bet;
     }
 }

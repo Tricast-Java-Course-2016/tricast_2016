@@ -20,10 +20,12 @@ public interface BetManager {
     Bet update(Workspace workspace, Bet updateBet) throws SQLException, IOException;
 
     boolean deleteById(Workspace workspace, long betId) throws SQLException, IOException;
-    
-    BetPlacementResponse getBetInformation(Workspace workspace, long eventId, long accountId) 
+
+    BetPlacementResponse getBetInformation(Workspace workspace, long eventId, long accountId)
     		throws SQLException, IOException;
-    
+
     BetRequest placeBet(Workspace workspace, BetRequest betRequest)
 			throws SQLException, IOException;
+
+    long settleBetsForOutcome(Workspace workspace, long outcomeId) throws SQLException, IOException;
 }

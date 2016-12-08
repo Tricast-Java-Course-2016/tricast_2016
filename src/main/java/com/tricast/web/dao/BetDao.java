@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.tricast.beans.Bet;
+import com.tricast.beans.BetForSettlement;
 import com.tricast.database.Workspace;
 
 public interface BetDao {
@@ -18,4 +19,6 @@ public interface BetDao {
     Long update(Workspace workspace, Bet updateItem) throws SQLException, IOException;
 
     boolean deleteById(Workspace workspace, long betId) throws SQLException, IOException;
+
+    List<BetForSettlement> getBetsForSettlement(Workspace workspace, long outcomeId) throws SQLException, IOException;
 }
