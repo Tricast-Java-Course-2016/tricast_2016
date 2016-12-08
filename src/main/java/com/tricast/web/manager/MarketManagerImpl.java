@@ -199,7 +199,7 @@ public class MarketManagerImpl implements MarketManager {
         }
         if (homeTeamScore > awayTeamScore) {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() == "1") {
+                if (outcome.getOutcomeCode().equals("1")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
@@ -210,7 +210,7 @@ public class MarketManagerImpl implements MarketManager {
             }
         } else if (homeTeamScore < awayTeamScore) {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() == "2") {
+                if (outcome.getOutcomeCode().equals("2")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
@@ -221,7 +221,7 @@ public class MarketManagerImpl implements MarketManager {
             }
         } else if (homeTeamScore == awayTeamScore) {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() == "X") {
+                if (outcome.getOutcomeCode().equals("X")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
@@ -242,7 +242,7 @@ public class MarketManagerImpl implements MarketManager {
         }
         if (homeTeamScore > awayTeamScore) {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() != "X2") {
+                if (!outcome.getOutcomeCode().equals("X2")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
@@ -253,7 +253,7 @@ public class MarketManagerImpl implements MarketManager {
             }
         } else if (homeTeamScore < awayTeamScore) {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() != "1X") {
+                if (!outcome.getOutcomeCode().equals("1X")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
@@ -264,7 +264,7 @@ public class MarketManagerImpl implements MarketManager {
             }
         } else if (homeTeamScore == awayTeamScore) {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() != "12") {
+                if (!outcome.getOutcomeCode().equals("12")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
@@ -285,7 +285,7 @@ public class MarketManagerImpl implements MarketManager {
         }
         if (homeTeamScore + awayTeamScore > 2.5) {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() == "O") {
+                if (outcome.getOutcomeCode().equals("O")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
@@ -296,7 +296,7 @@ public class MarketManagerImpl implements MarketManager {
             }
         } else {
             for (OutcomeResponse outcome : market.getOutcomes()) {
-                if (outcome.getOutcomeCode() == "U") {
+                if (outcome.getOutcomeCode().equals("U")) {
                     outcome.setResult("W");
                     winningOutcomeIds.add(outcome.getOutcomeId());
                     outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
