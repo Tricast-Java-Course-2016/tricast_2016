@@ -23,4 +23,13 @@ public enum MarketType {
         return description;
     }
 
+    public static MarketType getType(long id) {
+        for (MarketType type : MarketType.values()) {
+            if (type.getId() == id) {
+                return type;
+            }
+        }
+        return null;
+    }
+
 }

@@ -170,7 +170,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
         }
         return outcome;
     }
-    
+
     @Override
     @JdbcTransaction
     public List<OutcomeResponse> getByMarketId(Workspace workspace, long marketId) throws SQLException, IOException {
@@ -189,7 +189,7 @@ public class OutcomeDaoImpl implements OutcomeDao {
                 outcome.setDescription(rs.getString(i++));
                 outcome.setOutcomeCode(rs.getString(i++));
                 outcome.setOdds(rs.getDouble(i++));
-                
+
                 result.add(outcome);
             }
 
@@ -198,6 +198,31 @@ public class OutcomeDaoImpl implements OutcomeDao {
             throw ex;
         }
         return result;
+    }
+
+    @Override
+    @JdbcTransaction
+    public void updateOutcomeResult(Workspace workspace, long outcomeId, String result)
+            throws SQLException, IOException {
+
+        ResultSet rs = null;
+
+        String sql = sqlManager.get("outcomeResultUpdate.sql");
+
+        try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
+            int i = 1;
+
+            ps.setString(i++, result);
+            ps.setLong(i++, outcomeId);
+            int rows = ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            log.error(ex, ex);
+            throw ex;
+        } finally {
+            rs.close();
+        }
+        return;
     }
 
 }

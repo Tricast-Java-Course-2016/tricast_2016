@@ -6,6 +6,7 @@ public class OutcomeResponse {
     private String description;
     private String outcomeCode;
     private Double odds;
+    private String result;
 
     public long getOutcomeId() {
         return outcomeId;
@@ -37,6 +38,14 @@ public class OutcomeResponse {
 
     public void setOdds(Double odds) {
         this.odds = odds;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
 }

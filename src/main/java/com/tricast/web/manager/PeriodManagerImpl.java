@@ -9,16 +9,19 @@ import com.tricast.beans.Period;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.PeriodDao;
+import com.tricast.web.response.MarketResponse;
 import com.tricast.web.response.PeriodTypeResponse;
 
 public class PeriodManagerImpl implements PeriodManager {
 	private final PeriodDao periodDao;
-	
+    private MarketManager marketManager;
+
 	@Inject
-	public PeriodManagerImpl(PeriodDao perioddao) {
+    public PeriodManagerImpl(PeriodDao perioddao, MarketManager marketManager) {
 		this.periodDao = perioddao;
+        this.marketManager = marketManager;
 	}
-	
+
 	@Override
 	@JdbcTransaction
 	public List<Period> getAll(Workspace workspace) throws SQLException, IOException {
@@ -57,7 +60,7 @@ public class PeriodManagerImpl implements PeriodManager {
 	@JdbcTransaction
 	public boolean deleteById(Workspace workspace, long id) throws SQLException, IOException {
 		return periodDao.deleteById(workspace, id);
-		
+
 	}
 
 	@Override
@@ -66,5 +69,19 @@ public class PeriodManagerImpl implements PeriodManager {
 		return periodDao.getAllPeriodType(workspace);
 	}
 
+    @Override
+    @JdbcTransaction
+    public void settlePeriod(Workspace workspace, Period updatePeriod) throws SQLException, IOException {
+
+        update(workspace, updatePeriod);
+
+        List<MarketResponse> markets = marketManager.loadMarketsByPeriodId(workspace, updatePeriod.getId());
+
+        for (MarketResponse market : markets) {
+            marketManager.resultMarket(workspace, market, updatePeriod.getHomeTeamScore(),
+                    updatePeriod.getAwayTeamScore());
+        }
+
+    }
 
 }

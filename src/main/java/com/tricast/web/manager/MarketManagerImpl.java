@@ -14,6 +14,7 @@ import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.MarketDao;
 import com.tricast.web.dao.OutcomeDao;
 import com.tricast.web.response.MarketResponse;
+import com.tricast.web.response.OutcomeResponse;
 
 public class MarketManagerImpl implements MarketManager {
     private final MarketDao marketDao;
@@ -146,6 +147,57 @@ public class MarketManagerImpl implements MarketManager {
         
         outcomeDao.create(workspace, outcome);
         return false;
+    }
+
+    @Override
+    @JdbcTransaction
+    public List<MarketResponse> loadMarketsByPeriodId(Workspace workspace, long periodId)
+            throws SQLException, IOException {
+        return marketDao.getMarketsByPeriodId(workspace, periodId);
+    }
+
+    @Override
+    @JdbcTransaction
+    public void resultMarket(Workspace workspace, MarketResponse market, long homeTeamScore, long awayTeamScore)
+            throws SQLException, IOException {
+
+        // set the result field on the outcome records
+        if (market.getMarketType() == MarketType.WDW) {
+            if (market.getOutcomes() == null) {
+                return;
+            }
+            if (homeTeamScore > awayTeamScore) {
+                for (OutcomeResponse outcome : market.getOutcomes()) {
+                    if (outcome.getOutcomeCode() == "1") {
+                        outcome.setResult("W");
+                        outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
+                    } else {
+                        outcome.setResult("L");
+                        outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "L");
+                    }
+                }
+            } else if (homeTeamScore < awayTeamScore) {
+                for (OutcomeResponse outcome : market.getOutcomes()) {
+                    if (outcome.getOutcomeCode() == "2") {
+                        outcome.setResult("W");
+                        outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
+                    } else {
+                        outcome.setResult("L");
+                        outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "L");
+                    }
+                }
+            } else if (homeTeamScore == awayTeamScore) {
+                for (OutcomeResponse outcome : market.getOutcomes()) {
+                    if (outcome.getOutcomeCode() == "X") {
+                        outcome.setResult("W");
+                        outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "W");
+                    } else {
+                        outcome.setResult("L");
+                        outcomeDao.updateOutcomeResult(workspace, outcome.getOutcomeId(), "L");
+                    }
+                }
+            }
+        }
     }
 
 }
