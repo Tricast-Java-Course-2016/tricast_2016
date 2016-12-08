@@ -2,6 +2,8 @@ package com.tricast.web.response;
 
 import java.util.List;
 
+import com.tricast.beans.MarketType;
+
 public class MarketResponse {
 
     private long marketId;
@@ -10,6 +12,7 @@ public class MarketResponse {
     private long eventId;
     private long marketTypeId;
     private String marketTypeDescription;
+    private MarketType marketType;
     private List<OutcomeResponse> outcomes;
 
     public long getMarketId() {
@@ -60,13 +63,20 @@ public class MarketResponse {
         this.outcomes = outcomes;
     }
 
-	public String getMarketType() {
-		return marketTypeDescription;
-	}
-
 	public void setMarketTypeDescription(String marketTypeDescription) {
 		this.marketTypeDescription = marketTypeDescription;
 	}
 
+    public String getMarketTypeDescription() {
+        return marketTypeDescription;
+    }
+
+    public void setMarketType(MarketType marketType) {
+        this.marketType = marketType;
+    }
+
+    public MarketType getMarketType() {
+        return marketType;
+    }
 
 }

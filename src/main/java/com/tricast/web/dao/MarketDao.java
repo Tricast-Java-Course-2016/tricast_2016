@@ -20,4 +20,6 @@ public interface MarketDao {
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
 
 	List<MarketResponse> getDetailsByEventId(Workspace workspace, long eventId) throws SQLException, IOException;
+
+    List<MarketResponse> getMarketsByPeriodId(Workspace workspace, long periodId) throws SQLException, IOException;
 }

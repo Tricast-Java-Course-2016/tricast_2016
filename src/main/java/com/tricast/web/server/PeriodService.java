@@ -32,12 +32,13 @@ public class PeriodService extends LVSResource {
 
 		private static final Logger log = LogManager.getLogger(PeriodService.class);
 	    private final PeriodManager manager;
+
 	    private Workspace workspace;
 
 	    @Inject
-	    public PeriodService(PeriodManager manager, Workspace workspace) {
+    public PeriodService(PeriodManager manager, Workspace workspace) {
 			this.manager = manager;
-			this.workspace = workspace;
+        this.workspace = workspace;
 		}
 
 	    @GET
@@ -103,7 +104,7 @@ public class PeriodService extends LVSResource {
 	            return respondDeleteNotOK(ex.getMessage(), null, 500);
 	        }
 	    }
-	    
+
 	    @GET
 	    @Path("/types")
 	    @Produces(APPLICATION_JSON)
@@ -115,5 +116,18 @@ public class PeriodService extends LVSResource {
 	            return respondGet(ex.getMessage(), 500);
 	        }
 	    }
+
+    @PUT
+    @Path("/settle")
+    @Produces(APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
+    public Response settlePeriod(Period updatePeriod) throws SQLException, OutOfTransactionException, IOException {
+        log.trace("Trying to update period with this id #" + updatePeriod.getId() + " with description # "
+                + updatePeriod.getDescription());
+        manager.settlePeriod(workspace, updatePeriod);
+
+        return null;
+
+    }
 
 }

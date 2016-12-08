@@ -24,4 +24,9 @@ public interface MarketManager {
 
     boolean createMarketWithOutcomeByMarketType(Workspace workspace, String eventDescription, long periodId,
             MarketType marketType) throws SQLException, IOException;
+
+    List<MarketResponse> loadMarketsByPeriodId(Workspace workspace, long periodId) throws SQLException, IOException;
+
+    void resultMarket(Workspace workspace, MarketResponse market, long homeTeamScore, long awayTeamScore)
+            throws SQLException, IOException;
 }

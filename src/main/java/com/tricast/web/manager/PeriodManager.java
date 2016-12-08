@@ -19,6 +19,8 @@ public interface PeriodManager {
 	Period update(Workspace workspace, Period updatePeriod) throws SQLException, IOException;
 
 	boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
-	
+
 	List<PeriodTypeResponse> getAllPeriodType(Workspace workspace) throws SQLException, IOException;
+
+    void settlePeriod(Workspace workspace, Period updatePeriod) throws SQLException, IOException;
 }

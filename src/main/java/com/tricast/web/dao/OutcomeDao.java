@@ -18,6 +18,8 @@ public interface OutcomeDao {
     Long update(Workspace workspace, Outcome updateItem) throws SQLException, IOException;
 
     boolean deleteById(Workspace workspace, long Id) throws SQLException, IOException;
-    
+
     List<OutcomeResponse> getByMarketId(Workspace workspace, long marketId) throws SQLException, IOException;
+
+    void updateOutcomeResult(Workspace workspace, long outcomeId, String result) throws SQLException, IOException;
 }
