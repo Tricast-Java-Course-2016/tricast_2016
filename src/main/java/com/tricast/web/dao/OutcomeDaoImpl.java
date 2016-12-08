@@ -205,8 +205,6 @@ public class OutcomeDaoImpl implements OutcomeDao {
     public void updateOutcomeResult(Workspace workspace, long outcomeId, String result)
             throws SQLException, IOException {
 
-        ResultSet rs = null;
-
         String sql = sqlManager.get("outcomeResultUpdate.sql");
 
         try (PreparedStatement ps = workspace.getPreparedStatement(sql)) {
@@ -219,8 +217,6 @@ public class OutcomeDaoImpl implements OutcomeDao {
         } catch (SQLException ex) {
             log.error(ex, ex);
             throw ex;
-        } finally {
-            rs.close();
         }
         return;
     }

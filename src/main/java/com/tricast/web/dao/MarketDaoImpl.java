@@ -242,7 +242,7 @@ public class MarketDaoImpl implements MarketDao {
             market.setMarketTypeId(typeId);
             market.setMarketType(MarketType.getType(typeId));
             market.setEventId(rs.getLong(i++));
-            markets.add(market);
+
 
             List<OutcomeResponse> outcomes = new ArrayList<OutcomeResponse>();
             int columnId = i;
@@ -257,6 +257,9 @@ public class MarketDaoImpl implements MarketDao {
                 last = !rs.next();
 
             } while (!last && rs.getLong(1) == market.getMarketId());
+
+            market.setOutcomes(outcomes);
+            markets.add(market);
         }
 
         return markets;

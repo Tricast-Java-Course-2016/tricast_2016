@@ -182,6 +182,10 @@ public class MarketManagerImpl implements MarketManager {
             break;
         }
 
+        if (winningOutcomeIds == null) {
+            return;
+        }
+
         for (Long outcomeId : winningOutcomeIds) {
             betManager.settleBetsForOutcome(workspace, outcomeId);
         }
