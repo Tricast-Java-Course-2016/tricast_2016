@@ -81,10 +81,10 @@ public class MarketDaoImpl implements MarketDao {
         try (PreparedStatement ps = workspace.getPreparedStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             int i = 1;
-            ps.setLong(i++, newItem.getId());
             ps.setLong(i++, newItem.getPeriodId());
             ps.setLong(i++, newItem.getMarketTypeId());
             ps.setString(i++, newItem.getDescription());
+            ps.setLong(i++, newItem.getEventId());
 
             int rows = ps.executeUpdate();
             if (rows > 0) {

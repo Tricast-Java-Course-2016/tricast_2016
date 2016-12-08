@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import com.tricast.beans.Market;
 import com.tricast.beans.MarketType;
 import com.tricast.beans.Outcome;
+import com.tricast.beans.Team;
 import com.tricast.database.Workspace;
 import com.tricast.web.annotations.JdbcTransaction;
 import com.tricast.web.dao.MarketDao;
@@ -87,7 +88,7 @@ public class MarketManagerImpl implements MarketManager {
     @Override
     @JdbcTransaction
     public boolean createMarketWithOutcomeByMarketType(Workspace workspace, String eventDescription, long periodId,
-            MarketType marketType) throws SQLException, IOException {
+            MarketType marketType, Long eventId, Team homeTeam, Team awayTeam) throws SQLException, IOException {
         // Market creation stub
         double odds = 1.9;
         long marketId = 0;
@@ -97,11 +98,13 @@ public class MarketManagerImpl implements MarketManager {
         newMarket.setDescription(eventDescription + " " + marketType.getDescription());
         newMarket.setPeriodId(periodId);
         newMarket.setMarketTypeId(marketType.getId());
+        newMarket.setEventId(eventId);
+
         marketId = marketDao.create(workspace, newMarket);
-        String[] csapatok = eventDescription.split("-");
+        // String[] csapatok = eventDescription.split("-");
 
         // WDW outcome create
-        outcome.setDescription(csapatok[0]);
+        outcome.setDescription(homeTeam.getDescription());
         outcome.setMarketid(marketId);
         outcome.setOdds(odds);
         outcome.setOutcomecode("1");
@@ -111,7 +114,7 @@ public class MarketManagerImpl implements MarketManager {
         outcome.setOdds(odds);
         outcome.setOutcomecode("X");
         outcomeDao.create(workspace, outcome);
-        outcome.setDescription(csapatok[1]);
+        outcome.setDescription(awayTeam.getDescription());
         outcome.setMarketid(marketId);
         outcome.setOdds(odds);
         outcome.setOutcomecode("2");
@@ -132,22 +135,20 @@ public class MarketManagerImpl implements MarketManager {
 
         // double chance market
 
-        outcome.setDescription(csapatok[0] + "/Draw");
+        outcome.setDescription(homeTeam.getDescription() + "/Draw");
         outcome.setMarketid(marketId);
         outcome.setOdds(odds);
         outcome.setOutcomecode("1X");
         outcomeDao.create(workspace, outcome);
-        outcome.setDescription(csapatok[0] + "/" + csapatok[1]);
+        outcome.setDescription(homeTeam.getDescription() + "/" + awayTeam.getDescription());
         outcome.setMarketid(marketId);
         outcome.setOdds(odds);
         outcome.setOutcomecode("12");
         outcomeDao.create(workspace, outcome);
-        outcome.setDescription(csapatok[1]);
+        outcome.setDescription(awayTeam.getDescription() + "/Draw");
         outcome.setMarketid(marketId);
         outcome.setOdds(odds);
-        outcome.setOutcomecode(csapatok[1] + "/Draw");
-        outcomeDao.create(workspace, outcome);
-
+        outcome.setOutcomecode("2X");
         outcomeDao.create(workspace, outcome);
         return false;
     }

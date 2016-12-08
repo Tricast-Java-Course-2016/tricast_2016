@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.tricast.beans.Market;
 import com.tricast.beans.MarketType;
+import com.tricast.beans.Team;
 import com.tricast.database.Workspace;
 import com.tricast.web.response.MarketResponse;
 
@@ -23,7 +24,7 @@ public interface MarketManager {
     List<MarketResponse> getDetailsByEventId(Workspace workspace, long eventId) throws SQLException, IOException;
 
     boolean createMarketWithOutcomeByMarketType(Workspace workspace, String eventDescription, long periodId,
-            MarketType marketType) throws SQLException, IOException;
+            MarketType marketType, Long eventId, Team homeTeam, Team awayTeam) throws SQLException, IOException;
 
     List<MarketResponse> loadMarketsByPeriodId(Workspace workspace, long periodId) throws SQLException, IOException;
 

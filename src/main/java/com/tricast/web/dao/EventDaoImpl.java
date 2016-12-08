@@ -53,7 +53,9 @@ public class EventDaoImpl implements EventDao {
 		event.setDescription(rs.getString(i++));
 		event.setStatus(rs.getString(i++));
         Timestamp timestamp = rs.getTimestamp(i++);
-        event.setStartTime(new Date(timestamp.getTime()));
+        if (timestamp != null) {
+            event.setStartTime(new Date(timestamp.getTime()));
+        }
 		return event;
 	}
 
@@ -100,8 +102,9 @@ public class EventDaoImpl implements EventDao {
             ps.setLong(i++, newItem.getAwayTeamId());
             ps.setString(i++, newItem.getDescription());
             ps.setString(i++, newItem.getStatus());
-            // ps.setDate(i++, new java.sql.Date(newItem.getStartTime().getTime()));
-            // System.out.println("EventDaon vagyunk");
+
+            ps.setTimestamp(i++, new Timestamp(newItem.getStartTime().getTime()));
+
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 rs = ps.getGeneratedKeys();
@@ -198,7 +201,10 @@ public class EventDaoImpl implements EventDao {
 				event.setAwayTeam(rs.getString(i++));
 				event.setDescription(rs.getString(i++));
 		        Timestamp timestamp = rs.getTimestamp(i++);
-		        event.setStartTime(new Date(timestamp.getTime()));
+
+                if (timestamp != null) {
+                    event.setStartTime(new Date(timestamp.getTime()));
+                }
 
 		        result.add(event);
 			}

@@ -7,6 +7,7 @@ public class Market {
 	private long marketTypeId;
     private MarketType marketType;
 	private String description;
+    private long eventId;
 
 	public long getId() {
 		return id;
@@ -43,6 +44,15 @@ public class Market {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
+    }
+
 
 
 }

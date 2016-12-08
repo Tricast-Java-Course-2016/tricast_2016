@@ -190,17 +190,18 @@ public class EventManagerImpl implements EventManager {
         newEvent.setStatus(EventStatus.OPEN.toString());
         Long eventId = eventDao.create(workspace, newEvent);
 
-  /*    for (PeriodType periodType : PeriodType.values()) {
+        for (PeriodType periodType : PeriodType.values()) {
             Period newPeriod = new Period();
             newPeriod.setPeriodTypeId(periodType.getTypeId());
             newPeriod.setEventId(eventId);
             newPeriod.setDescription(newEvent.getDescription()+periodType.toString());
             long periodId = periodDao.create(workspace, newPeriod);
             for (MarketType marketType : MarketType.values()) {
-                marketManager.createMarketWithOutcomeByMarketType(workspace, eventDescription, periodId, marketType);
+                marketManager.createMarketWithOutcomeByMarketType(workspace, eventDescription, periodId, marketType,
+                        eventId, homeTeam, awayTeam);
             }
         }
-*/
+
         if (eventId != null) {
             return eventDao.getById(workspace, eventId);
         } else {

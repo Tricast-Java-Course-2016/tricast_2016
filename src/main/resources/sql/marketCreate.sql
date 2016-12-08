@@ -3,13 +3,14 @@ INSERT INTO
 	id,
 	periodId,
 	marketTypeId,
-	description
+	description,
+	eventid
 	) 
 VALUES 
 	(
 		NEXTVAL('/*=SCHEMA*/SEQ_MARKETS')
-     , :id
      , :periodId
      , :marketTypeId
      , :description
+     , :eventid
 	)
